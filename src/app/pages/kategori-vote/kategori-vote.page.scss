@@ -1,0 +1,68 @@
+.user__info {
+    background: #2F2762;
+    border-top-left-radius: 24px;
+    border-top-right-radius: 24px;
+    height: 130px;
+    position: relative;
+}
+
+.daun__merah {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    width: 24.06px;
+    height: 24.54px;
+    border-radius: 0 70px;
+    background-color: rgba(238, 30, 95, 0.62);
+    transform: rotate(-168.75deg);
+}
+
+
+.daun__biru {
+    position: absolute;
+    top: 20px;
+    right: 30px;
+    width: 24.06px;
+    height: 24.54px;
+    border-radius: 0 70px;
+    background-color: rgba(71, 182, 212, 0.52);
+    transform: rotate(79.46deg);
+}
+
+.titik__coklat {
+    position: absolute;
+    bottom: 40px;
+    right: 30px;
+    width: 13px;
+    height: 13px;
+    border-radius: 999px;
+    background: rgba(250, 181, 18, 0.31);
+}
+
+.perolehan__suara {
+    background: #F7FAFC;
+    border-top-left-radius: 24px;
+    border-top-right-radius: 24px;
+    height: 130px;
+    position: relative;
+    top: -30px;
+}
+
+ion-fab {
+    margin-left: var(--ion-safe-area-top, 10);
+}
+
+ion-fab-button {
+    --background: #2F2762;
+    --background-activated: #3a3176;
+    --background-hover: #3c337a;
+    --border-radius: 15px;
+    --box-shadow: 0px 1px 2px 0px rgb(255, 255, 255), 0px 1px 3px 1px rgba(255, 255, 255);
+    --color: white;
+
+}
+
+ion-thumbnail {
+    --size: 24px;
+    filter: brightness(0) invert(1) grayscale(1) contrast(100%);
+}

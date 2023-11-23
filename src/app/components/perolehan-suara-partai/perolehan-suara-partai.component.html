@@ -1,0 +1,22 @@
+<div class="user__info">
+  <ng-container *ngFor="let suaraPartai of suaraPartai; index as i">
+    <ion-list style="width: 100%;">
+      <ion-item>
+        <ion-avatar slot="start">
+          <ion-img [src]="suaraPartai.logo_partai"></ion-img>
+        </ion-avatar>
+        <ion-label>
+          <h2>{{suaraPartai.nama_partai}}</h2>
+          <div class="linear__track">
+            <div class="linear__active" [style.width.%]="70"></div>
+          </div>
+          <p>{{suaraPartai.suara| number}} suara</p>
+        </ion-label>
+        <ion-label slot="end">
+          <h2>{{suaraPartai.percent}}</h2>
+        </ion-label>
+      </ion-item>
+    </ion-list>
+  </ng-container>
+  
+</div>

@@ -1,0 +1,20 @@
+<form class="voteCalegForm" enctype="multipart/form-data" [formGroup]="voteCalegForm" #formDir="ngForm" (submit)="actionPolling()">
+  <div class="upload-bukti">
+    <ion-thumbnail class="foto-upload-bukti">
+      <img [src]="upload_bukti_camera ? upload_bukti_camera : 'https://ionicframework.com/docs/img/demos/thumbnail.svg'"
+        alt="belum ada upload bukti" />
+    </ion-thumbnail>
+    <ion-button type="button" expand="block" (click)="takePicture()">Upload</ion-button>
+  </div>
+  
+  <ion-input id="no_tps" name="no_tps" type="number" aria-label="Vote" placeholder="Input Nomor TPS"
+    label-placement="floating" fill="outline" label="Nomor TPS" formControlName="no_tps"
+    [errorText]="noTpsRequest && 'Nomor TPS harus diisi'"></ion-input>
+
+  <ion-input id="total_suara" name="total_suara" type="number" aria-label="Vote"
+    placeholder="Input jumlah suara" label-placement="floating" fill="outline" label="Jumlah suara"
+    formControlName="total_suara" [errorText]="totalSuaraRequest && 'Jumlah Suara Harus diisi'"></ion-input>
+
+  <ion-button type="submit" expand="block" [disabled]="!voteCalegForm.valid">{{updateVote ? "Update":"Simpan"}}</ion-button>
+  <ion-button type="button" expand="block" (click)="cancelPolling()">Cancel</ion-button>
+</form>

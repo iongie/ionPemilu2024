@@ -1,0 +1,26 @@
+<ng-container *ngIf="!totalTpsLoading">
+  <div class="info__tps">
+    <div class="info__tps__items">
+      <ion-label color="light">
+        <h1>{{totalTps.total_tps| number}}</h1>
+        <h6>Total TPS</h6>
+      </ion-label>
+    </div>
+    <div class="info__tps__items">
+      <ion-label color="light">
+        <h1>{{totalTps.total_relawan| number}}</h1>
+        <h6>Relawan</h6>
+      </ion-label>
+    </div>
+    <div class="info__tps__items">
+      <ion-label color="light">
+        <h1>{{totalTps.percent}}</h1>
+        <h6>Suara Masuk</h6>
+      </ion-label>
+    </div>
+  </div>
+</ng-container>
+
+<ng-container *ngIf="totalTpsLoading">
+  <app-info-tps-skeleton></app-info-tps-skeleton>
+</ng-container>

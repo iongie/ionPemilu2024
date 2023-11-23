@@ -1,0 +1,42 @@
+.info__tps{
+    display: flex;
+    flex-direction: row;
+    gap: 17px;
+    margin-bottom: 20px;
+    justify-content: space-around;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.menu__kategori__items{
+    width: 96px;
+    height: 96px;
+    border-radius: 24px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 4px;
+}
+
+ion-thumbnail.kategori__thumbnail{
+    --size: 72px;
+    --border-radius: 14px;
+}
+
+.dpd{
+    background: #47B6D4;
+}
+
+.dpr{
+    background: #EE1E5F;   
+}
+
+.dprd{
+    background: #FAB512;
+}
+
+.dprdprov{
+    background: #4E61B6;
+}

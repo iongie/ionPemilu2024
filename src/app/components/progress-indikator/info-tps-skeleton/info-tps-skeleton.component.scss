@@ -1,0 +1,13 @@
+.info__tps{
+    display: flex;
+    flex-direction: row;
+    gap: 8px;
+    margin-bottom: 20px;
+}
+
+
+ion-skeleton-text {
+    --border-radius: 9999px;
+    --background: rgba(71, 182, 212, 0.065);
+    --background-rgb: 71, 182, 212;
+  }

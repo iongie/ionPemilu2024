@@ -1,0 +1,16 @@
+.info__tps{
+    display: flex;
+    flex-direction: row;
+    gap: 8px;
+    margin-bottom: 20px;
+}
+
+.info__tps__items{
+    width: 100%;
+    border-radius: 24px;
+    padding: 18px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    background: #47B6D4;
+}

@@ -1,0 +1,13 @@
+.list_result{
+    width: 100%; 
+    height: 250px; 
+    overflow: auto;
+}
+
+.detail__candidates {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    margin-bottom: 20px;
+}

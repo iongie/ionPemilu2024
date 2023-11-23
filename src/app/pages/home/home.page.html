@@ -1,0 +1,20 @@
+<ion-header [translucent]="true" appTopBar class="ion-no-border">
+  <ion-toolbar>
+    <ion-title>Hai, {{name}}</ion-title>
+    <ion-buttons slot="secondary">
+      <ion-button id="exit-app">
+        <ion-icon name="person-circle" size="large"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true" class="ion-padding">
+  <app-menu-kategori-vote></app-menu-kategori-vote>
+  <ion-text color="dark">
+    <h3>Perolehan Suara</h3>
+  </ion-text>
+  <app-perolehan-suara></app-perolehan-suara>
+  <app-perolehan-suara-partai-skeleton *ngIf="perolehanSuaraPartaiLoading"></app-perolehan-suara-partai-skeleton>
+  <app-perolehan-suara-partai *ngIf="!perolehanSuaraPartaiLoading" [suaraPartai]="suaraPartai"></app-perolehan-suara-partai>
+</ion-content>

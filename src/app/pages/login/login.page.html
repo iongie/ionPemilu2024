@@ -1,0 +1,24 @@
+<ion-content [fullscreen]="true">
+  <div class="login">
+    <ion-img src="../../../assets/illustration.png" class="image__login"
+      alt="The Wisconsin State Capitol building in Madison, WI at night"></ion-img>
+    <div class="login__title">Welcome<br />Back!</div>
+    <form class="form__login" [formGroup]="loginForm" #formDir="ngForm" (submit)="onSubmit()">
+      <ion-input id="username" name="username" type="text" label-placement="floating" fill="outline" label="Username"
+        placeholder="Masukan Username" formControlName="username"
+        [errorText]="usernameRequest && 'Username is Request'"></ion-input>
+      <ion-input id="password" name="password" type="password" label-placement="floating" fill="outline"
+        label="Password" placeholder="Masukan Password" formControlName="password"
+        [errorText]="passwordRequest && 'Password is Request'"></ion-input>
+      <ion-button id="login" type="submit" expand="block" [disabled]="!loginForm.valid">Login</ion-button>
+    </form>
+  </div>
+</ion-content>
+<ion-footer *ngIf="isInstallPWA" collapse="fade">
+  <ion-toolbar color="secondary">
+    <ion-title>Harap Install Aplikasi ini</ion-title>
+    <ion-buttons slot="secondary">
+      <ion-button fill="solid" (click)="installPWA()">Install</ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-footer>
