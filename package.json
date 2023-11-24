@@ -1,8 +1,8 @@
 {
-  "name": "ionPemilu2024",
+  "name": "pemilu2024",
   "version": "0.0.1",
-  "author": "Ionic Framework",
-  "homepage": "https://ionicframework.com/",
+  "author": "Diskominfo Tangerang Selatan",
+  "homepage": "https://hasilpilkada.tangerangselatankota.go.id/login",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",

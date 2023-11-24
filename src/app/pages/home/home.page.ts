@@ -1,7 +1,8 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { Subject, combineLatest, delay, switchMap, takeUntil, tap } from 'rxjs';
-import { TotalSuaraPartai } from 'src/app/app.interface';
+import { AlertController } from '@ionic/angular';
+import { Subject, combineLatest, delay, switchMap, take, takeUntil, tap } from 'rxjs';
+import { TotalSuaraPartai, defaultUser } from 'src/app/app.interface';
 import { CallApiService } from 'src/app/services/callApi/call-api.service';
 import { PwaService } from 'src/app/services/pwa/pwa.service';
 import { TokenService } from 'src/app/services/token/token.service';
@@ -26,7 +27,8 @@ export class HomePage implements OnInit, OnDestroy {
     private tokenServ: TokenService,
     private router: Router,
     private pwaService: PwaService,
-    private callApiServ: CallApiService
+    private callApiServ: CallApiService,
+    private alertController: AlertController
   ) { }
 
   ngOnInit() {
@@ -34,7 +36,6 @@ export class HomePage implements OnInit, OnDestroy {
       this.user.getUser,
       this.tokenServ.getToken
     ]).subscribe(res => {
-      console.log(res)
       this.name = res[0].name
     })
     this.pwaService.getInstallPWA.subscribe(res => {
@@ -51,7 +52,7 @@ export class HomePage implements OnInit, OnDestroy {
   perolehanSuaraPartai() {
     this.tokenServ.getToken
       .pipe(
-        takeUntil(this.destroy),
+        take(1),
         delay(1000),
         switchMap((token) => {
           return this.callApiServ.get('total-suara-partai', token)
@@ -63,6 +64,31 @@ export class HomePage implements OnInit, OnDestroy {
           this.suaraPartai = res.data
         )
       })
+  }
+
+  async closeAlert() {
+    const alert = await this.alertController.create({
+      header: 'Konfirmasi Logout?',
+      cssClass: 'custom-alert',
+      buttons: [
+        {
+          text: 'Batal',
+          cssClass: 'alert-button-cancel',
+          role: 'cancel',
+        },
+        {
+          text: 'Oke',
+          cssClass: 'alert-button-confirm',
+          handler: async () => {
+            this.tokenServ.clearToken();
+            this.user.clearUser();
+            await this.router.navigate(['/login']);
+          }
+        }
+      ],
+    });
+
+    await alert.present();
   }
 
 }

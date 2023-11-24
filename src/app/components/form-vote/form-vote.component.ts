@@ -1,9 +1,9 @@
-import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
+import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Camera, CameraResultType } from '@capacitor/camera';
 import { LoadingController, ModalController } from '@ionic/angular';
 import { Subject, from, switchMap, takeUntil, tap, timer } from 'rxjs';
-import { Vote, VoteCaleg, defaultVote, defaultVoteCaleg } from 'src/app/app.interface';
+import { Vote, VoteCaleg, defaultVoteCaleg } from 'src/app/app.interface';
 import { CallApiService } from 'src/app/services/callApi/call-api.service';
 import { MessageResponseService } from 'src/app/services/messageResponse/message-response.service';
 import { TokenService } from 'src/app/services/token/token.service';
@@ -92,7 +92,6 @@ export class FormVoteComponent  implements OnInit, OnDestroy {
   }
 
   cancelPolling(){
-    console.log(this.voteCalegForm.value);
     this.updateVote = false;
     this.modalCtrl.dismiss(this.voteCaleg, 'confirm');
     this.voteCalegForm.reset(defaultVoteCaleg)
@@ -124,7 +123,7 @@ export class FormVoteComponent  implements OnInit, OnDestroy {
             this.messageResponse.toastMode(res.message, 3000, 'top', 'header', 'success')
           ),
           error: (e) => (
-            this.messageResponse.toastMode(e.error.message, 3000, 'top', 'header', 'error')
+            this.messageResponse.toastMode(e.error.message, 3000, 'top', 'header', 'danger')
           )
         }
       )
@@ -155,7 +154,7 @@ export class FormVoteComponent  implements OnInit, OnDestroy {
             this.messageResponse.toastMode(res.message, 3000, 'top', 'header', 'success')
           ),
           error: (e) => (
-            this.messageResponse.toastMode(e.error.message, 3000, 'top', 'header', 'error')
+            this.messageResponse.toastMode(e.error.message, 3000, 'top', 'header', 'danger')
           )
         }
       )

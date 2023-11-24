@@ -1,50 +1,60 @@
 <ng-container *ngIf="!resultVoteLoading">
-  <ion-searchbar  (input)="onSearchCandidates($event)"></ion-searchbar>
-  <ion-content class="list_result">
-    <ng-container *ngFor="let candidates of candidates; index as i">
-      <ion-accordion-group>
-        <ion-accordion>
-          <ion-item slot="header">
-            <ion-avatar slot="start">
-              <ion-img [src]="candidates.foto_caleg"></ion-img>
-            </ion-avatar>
-            <ion-label>
-              <h2 class="ion-text-wrap">{{candidates.nama_calon}}</h2>
-              <div class="linear__track">
-                <div class="linear__active" [style.width.%]="70"></div>
-              </div>
-              <p>{{candidates.suara == null ? 0: candidates.suara}} suara</p>
-            </ion-label>
-          </ion-item>
-          <div class="ion-padding" slot="content">
-            <ion-list lines="full">
-              <ng-container *ngIf="candidates.logo_partai?.length !== 0">
+  <ion-searchbar (input)="onSearchCandidates($event)"></ion-searchbar>
+  <ng-container *ngIf="!dataNotFound">
+    <ion-content class="list_result" scroll-y="true">
+      <ng-container *ngFor="let candidates of candidates; index as i">
+        <ion-accordion-group>
+          <ion-accordion>
+            <ion-item slot="header">
+              <ion-avatar slot="start">
+                <ion-img [src]="candidates.foto_caleg"></ion-img>
+              </ion-avatar>
+              <ion-label>
+                <h2 class="ion-text-wrap">{{candidates.nama_calon}}</h2>
+                <div class="linear__track">
+                  <div class="linear__active" [style.width.%]="70"></div>
+                </div>
+                <p>{{candidates.suara == null ? 0: candidates.suara}} suara</p>
+              </ion-label>
+            </ion-item>
+            <div class="ion-padding" slot="content">
+              <ion-list lines="full">
+                <ng-container *ngIf="candidates.logo_partai?.length !== 0">
+                  <ion-item>
+                    <ion-avatar slot="start" class="thumb__detail__candidates">
+                      <ion-img [src]="candidates.logo_partai"></ion-img>
+                    </ion-avatar>
+                    <ion-label>
+                      <h2 class="ion-text-wrap">{{candidates.nama_partai}}</h2>
+                    </ion-label>
+                  </ion-item>
+                </ng-container>
                 <ion-item>
-                  <ion-avatar slot="start" class="thumb__detail__candidates">
-                    <ion-img [src]="candidates.logo_partai"></ion-img>
-                  </ion-avatar>
-                  <ion-label>
-                    <h2 class="ion-text-wrap">{{candidates.nama_partai}}</h2>
+                  <ion-label slot="start">Alamat</ion-label>
+                  <ion-label color="medium">
+                    <p>{{candidates.alamat}}</p>
                   </ion-label>
                 </ion-item>
-              </ng-container>
-              <ion-item>
-                <ion-label slot="start">Alamat</ion-label>
-                <ion-label color="medium"><p>{{candidates.alamat}}</p></ion-label>
-              </ion-item>
-              <ion-item>
-                <ion-label slot="start">Dapil</ion-label>
-                <ion-label color="medium"><p>{{candidates.dapil}}</p></ion-label>
-              </ion-item>
-            </ion-list>
-          </div>
-        </ion-accordion>
-      </ion-accordion-group>
-    </ng-container>
-    <ion-infinite-scroll (ionInfinite)="onIonInfinite($event)">
-      <ion-infinite-scroll-content loadingText="Please wait..." loadingSpinner="bubbles"></ion-infinite-scroll-content>
-    </ion-infinite-scroll>
-  </ion-content>
+                <ion-item>
+                  <ion-label slot="start">Dapil</ion-label>
+                  <ion-label color="medium">
+                    <p>{{candidates.dapil}}</p>
+                  </ion-label>
+                </ion-item>
+              </ion-list>
+            </div>
+          </ion-accordion>
+        </ion-accordion-group>
+      </ng-container>
+      <ion-infinite-scroll (ionInfinite)="onIonInfinite($event)">
+        <ion-infinite-scroll-content loadingText="Please wait..."
+          loadingSpinner="bubbles"></ion-infinite-scroll-content>
+      </ion-infinite-scroll>
+    </ion-content>
+  </ng-container>
+  <ng-container *ngIf="dataNotFound">
+    <app-data-not-found></app-data-not-found>
+  </ng-container>
 </ng-container>
 <ng-container *ngIf="resultVoteLoading">
   <app-result-vote-skeleton></app-result-vote-skeleton>

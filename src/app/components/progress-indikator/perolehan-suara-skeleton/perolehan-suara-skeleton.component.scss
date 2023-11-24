@@ -1,0 +1,19 @@
+.perolehan__suara {
+    display: flex;
+    flex-direction: row;
+    gap: 17px;
+    margin-bottom: 20px;
+}
+
+
+ion-skeleton-text.right {
+    --border-radius: 9999px;
+    --background: rgba(252, 210, 223, 0.05);
+    --background-rgb: 252, 210, 223;
+}
+
+ion-skeleton-text.left {
+    --border-radius: 9999px;
+    --background: rgba(71, 182, 212, 0.065);
+    --background-rgb: 71, 182, 212;
+}

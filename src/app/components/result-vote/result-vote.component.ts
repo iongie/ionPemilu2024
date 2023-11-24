@@ -16,7 +16,8 @@ export class ResultVoteComponent  implements OnInit, OnDestroy {
   length: number = 5;
   page: number = 1;
   resultVoteLoading = true;
-  candidates: Candidate[] = []
+  candidates: Candidate[] = [];
+  dataNotFound: boolean = false;
   constructor(
     private tokenServ: TokenService,
     private callApiServ: CallApiService
@@ -77,6 +78,7 @@ export class ResultVoteComponent  implements OnInit, OnDestroy {
     .subscribe({
       error: (e) => this.resultVoteLoading = true,
       next: (res: any) => (
+        this.dataNotFound = res.data.length === 0 ? true : false,
         this.candidates = res.data
       )
     })

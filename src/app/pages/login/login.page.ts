@@ -38,6 +38,10 @@ export class LoginPage implements OnInit, OnDestroy {
       username: [this.login.username, [Validators.required]],
       password: [this.login.password, [Validators.required]]
     })
+
+    this.pwaService.getInstallPWA.subscribe(res => {
+      this.isInstallPWA = res
+    })
   }
 
   ngOnDestroy(): void {
@@ -81,7 +85,7 @@ export class LoginPage implements OnInit, OnDestroy {
           this.user.updateUser(res.user)
         ),
         error: (e) => (
-          this.messageResponse.toastMode(e.error.message, 3000, 'top', 'header', 'error')
+          this.messageResponse.toastMode(e.error.message, 3000, 'top', 'header', 'danger')
         )
       })
   }
@@ -96,6 +100,11 @@ export class LoginPage implements OnInit, OnDestroy {
         ),
         complete: () => this.pwaService.updateInstallPrompt(null)
       })
+  }
+
+  onActionPwa(actionPwa: any){
+    console.log(actionPwa);
+    actionPwa === 'install' && this.installPWA();
   }
 
 }

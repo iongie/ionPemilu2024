@@ -23,4 +23,10 @@ export class UserService {
     this.user.next(newUser);
     this.storage.set('user', newUser);
   }
+
+  async clearUser(){
+    await this.user.next(defaultUser);
+    await this.storage.remove('user');
+  }
+
 }

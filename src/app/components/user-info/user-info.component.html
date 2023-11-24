@@ -1,6 +1,17 @@
 <div class="user__info">
   <ion-thumbnail class="thumb__user__info">
-    <img alt="Silhouette of mountains" src="../../../assets/dpr.png" />
+    <ng-container *ngIf="paramId == '1'">
+      <img alt="DPR" src="../../../assets/dpr.png" />
+    </ng-container>
+    <ng-container *ngIf="paramId == '2'">
+      <img alt="DPRD" src="../../../assets/dpd.png" />
+    </ng-container>
+    <ng-container *ngIf="paramId == '3'">
+      <img alt="DPRD" src="../../../assets/dprd.png" />
+    </ng-container>
+    <ng-container *ngIf="paramId == '4'">
+      <img alt="DPRD II" src="../../../assets/dprd2.png" />
+    </ng-container>
   </ion-thumbnail>
   <div class="user__info__tingkatan">
     <ion-label color="light">

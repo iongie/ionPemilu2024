@@ -1,0 +1,109 @@
+/* 
+* prinsip material desigin adalah tampilan yang berlapis lapis
+* Tools Membuat Color pallete:
+* 1. Figma dengan pluign Foundation Color Generator
+*       - dapat membuat tonal pallete untuk primer, sekunder, tersier dan warna permukaan
+* 2. color.adobe.com gunakan tools accessibility 
+*       - contrast checker untuk cek kontras antar warna untuk text, dengan background warna 
+*       - color blind safe untuk cek ada konflik antar warna gak
+* 3. Konsep dark adalah background harus lebih dark ketimbang yang lain, container primer, sekunder, tersier harus lebih gelap ketimbang warna p, s, t
+* 4. Konsep light kebalikan dari dark
+*/
+:root{
+    /* tonal 500 */
+    --primary: #204C80; 
+    /* tonal 50 */
+    --on-primary: #F8F8F8; 
+    /* tonal 100 */
+    --primary-container: #bac8d8; 
+    /* tonal 900 */ 
+    --on-primary-container: #0d2036; 
+    /* tonal 500 */
+    --secondary: #1b7025;
+    /* tonal 50 */
+    --on-secondary: #e8f1e9;
+    /* tonal 100 */
+    --secondary-container: #b8d3bb; 
+    /* tonal 900 */
+    --on-secondary-container: #0b2f10; 
+    /* tonal 500 */
+    --tertiary: #6D3202;
+    /* tonal 50 */
+    --on-tertiary: #F0EBE6;
+    /* tonal 100 */
+    --tertiary-container: #d2bfb1;
+    /* tonal 900 */
+    --on-tertiary-container: #2e1501;
+    /* tonal 500 */ 
+    --error: #b9292f;
+    /* tonal 50 */
+    --on-error: #f8eaea;
+     /* tonal 100 */
+     --error-container: #e9bdbf;
+     /* tonal 900 */
+     --on-error-container: #4e1114;
+    /* warna untuk permukaan */
+    /* cocok untuk background */
+    --surface: #CAD5E3;
+    /* tonal 100 */
+    --surface-dim: #82B2D6; 
+    /* cocok untuk app menu bar, 
+    navbar memberikan kesan warna
+    lebih mencolok ketimbang background */
+    --surface-container: #ADC4DD;
+    /* cocok untuk fab atau button yang tidak utama */
+    --surface-container-high: #7B9FCF;
+    /* cocok untuk skeleton loader */
+    --surface-container-low: #FAFBFC;
+    /* cocok untuk logo, 
+    text yang backgroundnya surface */
+    --on-surface: #160700;
+    
+    --surface-inverse: var(--on-surface);
+    --on-surface-inverse: var(--surface);
+}
+
+[data-theme="dark"] {
+    /* tonal 800 */
+    --primary: #204C80;
+    /* tonal 50 */
+    --on-primary: #F8F8F8;
+    /* tonal 900 */
+    --primary-container: #0d2036;
+    /* tonal 100 */
+    --on-primary-container: #bac8d8; 
+    /* tonal 800 */
+    --secondary: #1b7025;
+    /* tonal 50 */
+    --on-secondary: #e8f1e9; 
+    /* tonal 900 */
+    --secondary-container: #0b2f10;
+    /* tonal 100 */
+    --on-secondary-container: #b8d3bb;
+    /* tonal 800 */
+    --tertiary: #6D3202;
+    /* tonal 50 */
+    --on-tertiary: #F0EBE6; 
+    /* tonal 900 */
+    --tertiary-container: #2e1501;
+    /* tonal 100 */ 
+    --on-tertiary-container: #d2bfb1; 
+    /* tonal 800 */ 
+    --error: #66171a;
+    /* tonal 50 */
+    --on-error: #f8eaea;
+     /* tonal 900 */
+     --error-container: #4e1114;
+     /* tonal 100 */
+     --on-error-container: #e9bdbf;
+    /* warna untuk permukaan */
+    --surface: #121314; /*  tonal 500, cocok untuk background */
+    --surface-dim: #82B2D6; /* tonal 100 */
+    --surface-container: #22262B; /* cocok untuk app menu bar, navbar memberikan kesan warna lebigh mencolok ketimbang banckgroudn */
+    --surface-container-high: #283742; /* cocok untuk fab atau button yang tidak utama */
+    --surface-container-low: #455A75; /* tonal 50 dari warna surface, cocok untuk skeleton loader */
+    --on-surface: #FAFBFC; /* cocok untuk logo, text yang backgroundnya surface */
+
+    --surface-inverse: var(--on-surface);
+    --on-surface-inverse: var(--surface);
+}

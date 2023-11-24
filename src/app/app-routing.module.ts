@@ -27,6 +27,10 @@ const routes: Routes = [
         canActivate: [authGuard]
       }
     ]
+  },
+  {
+    path: '**',
+    loadChildren: () => import('./pages/page-not-found/page-not-found.module').then( m => m.PageNotFoundPageModule)
   }
 ];
 

@@ -13,7 +13,8 @@ export class InputVoteComponent  implements OnInit, OnDestroy {
   private destroy: Subject<void> = new Subject<void>();
   @Input() paramId: string | null = null;
   inputVoteLoading = true;
-  candidates: Candidate[] = []
+  candidates: Candidate[] = [];
+  dataNotFound: boolean = false;  
   constructor(
     private tokenServ: TokenService,
     private callApiServ: CallApiService
@@ -27,6 +28,7 @@ export class InputVoteComponent  implements OnInit, OnDestroy {
     .subscribe({
       error: (e) => this.inputVoteLoading = true,
       next: (res: any) => (
+        this.dataNotFound = res.data.length === 0 ? true : false,
         this.candidates = res.data
       )
     })
@@ -59,6 +61,7 @@ export class InputVoteComponent  implements OnInit, OnDestroy {
     .subscribe({
       error: (e) => this.inputVoteLoading = true,
       next: (res: any) => (
+        this.dataNotFound = res.data.length === 0 ? true : false,
         this.candidates = res.data
       )
     })

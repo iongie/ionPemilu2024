@@ -21,7 +21,6 @@ export class KategoriVotePage implements OnInit, OnDestroy {
 
   ngOnInit() {
       this.actRoute.params.subscribe(res=>{
-        console.log(res);
         this.paramId = res['id'];
       })
   }

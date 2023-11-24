@@ -16,6 +16,9 @@ import { InputVoteSkeletonComponent } from './progress-indikator/input-vote-skel
 import { FormVoteComponent } from './form-vote/form-vote.component';
 import { DetailInputVoteSkeletonComponent } from './progress-indikator/detail-input-vote-skeleton/detail-input-vote-skeleton.component';
 import { InfoTpsSkeletonComponent } from './progress-indikator/info-tps-skeleton/info-tps-skeleton.component';
+import { DataNotFoundComponent } from './data-not-found/data-not-found.component';
+import { InstallPwaComponent } from './install-pwa/install-pwa.component';
+import { PerolehanSuaraSkeletonComponent } from './progress-indikator/perolehan-suara-skeleton/perolehan-suara-skeleton.component';
 
 
 
@@ -34,7 +37,10 @@ import { InfoTpsSkeletonComponent } from './progress-indikator/info-tps-skeleton
     InputVoteSkeletonComponent,
     DetailInputVoteSkeletonComponent,
     InfoTpsSkeletonComponent,
-    FormVoteComponent
+    FormVoteComponent,
+    DataNotFoundComponent,
+    InstallPwaComponent,
+    PerolehanSuaraSkeletonComponent
   ],
   imports: [
     CommonModule,
@@ -55,7 +61,10 @@ import { InfoTpsSkeletonComponent } from './progress-indikator/info-tps-skeleton
     InputVoteSkeletonComponent,
     DetailInputVoteSkeletonComponent,
     InfoTpsSkeletonComponent,
-    FormVoteComponent
+    FormVoteComponent,
+    DataNotFoundComponent,
+    InstallPwaComponent,
+    PerolehanSuaraSkeletonComponent
   ]
 })
 export class ComponentsModule { }

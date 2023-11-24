@@ -1,0 +1,171 @@
+:root {
+    /* Emphasized decelerate easing (out) */
+    --motion-easing-emphasized-decelerate-x0: 0.05000000074505806;
+    --motion-easing-emphasized-decelerate-y0: 0.699999988079071;
+    --motion-easing-emphasized-decelerate-x1: 0.10000000149011612;
+    --motion-easing-emphasized-decelerate-y1: 1;
+    /* Emphasized accelerate easing (in) */
+    --motion-easing-emphasized-accelerate-x0: 0.30000001192092896;
+    --motion-easing-emphasized-accelerate-y0: 0;
+    --motion-easing-emphasized-accelerate-x1: 0.800000011920929;
+    --motion-easing-emphasized-accelerate-y1: 0.15000000596046448;
+    /* Standard decelerate easing (out) */
+    --motion-easing-standard-decelerate-x0: 0;
+    --motion-easing-standard-decelerate-y0: 0;
+    --motion-easing-standard-decelerate-x1: 0;
+    --motion-easing-standard-decelerate-y1: 1;
+    /* Standard accelerate easing (in) */
+    --motion-easing-standard-accelerate-x0: 0.30000001192092896;
+    --motion-easing-standard-accelerate-y0: 0;
+    --motion-easing-standard-accelerate-x1: 1;
+    --motion-easing-standard-accelerate-y1: 1;
+    /* Standard easing (in and out) */
+    --motion-easing-standard-x0: 0.20000000298023224;
+    --motion-easing-standard-y0: 0;
+    --motion-easing-standard-x1: 0;
+    --motion-easing-standard-y1: 1;
+    /* Linear easing */
+    --motion-easing-linear-x0: 0;
+    --motion-easing-linear-y0: 0;
+    --motion-easing-linear-x1: 1;
+    --motion-easing-linear-y1: 1;
+    /* Emphasized */
+    --motion-easing-emphasized-x0: 0.20000000298023224;
+    --motion-easing-emphasized-y0: 0;
+    --motion-easing-emphasized-x1: 0;
+    --motion-easing-emphasized-y1: 1;
+    /* Motion path */
+    --motion-path-standard-path: 1;
+
+    /* Duration 1000ms */
+    --motion-duration-1000: 1000ms;
+    /* Duration 900ms */
+    --motion-duration-900: 900ms;
+    /* Duration 800ms */
+    --motion-duration-800: 800ms;
+    /* Duration 700ms */
+    --motion-duration-700: 700ms;
+    /* Duration 600ms */
+    --motion-duration-600: 600ms;
+    /* Duration 550ms */
+    --motion-duration-550: 550ms;
+    /* Duration 500ms */
+    --motion-duration-500: 500ms;
+    /* Duration 450ms */
+    --motion-duration-450: 450ms;
+    /* Duration 400ms */
+    --motion-duration-400: 400ms;
+    /* Duration 350ms */
+    --motion-duration-350: 350ms;
+    /* Duration 300ms */
+    --motion-duration-300: 300ms;
+    /* Duration 250ms */
+    --motion-duration-250: 250ms;
+    /* Duration 200ms */
+    --motion-duration-200: 200ms;
+    /* Duration 150ms */
+    --motion-duration-150: 150ms;
+    /* Duration 100ms */
+    --motion-duration-100: 100ms;
+    /* Duration 50ms */
+    --motion-duration-50: 50ms;
+}
+
+.duration-50 {
+    transition-duration: var(--motion-duration-50);
+}
+
+.duration-100 {
+    transition-duration: var(--motion-duration-100);
+}
+
+.duration-150 {
+    transition-duration: var(--motion-duration-150);
+}
+
+.duration-200 {
+    transition-duration: var(--motion-duration-200);
+}
+
+.duration-250 {
+    transition-duration: var(--motion-duration-250);
+}
+
+.duration-300 {
+    transition-duration: var(--motion-duration-300);
+}
+
+.duration-350 {
+    transition-duration: var(--motion-duration-350);
+}
+
+.duration-400 {
+    transition-duration: var(--motion-duration-400);
+}
+
+.duration-450 {
+    transition-duration: var(--motion-duration-450);
+}
+
+.duration-500 {
+    transition-duration: var(--motion-duration-500);
+}
+
+.duration-550 {
+    transition-duration: var(--motion-duration-550);
+}
+
+.duration-600 {
+    transition-duration: var(--motion-duration-600);
+}
+
+.duration-700 {
+    transition-duration: var(--motion-duration-700);
+}
+
+.duration-800 {
+    transition-duration: var(--motion-duration-800);
+}
+
+.duration-900 {
+    transition-duration: var(--motion-duration-900);
+}
+
+.duration-1000 {
+    transition-duration: var(--motion-duration-1000);
+}
+
+.easing-standard {
+    transition-timing-function: cubic-bezier(var(--motion-easing-standard-x0),
+            var(--motion-easing-standard-y0),
+            var(--motion-easing-standard-x1),
+            var(--motion-easing-standard-y1));
+}
+
+.easing-linear {
+    transition-timing-function: cubic-bezier(var(--motion-easing-linear-x0),
+            var(--motion-easing-linear-y0),
+            var(--motion-easing-linear-x1),
+            var(--motion-easing-linear-y1));
+}
+
+.easing-standard-accelerate {
+    transition-timing-function: cubic-bezier(var(--motion-easing-standard-accelerate-x0),
+            var(--motion-easing-standard-accelerate-y0),
+            var(--motion-easing-standard-accelerate-x1),
+            var(--motion-easing-standard-accelerate-y1));
+}
+
+.easing-standard-decelerate {
+    transition-timing-function: cubic-bezier(var(--motion-easing-standard-decelerate-x0),
+            var(--motion-easing-standard-decelerate-y0),
+            var(--motion-easing-standard-decelerate-x1),
+            var(--motion-easing-standard-decelerate-y1));
+}
+
+.easing-emphasized {
+    transition-timing-function: cubic-bezier(var(--motion-easing-emphasized-x0),
+            var(--motion-easing-emphasized-y0),
+            var(--motion-easing-emphasized-x1),
+            var(--motion-easing-emphasized-y1));
+}

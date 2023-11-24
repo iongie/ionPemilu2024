@@ -1,28 +1,33 @@
 <ng-container *ngIf="!inputVoteLoading">
   <ion-searchbar  (input)="onSearchCandidates($event)"></ion-searchbar>
-  <ion-content class="list_result">
-    <ng-container *ngFor="let candidates of candidates; index as i">
-      <ion-accordion-group>
-        <ion-accordion>
-          <ion-item slot="header">
-            <ion-avatar slot="start">
-              <ion-img [src]="candidates.foto_caleg"></ion-img>
-            </ion-avatar>
-            <ion-label>
-              <h2 class="ion-text-wrap">{{candidates.nama_calon}}</h2>
-              <div class="linear__track">
-                <div class="linear__active" [style.width.%]="70"></div>
-              </div>
-              <p>{{candidates.suara == null ? 0: candidates.suara}} suara</p>
-            </ion-label>
-          </ion-item>
-          <div class="ion-padding" slot="content">
-            <app-detail-input-vote [paramId]="candidates.id"></app-detail-input-vote>
-          </div>
-        </ion-accordion>
-      </ion-accordion-group>
-    </ng-container>
-  </ion-content>
+  <ng-container *ngIf="!dataNotFound">
+    <ion-content class="list_result">
+      <ng-container *ngFor="let candidates of candidates; index as i">
+        <ion-accordion-group>
+          <ion-accordion>
+            <ion-item slot="header">
+              <ion-avatar slot="start">
+                <ion-img [src]="candidates.foto_caleg"></ion-img>
+              </ion-avatar>
+              <ion-label>
+                <h2 class="ion-text-wrap">{{candidates.nama_calon}}</h2>
+                <div class="linear__track">
+                  <div class="linear__active" [style.width.%]="70"></div>
+                </div>
+                <p>{{candidates.suara == null ? 0: candidates.suara}} suara</p>
+              </ion-label>
+            </ion-item>
+            <div class="ion-padding" slot="content">
+              <app-detail-input-vote [paramId]="candidates.id"></app-detail-input-vote>
+            </div>
+          </ion-accordion>
+        </ion-accordion-group>
+      </ng-container>
+    </ion-content>
+  </ng-container>
+  <ng-container *ngIf="dataNotFound">
+    <app-data-not-found></app-data-not-found>
+  </ng-container>
 </ng-container>
 <ng-container *ngIf="inputVoteLoading">
   <app-input-vote-skeleton></app-input-vote-skeleton>

@@ -107,7 +107,7 @@ export class DetailInputVoteComponent  implements OnInit, OnDestroy {
           this.messageResponse.toastMode(res.message, 3000, 'top', 'header', 'success')
         ),
         error: (e) => (
-          this.messageResponse.toastMode(e.error.message, 3000, 'top', 'header', 'error')
+          this.messageResponse.toastMode(e.error.message, 3000, 'top', 'header', 'danger')
         )
       }
     )
