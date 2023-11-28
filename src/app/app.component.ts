@@ -1,8 +1,9 @@
 import { Component, HostListener, OnInit } from '@angular/core';
 import { SwUpdate } from '@angular/service-worker';
-import { map } from 'rxjs';
+import { delay, map } from 'rxjs';
 import { PwaService } from './services/pwa/pwa.service';
 import { AlertController } from '@ionic/angular';
+import { Network, ConnectionStatus, ConnectionType } from '@capacitor/network';
 
 @Component({
   selector: 'app-root',
@@ -11,7 +12,10 @@ import { AlertController } from '@ionic/angular';
 })
 export class AppComponent implements OnInit{
   isInstallPWA = false;
-  constructor(
+  connected: boolean | null = null;
+  connectionType: ConnectionType | null = null;
+
+   constructor(
     private swUpdate: SwUpdate,
     private pwaService: PwaService,
     private alertController: AlertController
@@ -22,6 +26,14 @@ export class AppComponent implements OnInit{
     this.pwaService.getInstallPWA.subscribe(res => {
       this.isInstallPWA = res
     })
+    console.log('welcomr');
+    
+    Network.addListener('networkStatusChange', status => {
+      this.connected = status.connected;
+      this.connectionType = status.connectionType;
+      console.log(status.connectionType);
+    });
+    this.checknetworkStatus();
   }
 
   @HostListener('window:beforeinstallprompt', ['$event']) beforeInstallPWA(e:any) {
@@ -30,9 +42,16 @@ export class AppComponent implements OnInit{
     this.pwaService.updateInstallPWA(true);
   }
 
+  async checknetworkStatus(){
+     const networkStatus = await Network.getStatus()
+     this.connected = networkStatus.connected;
+     this.connectionType = networkStatus.connectionType;
+  }
+
   updatePwa() {
     this.swUpdate.versionUpdates
       .pipe(
+        delay(1000),
         map((ver) => {
           return ver.type !== 'NO_NEW_VERSION_DETECTED' ? true : false
         })

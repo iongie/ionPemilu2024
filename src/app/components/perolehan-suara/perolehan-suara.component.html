@@ -1,32 +1,26 @@
-<ng-container *ngIf="!totalTpsLoading">
-  <div class="perolehan__suara">
-    <div class="total__tps">
-      <ion-img style="width: 70px; height: 70px;" src="../../../assets/total_tps.png" alt="TPS"></ion-img>
-      <div class="total__tps__info">
-        <ion-label>
-          <h1>{{totalTps.total_tps | number}}</h1>
-        </ion-label>
+<div class="perolehan__suara">
+  <div class="total__tps">
+    <ion-img style="width: 70px; height: 70px;" src="../../../assets/total_tps.png" alt="TPS"></ion-img>
+    <div class="total__tps__info">
+      <ion-label>
+        <h1>{{totalTps.total_tps | number}}</h1>
+      </ion-label>
 
-        <ion-label>
-          <p>Total TPS</p>
-        </ion-label>
-      </div>
-    </div>
-    <div class="suara__masuk">
-      <ion-img style="width: 70px; height: 70px;" src="../../../assets/suara_masuk.png" alt="TPS"></ion-img>
-      <div class="suara__masuk__info">
-        <ion-label>
-          <h1>{{totalTps.percent}}</h1>
-        </ion-label>
-
-        <ion-label>
-          <p>TPS Masuk</p>
-        </ion-label>
-      </div>
+      <ion-label>
+        <p>Total TPS</p>
+      </ion-label>
     </div>
   </div>
-</ng-container>
+  <div class="suara__masuk">
+    <ion-img style="width: 70px; height: 70px;" src="../../../assets/suara_masuk.png" alt="TPS"></ion-img>
+    <div class="suara__masuk__info">
+      <ion-label>
+        <h1>{{totalTps.percent}}</h1>
+      </ion-label>
 
-<ng-container *ngIf="totalTpsLoading">
-  <app-perolehan-suara-skeleton></app-perolehan-suara-skeleton>
-</ng-container>
+      <ion-label>
+        <p>TPS Masuk</p>
+      </ion-label>
+    </div>
+  </div>
+</div>

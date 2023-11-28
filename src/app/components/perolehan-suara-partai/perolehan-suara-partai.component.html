@@ -8,7 +8,7 @@
         <ion-label>
           <h2>{{suaraPartai.nama_partai}}</h2>
           <div class="linear__track">
-            <div class="linear__active" [style.width.%]="70"></div>
+            <div class="linear__active" [style.width]="suaraPartai.suara"></div>
           </div>
           <p>{{suaraPartai.suara| number}} suara</p>
         </ion-label>

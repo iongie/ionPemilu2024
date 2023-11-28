@@ -45,6 +45,8 @@ export class LoginPage implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
+    console.log('login destroy');
+
     this.destroy.next()
     this.destroy.complete()
   }
@@ -67,27 +69,30 @@ export class LoginPage implements OnInit, OnDestroy {
 
   onSubmit() {
     this.loginForm.valid
-    && from(this.loadingCtrl.create({
-      message: 'loading...',
-      duration: 500,
-    })).pipe(
-      takeUntil(this.destroy),
-      tap((loading) => loading.present()),
-      delay(500),
-      switchMap(() => this.callApi.post(this.loginForm.value, 'auth/login')),
-      tap(() => this.router.navigate(['/home'])),
-      tap(() => this.loginForm.markAsTouched()),
-      tap(() => this.loginForm.reset(defaultLogin))
-    ).subscribe(
-      {
-        next: (res: any) => (
-          this.token.updateToken(res.token),
-          this.user.updateUser(res.user)
-        ),
-        error: (e) => (
-          this.messageResponse.toastMode(e.error.message, 3000, 'top', 'header', 'danger')
-        )
-      })
+      && from(this.loadingCtrl.create({
+        message: 'loading...',
+        duration: 500,
+      })).pipe(
+        takeUntil(this.destroy),
+        tap((loading) => loading.present()),
+        delay(500),
+        switchMap(() => this.callApi.post(this.loginForm.value, 'auth/login')),
+        tap(() => this.router.navigate(['/dashboard'])),
+        tap(() => this.loginForm.markAsTouched()),
+        tap(() => this.loginForm.reset(defaultLogin))
+      ).subscribe(
+        {
+          next: (res: any) => (
+            this.token.updateToken(res.token),
+            this.user.updateUser(res.user)
+          ),
+          error: (e) => {
+            console.log(e.error);
+            e.error.statusText === 'Unknown Error'
+              ? this.messageResponse.toastMode('Unknown Error', 3000, 'top', 'header', 'danger')
+              : this.messageResponse.toastMode(e.error.message, 3000, 'top', 'header', 'danger');
+          }
+        })
   }
 
   async installPWA() {
@@ -102,7 +107,7 @@ export class LoginPage implements OnInit, OnDestroy {
       })
   }
 
-  onActionPwa(actionPwa: any){
+  onActionPwa(actionPwa: any) {
     console.log(actionPwa);
     actionPwa === 'install' && this.installPWA();
   }

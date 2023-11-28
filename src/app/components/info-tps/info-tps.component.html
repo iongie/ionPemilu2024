@@ -22,5 +22,13 @@
 </ng-container>
 
 <ng-container *ngIf="totalTpsLoading">
-  <app-info-tps-skeleton></app-info-tps-skeleton>
+  <div class="container">
+    <ng-container *ngIf="reloadIndikator">
+      <div class="reload">
+        <ion-spinner name="lines-sharp"></ion-spinner>
+        <ion-button fill="clear" (click)="reload()">Reload</ion-button>
+      </div>
+    </ng-container>
+    <app-info-tps-skeleton></app-info-tps-skeleton>
+  </div>
 </ng-container>

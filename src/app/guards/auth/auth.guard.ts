@@ -18,19 +18,19 @@ export const backGuard: CanDeactivateFn<any> = async (component:any) => {
   return true;
 }
 
-export const CategoriVoteGuard: CanActivateFn = async (route, state) => {
-  const routeServ = inject(Router);
-  const navigationEnd$: Observable<any> = await routeServ.events.pipe(
-    take(1),
-    map((event) => event instanceof NavigationEnd)
-  );
+// export const CategoriVoteGuard: CanActivateFn = async (route, state) => {
+//   const routeServ = inject(Router);
+//   const navigationEnd$: Observable<any> = await routeServ.events.pipe(
+//     take(1),
+//     map((event) => event instanceof NavigationEnd)
+//   );
 
-  const isNavigationEnd: any = await firstValueFrom(navigationEnd$);
-  if (isNavigationEnd) {
-    routeServ.navigate(['/home']);
-    return false; // Returning false prevents the original navigation
-  }
+//   const isNavigationEnd: any = await firstValueFrom(navigationEnd$);
+//   if (isNavigationEnd) {
+//     routeServ.navigate(['/dashboard']);
+//     return false; // Returning false prevents the original navigation
+//   }
 
-  return true; // Allow the original navigation
-}
+//   return true; // Allow the original navigation
+// }
 

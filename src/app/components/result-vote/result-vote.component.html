@@ -57,5 +57,13 @@
   </ng-container>
 </ng-container>
 <ng-container *ngIf="resultVoteLoading">
-  <app-result-vote-skeleton></app-result-vote-skeleton>
+  <div class="container">
+    <ng-container *ngIf="reloadIndikator">
+      <div class="reload">
+        <ion-spinner name="lines-sharp"></ion-spinner>
+        <ion-button fill="clear" (click)="reload()">Reload</ion-button>
+      </div>
+    </ng-container>
+    <app-result-vote-skeleton></app-result-vote-skeleton>
+  </div>
 </ng-container>

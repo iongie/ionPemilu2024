@@ -19,6 +19,7 @@ import { InfoTpsSkeletonComponent } from './progress-indikator/info-tps-skeleton
 import { DataNotFoundComponent } from './data-not-found/data-not-found.component';
 import { InstallPwaComponent } from './install-pwa/install-pwa.component';
 import { PerolehanSuaraSkeletonComponent } from './progress-indikator/perolehan-suara-skeleton/perolehan-suara-skeleton.component';
+import { ConnectionComponent } from './connection/connection.component';
 
 
 
@@ -40,7 +41,8 @@ import { PerolehanSuaraSkeletonComponent } from './progress-indikator/perolehan-
     FormVoteComponent,
     DataNotFoundComponent,
     InstallPwaComponent,
-    PerolehanSuaraSkeletonComponent
+    PerolehanSuaraSkeletonComponent,
+    ConnectionComponent
   ],
   imports: [
     CommonModule,
@@ -64,7 +66,8 @@ import { PerolehanSuaraSkeletonComponent } from './progress-indikator/perolehan-
     FormVoteComponent,
     DataNotFoundComponent,
     InstallPwaComponent,
-    PerolehanSuaraSkeletonComponent
+    PerolehanSuaraSkeletonComponent,
+    ConnectionComponent
   ]
 })
 export class ComponentsModule { }

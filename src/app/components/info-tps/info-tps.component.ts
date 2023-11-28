@@ -13,6 +13,7 @@ export class InfoTpsComponent  implements OnInit, OnDestroy {
   private destroy: Subject<void> = new Subject<void>();
   totalTps: TotalTps = defaultTotalTps;
   totalTpsLoading = true;
+  reloadIndikator = false;
   constructor(
     private tokenServ: TokenService,
     private callApiServ: CallApiService,
@@ -37,11 +38,19 @@ export class InfoTpsComponent  implements OnInit, OnDestroy {
       tap(()=> this.totalTpsLoading = false)
     )
     .subscribe({
-      error: (e) => this.totalTpsLoading = true,
+      error: (e) => {
+        this.totalTpsLoading = true;
+        this.reloadIndikator = true
+      },
       next: (res: any) => (
         this.totalTps = res.data
       )
     })
+  }
+
+  async reload(){
+    await this.getTotalTps()
+    this.reloadIndikator = false
   }
 
 }

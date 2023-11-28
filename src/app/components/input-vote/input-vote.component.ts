@@ -15,6 +15,7 @@ export class InputVoteComponent  implements OnInit, OnDestroy {
   inputVoteLoading = true;
   candidates: Candidate[] = [];
   dataNotFound: boolean = false;  
+  reloadIndikator = false;
   constructor(
     private tokenServ: TokenService,
     private callApiServ: CallApiService
@@ -26,7 +27,10 @@ export class InputVoteComponent  implements OnInit, OnDestroy {
       tap(()=> this.inputVoteLoading = false)
     )
     .subscribe({
-      error: (e) => this.inputVoteLoading = true,
+      error: (e) => {
+        this.inputVoteLoading = true;
+        this.reloadIndikator = true;
+      },
       next: (res: any) => (
         this.dataNotFound = res.data.length === 0 ? true : false,
         this.candidates = res.data
@@ -65,6 +69,24 @@ export class InputVoteComponent  implements OnInit, OnDestroy {
         this.candidates = res.data
       )
     })
+  }
+
+  async reload() {
+    await  this.getCandidate()
+    .pipe(
+      tap(()=> this.inputVoteLoading = false)
+    )
+    .subscribe({
+      error: (e) => {
+        this.inputVoteLoading = true;
+        this.reloadIndikator = true;
+      },
+      next: (res: any) => (
+        this.dataNotFound = res.data.length === 0 ? true : false,
+        this.candidates = res.data
+      )
+    })
+    this.reloadIndikator = false
   }
 
 }

@@ -6,3 +6,31 @@
 ion-accordion {
     --background: var(--ion-color-light);
 }
+
+
+ion-avatar {
+    background: var(--ion-color-light);
+}
+
+.container {
+    position: relative;
+    overflow: visible;
+}
+
+.reload {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 5;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+}
+
+ion-spinner {
+    width: 30px;
+    height: 30px;
+}
