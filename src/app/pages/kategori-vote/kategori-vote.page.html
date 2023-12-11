@@ -1,7 +1,10 @@
 <ion-header [translucent]="true" class="ion-no-border">
-  <ion-buttons slot="start">
-    <ion-back-button></ion-back-button>
-  </ion-buttons>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>{{tingkatan}}</ion-title>
+  </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true" scroll-y="false">
@@ -12,7 +15,7 @@
     <div class="daun__merah"></div>
     <div class="daun__biru"></div>
     <div class="titik__coklat"></div>
-    <app-user-info  [paramId]="paramId"></app-user-info>
+    <app-user-info [paramId]="paramId"></app-user-info>
   </div>
   <div class="perolehan__suara ion-padding">
     <ion-segment [(ngModel)]="segmentVote">
@@ -30,7 +33,7 @@
       <ng-container *ngSwitchCase="'vote'">
         <app-input-vote [paramId]="paramId"></app-input-vote>
       </ng-container>
-      
+
     </ng-container>
   </div>
 </ion-content>

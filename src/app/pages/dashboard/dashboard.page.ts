@@ -22,6 +22,8 @@ export class DashboardPage implements ViewWillEnter, ViewWillLeave {
   perolehanSuaraPartaiLoading = true;
 
   name: string | null = null;
+  tingkatan: string | null = null;
+  dapil: string | null = null;
   kategoriVote: string = '';
   perolehanSuaraPartaiSubcribe: Subscription | undefined;
   reloadIndikator = false;
@@ -46,7 +48,9 @@ export class DashboardPage implements ViewWillEnter, ViewWillLeave {
     ])
       .pipe(takeUntil(this.destroy))
       .subscribe(res => {
-        this.name = res[0].name
+        this.name = res[0].name;
+        this.dapil = res[0].dapil;
+        this.tingkatan = res[0].jenis_dapil;
       })
     this.pwaService.getInstallPWA.subscribe(res => {
       this.isInstallPWA = res

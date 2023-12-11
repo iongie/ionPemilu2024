@@ -1,6 +1,6 @@
 import { inject } from '@angular/core';
 import { CanActivateFn, CanDeactivateFn, NavigationEnd, NavigationStart, Router } from '@angular/router';
-import { Observable, delay, first, firstValueFrom, lastValueFrom, map, of, switchMap, take, timeout } from 'rxjs';
+import { Observable, firstValueFrom, map, take } from 'rxjs';
 import { TokenService } from 'src/app/services/token/token.service';
 
 export const authGuard: CanActivateFn = async (route, state) => {
@@ -8,6 +8,7 @@ export const authGuard: CanActivateFn = async (route, state) => {
   const routeServ = inject(Router);
   await new Promise(resolve => setTimeout(resolve, 100));
   const token: string = await firstValueFrom(accessToken.getToken);
+  console.log(token, accessToken);
   return token !== "" ? true : (routeServ.navigate(['/login']), false)
 };
 
@@ -18,19 +19,25 @@ export const backGuard: CanDeactivateFn<any> = async (component:any) => {
   return true;
 }
 
-// export const CategoriVoteGuard: CanActivateFn = async (route, state) => {
-//   const routeServ = inject(Router);
-//   const navigationEnd$: Observable<any> = await routeServ.events.pipe(
-//     take(1),
-//     map((event) => event instanceof NavigationEnd)
-//   );
+export const CategoriVoteGuard: CanActivateFn = async (route, state) => {
+  const routeServ = inject(Router);
+  routeServ.events.subscribe(event => {
+    if (event instanceof NavigationStart) {
+      console.log('Navigasi dimulai', event);
+    }
 
-//   const isNavigationEnd: any = await firstValueFrom(navigationEnd$);
-//   if (isNavigationEnd) {
-//     routeServ.navigate(['/dashboard']);
-//     return false; // Returning false prevents the original navigation
-//   }
+    if (event instanceof NavigationEnd) {
+      console.log('Navigasi selesai', event);
+    }
+  });
 
-//   return true; // Allow the original navigation
-// }
+  // console.log(isNavigationEnd);
+  
+  // if (isNavigationEnd) {
+  //   routeServ.navigate(['/dashboard']);
+  //   return false; 
+  // }
+
+  return true;
+}
 

@@ -13,6 +13,7 @@ export class KategoriVotePage implements OnInit, OnDestroy {
   private destroy: Subject<void> = new Subject<void>();
   segmentVote: string = 'result';
   paramId: any = 0;
+  tingkatan: string | null = null;
   constructor(
     private actRoute: ActivatedRoute,
     private tokenServ: TokenService,
@@ -23,6 +24,14 @@ export class KategoriVotePage implements OnInit, OnDestroy {
   ngOnInit() {
       this.actRoute.params.subscribe(res=>{
         this.paramId = res['id'];
+        const mapping = {
+          "1": "DPR",
+          "2": "DPD",
+          "3": "DPRD",
+          "4": "DPRD PROVINSI"
+        };
+        
+        this.tingkatan = mapping[this.paramId as keyof typeof mapping] || '-';
       })
   }
 

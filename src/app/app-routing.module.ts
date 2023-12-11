@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
-import { authGuard, backGuard } from './guards/auth/auth.guard';
+import { CategoriVoteGuard, authGuard, backGuard } from './guards/auth/auth.guard';
 
 const routes: Routes = [
   {
@@ -16,7 +16,7 @@ const routes: Routes = [
   {
     path: 'dashboard',
     loadChildren: () => import('./pages/dashboard/dashboard.module').then( m => m.DashboardPageModule),
-    canActivate: [authGuard]
+    canActivate: [authGuard, CategoriVoteGuard],
   },
   {
     path: 'kategori-vote',

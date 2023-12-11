@@ -1,21 +1,46 @@
 <ion-header [translucent]="true" appTopBar class="ion-no-border">
-  <ion-toolbar>
-    <ion-title>Hai, {{name}}</ion-title>
+  <ion-toolbar class="toolbar_top">
+    <div class="daun__biru"></div>
     <ion-buttons slot="secondary">
       <ion-button id="exit-app" (click)="closeAlert()">
-        <ion-icon name="person-circle" size="large" color="primary"></ion-icon>
+        <ion-icon name="log-out-outline" size="large" color="light"></ion-icon>
       </ion-button>
     </ion-buttons>
+    <ion-title color="light">{{name}}</ion-title>
+  </ion-toolbar>
+  <ion-toolbar class="toolbar_bottom">
+    <div class="daun__merah"></div>
+    <div class="titik__coklat"></div>
+    <div class="toolbar_user__info">
+      <div class="user__info__tingkatan">
+        <ion-label color="light">
+          <h2>Tingkatan</h2>
+        </ion-label>
+
+        <ion-label>
+          <p>{{tingkatan}}</p>
+        </ion-label>
+      </div>
+      <div class="user__info__dapil">
+        <ion-label color="light">
+          <h2>Daerah Pilihan</h2>
+        </ion-label>
+
+        <ion-label>
+          <p>{{dapil}}</p>
+        </ion-label>
+      </div>
+    </div>
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true" class="ion-padding home">
+<ion-content [fullscreen]="true" class="ion-padding home" scroll-y="false">
   <app-menu-kategori-vote (actionKategoriVote)="actionKategoriVote($event)"></app-menu-kategori-vote>
   <ion-text color="dark">
     <h3>Perolehan Suara</h3>
   </ion-text>
   <ng-container *ngIf="!totalTpsLoading">
-    <div class="ion-padding">
+    <div>
       <app-perolehan-suara [totalTps]="totalTps"></app-perolehan-suara>
     </div>
   </ng-container>
