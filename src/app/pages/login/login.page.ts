@@ -45,8 +45,6 @@ export class LoginPage implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    console.log('login destroy');
-
     this.destroy.next()
     this.destroy.complete()
   }
@@ -87,7 +85,6 @@ export class LoginPage implements OnInit, OnDestroy {
             this.user.updateUser(res.user)
           ),
           error: (e) => {
-            console.log(e.error);
             e.error.statusText === 'Unknown Error'
               ? this.messageResponse.toastMode('Unknown Error', 3000, 'top', 'header', 'danger')
               : this.messageResponse.toastMode(e.error.message, 3000, 'top', 'header', 'danger');
@@ -108,7 +105,6 @@ export class LoginPage implements OnInit, OnDestroy {
   }
 
   onActionPwa(actionPwa: any) {
-    console.log(actionPwa);
     actionPwa === 'install' && this.installPWA();
   }
 

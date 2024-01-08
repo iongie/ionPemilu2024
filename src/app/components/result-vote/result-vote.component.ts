@@ -36,7 +36,6 @@ export class ResultVoteComponent implements OnInit, OnDestroy {
           this.reloadIndikator = true;
         },
         next: (res: any) => (
-          console.log(res.data),
           this.candidates = res.data
         )
       })
@@ -103,7 +102,6 @@ export class ResultVoteComponent implements OnInit, OnDestroy {
           this.reloadIndikator = true;
         },
         next: (res: any) => (
-          console.log(res.data),
           this.candidates = res.data
         )
       })

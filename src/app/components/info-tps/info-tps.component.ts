@@ -1,5 +1,5 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Subject, takeUntil, delay, switchMap, tap } from 'rxjs';
+import { Component, Input, OnDestroy, OnInit } from '@angular/core';
+import { Subject, takeUntil, delay, switchMap, tap, combineLatest } from 'rxjs';
 import { TotalTps, defaultTotalTps } from 'src/app/app.interface';
 import { CallApiService } from 'src/app/services/callApi/call-api.service';
 import { TokenService } from 'src/app/services/token/token.service';
@@ -11,6 +11,7 @@ import { TokenService } from 'src/app/services/token/token.service';
 })
 export class InfoTpsComponent  implements OnInit, OnDestroy {
   private destroy: Subject<void> = new Subject<void>();
+  @Input() paramId: number | null = null;
   totalTps: TotalTps = defaultTotalTps;
   totalTpsLoading = true;
   reloadIndikator = false;
@@ -33,7 +34,11 @@ export class InfoTpsComponent  implements OnInit, OnDestroy {
       takeUntil(this.destroy),
       delay(1000),
       switchMap((token) => {
-        return this.callApiServ.get(`total-tps`, token)
+        return combineLatest([
+          this.callApiServ.get(`total-tps`, token),
+          this.callApiServ.get(`get-total-relawan-by-dapil/${this.paramId}`, token),
+          this.callApiServ.get(`get-suara-by-dapil/${this.paramId}`, token)
+        ])
       }),
       tap(()=> this.totalTpsLoading = false)
     )
@@ -43,7 +48,9 @@ export class InfoTpsComponent  implements OnInit, OnDestroy {
         this.reloadIndikator = true
       },
       next: (res: any) => (
-        this.totalTps = res.data
+        this.totalTps.total_tps = res[0].data.total_tps,
+        this.totalTps.total_relawan = res[1].data,
+        this.totalTps.percent = res[2].data.suara
       )
     })
   }

@@ -17,7 +17,6 @@ export class MenuKategoriVoteComponent  implements OnInit, OnDestroy {
   ngOnInit() {}
 
   ngOnDestroy() {
-    console.log('ngOnDestroy called');
     this.destroy.next();
     this.destroy.complete();
   }

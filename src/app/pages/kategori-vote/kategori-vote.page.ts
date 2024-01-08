@@ -36,7 +36,6 @@ export class KategoriVotePage implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    console.log('kategori vote Destroy');
     this.destroy.next();
     this.destroy.complete();
   }

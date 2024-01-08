@@ -26,12 +26,9 @@ export class AppComponent implements OnInit{
     this.pwaService.getInstallPWA.subscribe(res => {
       this.isInstallPWA = res
     })
-    console.log('welcomr');
-    
     Network.addListener('networkStatusChange', status => {
       this.connected = status.connected;
       this.connectionType = status.connectionType;
-      console.log(status.connectionType);
     });
     this.checknetworkStatus();
   }
@@ -97,7 +94,6 @@ export class AppComponent implements OnInit{
   }
 
   onActionPwa(actionPwa: any){
-    console.log(actionPwa);
     actionPwa === 'install' && this.installPWA();
   }
 

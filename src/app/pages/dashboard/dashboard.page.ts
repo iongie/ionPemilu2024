@@ -64,7 +64,6 @@ export class DashboardPage implements ViewWillEnter, ViewWillLeave {
     this.destroy.complete();
     this.perolehanSuaraPartaiSubcribe?.unsubscribe();
     this.getTotalTpsSubcription?.unsubscribe();
-    console.log('destroy dashboard');
   }
   
 
@@ -82,7 +81,6 @@ export class DashboardPage implements ViewWillEnter, ViewWillLeave {
       error: (e) => {
         this.perolehanSuaraPartaiLoading = true;
         this.reloadIndikator = true
-        console.error(e);
       },
       next: (res: any) => {
         this.suaraPartai = res.data;
