@@ -19,6 +19,7 @@ export class ResultVoteComponent implements OnInit, OnDestroy {
   candidates: Candidate[] = [];
   dataNotFound: boolean = false;
   reloadIndikator = false;
+  defaultFoto: string = 'https://ionicframework.com/docs/img/demos/thumbnail.svg';
   constructor(
     private tokenServ: TokenService,
     private callApiServ: CallApiService
@@ -44,6 +45,14 @@ export class ResultVoteComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     this.destroy.next();
     this.destroy.complete();
+  }
+
+  handleImageError(event: any): void {
+    console.log('ssdsd', event);
+    
+    this.callApiServ.chekFotoPemilu(event).subscribe(res => {
+      console.log(res);
+    })
   }
 
   resultAllCaleg(page: number, length: number, cari: any) {

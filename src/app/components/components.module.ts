@@ -20,6 +20,7 @@ import { DataNotFoundComponent } from './data-not-found/data-not-found.component
 import { InstallPwaComponent } from './install-pwa/install-pwa.component';
 import { PerolehanSuaraSkeletonComponent } from './progress-indikator/perolehan-suara-skeleton/perolehan-suara-skeleton.component';
 import { ConnectionComponent } from './connection/connection.component';
+import { InputNonNegativeDirective } from '../directives/input-non-negative/input-non-negative.directive';
 
 
 
@@ -42,7 +43,8 @@ import { ConnectionComponent } from './connection/connection.component';
     DataNotFoundComponent,
     InstallPwaComponent,
     PerolehanSuaraSkeletonComponent,
-    ConnectionComponent
+    ConnectionComponent,
+    InputNonNegativeDirective
   ],
   imports: [
     CommonModule,

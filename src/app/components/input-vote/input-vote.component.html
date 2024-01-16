@@ -7,7 +7,7 @@
           <ion-accordion>
             <ion-item slot="header">
               <ion-avatar slot="start">
-                <ion-img [src]="candidates.foto_caleg"></ion-img>
+                <ion-img [src]="candidates.foto_caleg" [style.background]="candidates.foto_caleg ? 'none' : 'grey'"></ion-img>
               </ion-avatar>
               <ion-label>
                 <h2 class="ion-text-wrap">{{candidates.nama_calon}}</h2>

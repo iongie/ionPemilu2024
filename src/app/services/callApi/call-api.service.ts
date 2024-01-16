@@ -70,4 +70,12 @@ export class CallApiService {
       })
     )
   }
+
+  chekFotoPemilu (url: string){
+    return this.http.get(url).pipe(
+      catchError((error) => {
+        return throwError(() => error);
+      })
+    )
+  }
 }

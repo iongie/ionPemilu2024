@@ -7,7 +7,7 @@ import { UserService } from 'src/app/services/user/user.service';
   templateUrl: './user-info.component.html',
   styleUrls: ['./user-info.component.scss'],
 })
-export class UserInfoComponent  implements OnInit, OnDestroy {
+export class UserInfoComponent implements OnInit, OnDestroy {
   private destroy: Subject<void> = new Subject<void>();
   @Input() paramId: string = "";
   dapil: string | null = null;
@@ -17,18 +17,21 @@ export class UserInfoComponent  implements OnInit, OnDestroy {
   ) { }
 
   ngOnInit() {
-    this.userServ.getUser.subscribe(user=>{
+    this.userServ.getUser.subscribe(user => {
       const mapping = {
-        "1": "DPR",
+        "1": "DPR RI",
         "2": "DPD",
         "3": "DPRD",
         "4": "DPRD PROVINSI"
       };
-      
+
       const selectedValue = mapping[this.paramId as keyof typeof mapping] || '-';
       this.tingkatan = user.jenis_dapil.includes(selectedValue) ? selectedValue : '-';
-      const key = user.jenis_dapil.findIndex((element: any) => element === selectedValue);
-      this.dapil = key !== -1 ? user.dapil[key] : '-';
+      const key = user.dapil.findIndex((element: any) => element === selectedValue);
+      // this.dapil = key !== -1 ? user.dapil[key] : '-';
+      this.dapil = this.tingkatan !== '-' ? user.dapil : '-';
+      console.log(selectedValue, user, key, this.tingkatan);
+      
     })
   }
 

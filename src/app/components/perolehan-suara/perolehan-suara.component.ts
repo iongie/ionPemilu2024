@@ -9,5 +9,7 @@ import { TotalTps, defaultTotalTps } from 'src/app/app.interface';
 export class PerolehanSuaraComponent {
   @Input() totalTps: TotalTps = defaultTotalTps;
   constructor(
-  ) { }
+  ) {
+    
+   }
 }

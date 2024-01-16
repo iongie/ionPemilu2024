@@ -33,7 +33,8 @@ export class InputVoteComponent  implements OnInit, OnDestroy {
       },
       next: (res: any) => (
         this.dataNotFound = res.data.length === 0 ? true : false,
-        this.candidates = res.data
+        this.candidates = res.data,
+        console.log(this.candidates)
       )
     })
   }

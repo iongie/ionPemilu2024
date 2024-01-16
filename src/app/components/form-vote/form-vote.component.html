@@ -7,11 +7,11 @@
     <ion-button type="button" expand="block" (click)="takePicture()">Upload</ion-button>
   </div>
   
-  <ion-input id="no_tps" name="no_tps" type="number" aria-label="Vote" placeholder="Input Nomor TPS"
+  <ion-input appInputNonNegative id="no_tps" name="no_tps" type="number" aria-label="Vote" placeholder="Input Nomor TPS"
     label-placement="floating" fill="outline" label="Nomor TPS" formControlName="no_tps"
     [errorText]="noTpsRequest && 'Nomor TPS harus diisi'"></ion-input>
 
-  <ion-input id="total_suara" name="total_suara" type="number" aria-label="Vote"
+  <ion-input appInputNonNegative id="total_suara" name="total_suara" type="number" aria-label="Vote"
     placeholder="Input jumlah suara" label-placement="floating" fill="outline" label="Jumlah suara"
     formControlName="total_suara" [errorText]="totalSuaraRequest && 'Jumlah Suara Harus diisi'"></ion-input>
 
