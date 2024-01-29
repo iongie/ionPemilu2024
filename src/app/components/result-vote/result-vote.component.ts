@@ -37,6 +37,7 @@ export class ResultVoteComponent implements OnInit, OnDestroy {
           this.reloadIndikator = true;
         },
         next: (res: any) => (
+          this.dataNotFound = res.data.length === 0 ? true : false,
           this.candidates = res.data
         )
       })

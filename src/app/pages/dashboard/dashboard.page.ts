@@ -49,12 +49,16 @@ export class DashboardPage implements ViewWillEnter, ViewWillLeave {
       .pipe(takeUntil(this.destroy))
       .subscribe(res => {
         this.name = res[0].name;
-        this.dapil = res[0].dapil.filter((value:any, index:any, self:any) => {
+        this.dapil = res[0].dapil
+        .map((value: any) => value.toLowerCase())
+        .filter((value:any, index:any, self:any) => {
           return self.indexOf(value) === index;
         });
-        this.tingkatan = res[0].jenis_dapil.filter((value:any, index:any, self:any) => {
+        this.tingkatan = res[0].jenis_dapil
+        .map((value: any) => value)
+        .filter((value:any, index:any, self:any) => {
           return self.indexOf(value) === index;
-        });;
+        });
         console.log(res[0].dapil, res[0].jenis_dapil);
         
       })

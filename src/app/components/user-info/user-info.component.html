@@ -1,34 +1,38 @@
 <div class="user__info">
-  <ion-thumbnail class="thumb__user__info">
-    <ng-container *ngIf="paramId == '1'">
-      <img alt="DPR" src="../../../assets/dpr.png" />
-    </ng-container>
-    <ng-container *ngIf="paramId == '2'">
-      <img alt="DPRD" src="../../../assets/dpd.png" />
-    </ng-container>
-    <ng-container *ngIf="paramId == '3'">
-      <img alt="DPRD" src="../../../assets/dprd.png" />
-    </ng-container>
-    <ng-container *ngIf="paramId == '4'">
-      <img alt="DPRD II" src="../../../assets/dprd2.png" />
-    </ng-container>
-  </ion-thumbnail>
-  <div class="user__info__tingkatan">
-    <ion-label color="light">
-      <h2>Tingkatan</h2>
-    </ion-label>
-
-    <ion-label>
-      <p>{{tingkatan}}</p>
-    </ion-label>
+  <div style="width: 20%; display: flex; justify-content: flex-start; align-items: center; ">
+    <ion-thumbnail class="thumb__user__info">
+      <ng-container *ngIf="paramId == '1'">
+        <img alt="DPR" src="../../../assets/dpr.png" />
+      </ng-container>
+      <ng-container *ngIf="paramId == '2'">
+        <img alt="DPRD" src="../../../assets/dpd.png" />
+      </ng-container>
+      <ng-container *ngIf="paramId == '3'">
+        <img alt="DPRD" src="../../../assets/dprd.png" />
+      </ng-container>
+      <ng-container *ngIf="paramId == '4'">
+        <img alt="DPRD II" src="../../../assets/dprd2.png" />
+      </ng-container>
+    </ion-thumbnail>
   </div>
-  <div class="user__info__dapil">
-    <ion-label color="light">
-      <h2>Daerah Pilihan</h2>
-    </ion-label>
-
-    <ion-label class="ion-text-wrap">
-      <p>{{dapil}}</p>
-    </ion-label>
+  <div class="description">
+    <div class="user__info__tingkatan">
+      <ion-label color="light">
+        <h2>Tingkatan</h2>
+      </ion-label>
+  
+      <ion-note color="light">
+        {{tingkatan}}
+      </ion-note>
+    </div>
+    <div class="user__info__dapil">
+      <ion-label color="light">
+        <h2>Daerah Pilihan</h2>
+      </ion-label>
+  
+      <ion-note color="light">
+        {{dapil}}
+      </ion-note>
+    </div>
   </div>
 </div>
