@@ -59,8 +59,6 @@ export class DashboardPage implements ViewWillEnter, ViewWillLeave {
         .filter((value:any, index:any, self:any) => {
           return self.indexOf(value) === index;
         });
-        console.log(res[0].dapil, res[0].jenis_dapil);
-        
       })
     this.pwaService.getInstallPWA.subscribe(res => {
       this.isInstallPWA = res
@@ -164,6 +162,10 @@ export class DashboardPage implements ViewWillEnter, ViewWillLeave {
   reloadTotalTps(){
     this.getTotalTpsSubcription = this.getTotalTps()
     this.reloadtotalTpsIndikator = false
+  }
+
+  gotoDashbboard(){
+    this.router.navigate(['home'])
   }
 
 }

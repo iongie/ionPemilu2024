@@ -1,0 +1,17 @@
+<div class="paslon">
+    <ng-container *ngFor="let paslon of paslon">
+        <div class="paslon-detail">
+            <div class="paslon-desc">
+                <ion-img class="foto-calon" src="../../../assets/blank-user.png"
+                    alt="The Wisconsin State Capitol building in Madison, WI at night"></ion-img>
+                <ion-note class="urut-calon">
+                    <h6>Nomor Urut <br> {{paslon.no_urut}}</h6>
+                </ion-note>
+            </div>
+            <ion-note class="nama-paslon ion-text-wrap">
+                {{paslon.n_calon}}<br>&<br>{{paslon.n_wakil_calon}}
+            </ion-note>
+        </div>
+    </ng-container>
+    
+</div>

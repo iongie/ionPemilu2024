@@ -1,0 +1,26 @@
+.filter-data{
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    padding-bottom: 4px;
+}
+
+.container {
+    position: relative;
+    overflow: visible;
+}
+
+.reload {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 2;
+    /* Lebih tinggi dari app-perolehan-suara-skeleton */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+}

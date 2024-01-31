@@ -1,0 +1,21 @@
+<div class="list-calon">
+  <ion-list style="padding: 0;">
+    <ng-container *ngFor="let paslon of paslon">
+      <ion-item>
+        <ion-avatar slot="start">
+          <ion-img src="../../../assets/avatar.svg"></ion-img>
+        </ion-avatar>
+        <ion-label>
+          <h2 style="color: #2F2762;">{{paslon.n_calon}}</h2>
+          <div class="list-calon-track">
+            <div class="list-calon-active" [style.width]="paslon.percent"></div>
+          </div>
+          <p style="color: #2F2762;">{{ paslon.suara| number}} suara</p>
+        </ion-label>
+        <ion-label slot="end">
+          <h2 style="color: #2F2762;">{{paslon.percent}}</h2>
+        </ion-label>
+      </ion-item>
+    </ng-container>
+  </ion-list>
+</div>

@@ -78,4 +78,22 @@ export class CallApiService {
       })
     )
   }
+
+  getPaslon(param: string, token:string, provinsi_id: string, kota_id: string, kecamatan_id: string, kelurahan_id: string){
+    return this.http.get(this.url+param,{
+      headers: new HttpHeaders({
+        // 'Content-Type': 'application/json',
+        Authorization: 'Bearer ' + token
+      }),
+      params: new HttpParams()
+      .set('provinsi_id', provinsi_id)
+      .set('kota_id', kota_id)
+      .set('kecamatan_id', kecamatan_id)
+      .set('kelurahan_id', kelurahan_id)
+    }).pipe(
+      catchError((error) => {
+        return throwError(() => error);
+      })
+    )
+  }
 }

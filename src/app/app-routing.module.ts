@@ -5,18 +5,33 @@ import { LoginGuard, authGuard, backGuard } from './guards/auth/auth.guard';
 const routes: Routes = [
   {
     path: '',
-    redirectTo: 'dashboard',
+    redirectTo: 'home',
     pathMatch: 'full'
   },
   {
     path: 'login',
-    loadChildren: () => import('./pages/login/login.module').then( m => m.LoginPageModule),
+    loadChildren: () => import('./pages/login/login.module').then(m => m.LoginPageModule),
     canActivate: [LoginGuard]
   },
   {
-    path: 'dashboard',
-    loadChildren: () => import('./pages/dashboard/dashboard.module').then( m => m.DashboardPageModule),
+    path: 'home',
+    loadChildren: () => import('./pages/home/home.module').then(m => m.HomePageModule),
     canActivate: [authGuard],
+  },
+  {
+    path: 'dashboard',
+    children: [
+      {
+        path: '',
+        loadChildren: () => import('./pages/dashboard/dashboard.module').then(m => m.DashboardPageModule),
+        canActivate: [authGuard],
+      },
+      {
+        path: ':id',
+        loadChildren: () => import('./pages/dashboard-kategori/dashboard-kategori.module').then(m => m.DashboardKategoriPageModule),
+        canActivate: [authGuard]
+      }
+    ]
   },
   {
     path: 'kategori-vote',
@@ -30,7 +45,7 @@ const routes: Routes = [
   },
   {
     path: '**',
-    loadChildren: () => import('./pages/page-not-found/page-not-found.module').then( m => m.PageNotFoundPageModule)
+    loadChildren: () => import('./pages/page-not-found/page-not-found.module').then(m => m.PageNotFoundPageModule)
   },
 ];
 

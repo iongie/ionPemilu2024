@@ -23,6 +23,6 @@ export const LoginGuard: CanActivateFn = async (route, state) => {
   const routeServ = inject(Router);
   await new Promise(resolve => setTimeout(resolve, 100));
   const token: string = await firstValueFrom(accessToken.getToken);
-  return token == "" ? true : (routeServ.navigate(['/dashboard']), false)
+  return token == "" ? true : (routeServ.navigate(['/home']), false)
 }
 

@@ -15,7 +15,7 @@ export class PageNotFoundPage implements OnInit {
   ngOnInit() {}
 
   gotoHome(){
-    this.router.navigate(['dashboard'])
+    this.router.navigate(['home'])
   }
 
 }

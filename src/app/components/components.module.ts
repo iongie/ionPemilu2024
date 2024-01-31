@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { PerolehanSuaraComponent } from './perolehan-suara/perolehan-suara.component';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
 import { UserInfoComponent } from './user-info/user-info.component';
 import { InfoTpsComponent } from './info-tps/info-tps.component';
@@ -21,6 +21,18 @@ import { InstallPwaComponent } from './install-pwa/install-pwa.component';
 import { PerolehanSuaraSkeletonComponent } from './progress-indikator/perolehan-suara-skeleton/perolehan-suara-skeleton.component';
 import { ConnectionComponent } from './connection/connection.component';
 import { InputNonNegativeDirective } from '../directives/input-non-negative/input-non-negative.directive';
+import { DashboardMenuKategoriComponent } from './dashboard-menu-kategori/dashboard-menu-kategori.component';
+import { DashboardCapresComponent } from './dashboard-capres/dashboard-capres.component';
+import { DashboardTpsComponent } from './dashboard-tps/dashboard-tps.component';
+import { NgApexchartsModule } from 'ng-apexcharts';
+import { DashboardBarChartComponent } from './dashboard-bar-chart/dashboard-bar-chart.component';
+import { DashboardPieChartComponent } from './dashboard-pie-chart/dashboard-pie-chart.component';
+import { DashboardListComponent } from './dashboard-list/dashboard-list.component';
+import { DashboardModalFilterDataComponent } from './dashboard-modal-filter-data/dashboard-modal-filter-data.component';
+import { DashBarSkeletonComponent } from './progress-indikator/dash-bar-skeleton/dash-bar-skeleton.component';
+import { DashCapresSkeletonComponent } from './progress-indikator/dash-capres-skeleton/dash-capres-skeleton.component';
+import { DashPieSkeletonComponent } from './progress-indikator/dash-pie-skeleton/dash-pie-skeleton.component';
+import { DashTpsSkeletonComponent } from './progress-indikator/dash-tps-skeleton/dash-tps-skeleton.component';
 
 
 
@@ -44,12 +56,26 @@ import { InputNonNegativeDirective } from '../directives/input-non-negative/inpu
     InstallPwaComponent,
     PerolehanSuaraSkeletonComponent,
     ConnectionComponent,
-    InputNonNegativeDirective
+    InputNonNegativeDirective,
+    DashboardMenuKategoriComponent,
+    DashboardCapresComponent,
+    DashboardMenuKategoriComponent,
+    DashboardTpsComponent,
+    DashboardBarChartComponent,
+    DashboardPieChartComponent,
+    DashboardListComponent,
+    DashboardModalFilterDataComponent,
+    DashBarSkeletonComponent,
+    DashCapresSkeletonComponent,
+    DashPieSkeletonComponent,
+    DashTpsSkeletonComponent
   ],
   imports: [
     CommonModule,
     IonicModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    FormsModule,
+    NgApexchartsModule
   ],
   exports: [
     PerolehanSuaraComponent,
@@ -69,7 +95,19 @@ import { InputNonNegativeDirective } from '../directives/input-non-negative/inpu
     DataNotFoundComponent,
     InstallPwaComponent,
     PerolehanSuaraSkeletonComponent,
-    ConnectionComponent
+    ConnectionComponent,
+    DashboardMenuKategoriComponent,
+    DashboardCapresComponent,
+    DashboardMenuKategoriComponent,
+    DashboardTpsComponent,
+    DashboardBarChartComponent,
+    DashboardPieChartComponent,
+    DashboardListComponent,
+    DashboardModalFilterDataComponent,
+    DashBarSkeletonComponent,
+    DashCapresSkeletonComponent,
+    DashPieSkeletonComponent,
+    DashTpsSkeletonComponent
   ]
 })
 export class ComponentsModule { }

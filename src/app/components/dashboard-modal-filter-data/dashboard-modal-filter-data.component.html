@@ -1,0 +1,33 @@
+<ion-list>
+  <ion-item>
+    <ion-select [(ngModel)]="dataFilter.provinsi" [disabled]="tingkatan !== 'Presiden'" (ionChange)="onProvinsiChange($event)" label="Provinsi" [interfaceOptions]="customProvinsiOptions" interface="alert" placeholder="Pilih Salah Satu">
+      <ng-container *ngFor="let provinsi of provinsi">
+        <ion-select-option [value]="provinsi.id">{{provinsi.n_provinsi}}</ion-select-option>
+      </ng-container>
+    </ion-select>
+  </ion-item>
+  <ion-item>
+    <ion-select (ionChange)="onKotaChange($event)" [disabled]="dataFilter.provinsi!.length === 0 && tingkatan !== 'Presiden'" label="Kota" [interfaceOptions]="customKotaOptions" interface="alert" placeholder="Pilih Salah Satu">
+      <ng-container *ngFor="let kota of kota">
+        <ion-select-option [value]="kota.id">{{kota.n_kota}}</ion-select-option>
+      </ng-container>
+    </ion-select>
+  </ion-item>
+  <ion-item>
+    <ion-select (ionChange)="onKecChange($event)"  [disabled]="dataFilter.kota!.length === 0" label="Kecamatan" [interfaceOptions]="customKecamatanOptions" interface="alert"
+      placeholder="Pilih Salah Satu">
+      <ng-container *ngFor="let kecamatan of kecamatan">
+        <ion-select-option [value]="kecamatan.id">{{kecamatan.n_kecamatan}}</ion-select-option>
+      </ng-container>
+    </ion-select>
+  </ion-item>
+  <ion-item>
+    <ion-select  [disabled]="dataFilter.kec!.length === 0" label="Kelurahan" [interfaceOptions]="customKelurahanOptions" interface="alert"
+      placeholder="Pilih Salah Satu">
+      <ng-container *ngFor="let kelurahan of kelurahan">
+        <ion-select-option [value]="kelurahan.id">{{kelurahan.n_kelurahan}}</ion-select-option>
+      </ng-container>
+    </ion-select>
+  </ion-item>
+</ion-list>
+<ion-button expand="full" (click)="filterData()">Filter Data</ion-button>

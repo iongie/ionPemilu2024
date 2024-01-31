@@ -1,0 +1,102 @@
+<ion-header [translucent]="true" class="ion-no-border">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>{{tingkatan}}</ion-title>
+    <ion-buttons slot="end">
+      <ion-button id="filter-data">
+        <ion-icon name="filter-outline" size="large"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true" class="ion-padding">
+
+  <ng-container *ngIf="tingkatan === 'Presiden' && loadingDashboardCalegCapresIndikator">
+    <div class="container">
+      <ng-container *ngIf="reloadDashboardCalegCapresIndikator">
+        <div class="reload">
+          <ion-spinner name="lines-sharp"></ion-spinner>
+          <ion-button fill="clear">Error</ion-button>
+        </div>
+      </ng-container>
+      <app-dash-capres-skeleton></app-dash-capres-skeleton>
+    </div>
+  </ng-container>
+  
+  <ng-container *ngIf="tingkatan === 'Presiden' && !loadingDashboardCalegCapresIndikator">
+    <app-dashboard-capres></app-dashboard-capres>
+  </ng-container>
+
+  <ng-container *ngIf="loadingDashboardTpsIndikator">
+    <div class="container">
+      <ng-container *ngIf="reloadDashboardTpsIndikator">
+        <div class="reload">
+          <ion-spinner name="lines-sharp"></ion-spinner>
+          <ion-button fill="clear">Error</ion-button>
+        </div>
+      </ng-container>
+      <app-dash-tps-skeleton></app-dash-tps-skeleton>
+    </div>
+  </ng-container>
+
+  <ng-container *ngIf="!loadingDashboardTpsIndikator">
+    <app-dashboard-tps></app-dashboard-tps>
+  </ng-container>
+
+  <ng-container *ngIf="tingkatan === 'Presiden' && loadingDashboardCalegCapresIndikator">
+    <div class="container">
+      <ng-container *ngIf="reloadDashboardCalegCapresIndikator">
+        <div class="reload">
+          <ion-spinner name="lines-sharp"></ion-spinner>
+          <ion-button fill="clear">Error</ion-button>
+        </div>
+      </ng-container>
+      <app-dash-pie-skeleton></app-dash-pie-skeleton>
+    </div>
+  </ng-container>
+
+  <ng-container *ngIf="tingkatan === 'Presiden' && !loadingDashboardCalegCapresIndikator">
+    <app-dashboard-pie-chart></app-dashboard-pie-chart>
+  </ng-container>
+
+  <ng-container *ngIf="tingkatan !== 'Presiden' && loadingDashboardCalegCapresIndikator">
+    <div class="container">
+      <ng-container *ngIf="reloadDashboardCalegCapresIndikator">
+        <div class="reload">
+          <ion-spinner name="lines-sharp"></ion-spinner>
+          <ion-button fill="clear">Error</ion-button>
+        </div>
+      </ng-container>
+      <app-dash-bar-skeleton></app-dash-bar-skeleton>
+    </div>
+  </ng-container>
+
+  <ng-container *ngIf="tingkatan !== 'Presiden' && !loadingDashboardCalegCapresIndikator">
+    <app-dashboard-bar-chart></app-dashboard-bar-chart>
+  </ng-container>
+
+  <ng-container *ngIf="loadingDashboardCalegCapresIndikator">
+    <div class="container">
+      <ng-container *ngIf="reloadDashboardCalegCapresIndikator">
+        <div class="reload">
+          <ion-spinner name="lines-sharp"></ion-spinner>
+          <ion-button fill="clear">Error</ion-button>
+        </div>
+      </ng-container>
+      <app-perolehan-suara-partai-skeleton></app-perolehan-suara-partai-skeleton>
+    </div>
+  </ng-container>
+
+  <ng-container *ngIf="!loadingDashboardCalegCapresIndikator">
+    <app-dashboard-list></app-dashboard-list>
+  </ng-container>
+
+  <ion-modal #modal trigger="filter-data" [initialBreakpoint]="0.45" [breakpoints]="[0, 0.45]">
+    <ng-template>
+      <app-dashboard-modal-filter-data (filter)="filterData($event)" [tingkatan]="tingkatan!"></app-dashboard-modal-filter-data>
+    </ng-template>
+  </ion-modal>
+</ion-content>

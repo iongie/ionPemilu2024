@@ -120,6 +120,85 @@ let  defaultTotalTps:TotalTps = {
     total_relawan: null
 }
 
+interface DashFilterData{
+    provinsi: string |null;
+    kota: string |null;
+    kec: string | null;
+    kel: string | null;
+}
+
+let defaultDashFilterData: DashFilterData = {
+    provinsi: '',
+    kota: '',
+    kec: '',
+    kel: ''
+}
+
+interface Provinsi {
+    id: number | null;
+    n_provinsi: string | null;
+    inisial: string | null;
+}
+
+let defaultProvinsi: Provinsi[] = []
+
+interface Kota {
+    id: number | null;
+    provinsi_id: string | null;
+    n_kota: string | null;
+}
+
+let defaultKota: Kota[] = []
+
+interface Kecamatan {
+    id: number | null;
+    kota_id: string | null;
+    n_kecamatan: string | null;
+}
+
+let defaultKecamatan: Kecamatan[] = []
+
+interface Kelurahan {
+    id: number | null;
+    kecamatan_id: string | null;
+    n_kelurahan: string | null;
+}
+
+let defaultKelurahan: Kelurahan[] = []
+
+interface Paslon {
+    id: number | null;
+    no_urut:  number | null;
+    n_calon:  string | null;
+    n_wakil_calon: string | null;
+}
+
+let defaultPaslon: Paslon[] = [];
+
+interface SuaraPaslon {
+    n_calon: string;
+    no_urut: number;
+    suara: string;
+    percent: string;
+}
+
+let defaultSuaraPaslon: SuaraPaslon[] = [];
+
+interface TotalTPS {
+    jumlah_tps: string | null
+}
+
+let defaultTotalTPS: TotalTPS = {
+    jumlah_tps: null
+};
+
+interface TotalMasukTPS {
+    suara: string | null;
+    total_tps_masuk: number | null
+}
+
+let defaultTotalMasukTPS : TotalMasukTPS[] = []
+
 export {
     Candidate,
     defaultCandidateValue,
@@ -136,5 +215,23 @@ export {
     TotalSuaraPartai,
     defaultTotalSuaraPartai,
     TotalTps,
-    defaultTotalTps
+    defaultTotalTps,
+    DashFilterData,
+    defaultDashFilterData,
+    Provinsi,
+    defaultProvinsi,
+    Kota,
+    defaultKota,
+    Kecamatan,
+    defaultKecamatan,
+    Kelurahan,
+    defaultKelurahan,
+    Paslon,
+    defaultPaslon,
+    SuaraPaslon,
+    defaultSuaraPaslon,
+    TotalTPS,
+    defaultTotalTPS,
+    TotalMasukTPS,
+    defaultTotalMasukTPS
 }

@@ -39,8 +39,6 @@ export class FormVoteComponent implements OnInit, OnDestroy {
       total_suara: [this.voteCaleg.total_suara, [Validators.required, this.formServ.nonNegativeValidator()]],
       file_bukti: [""]
     })
-
-    console.log(this.voteCaleg);
     
     this.updateVote
       ? this.voteCalegForm.get('no_tps')?.disable()

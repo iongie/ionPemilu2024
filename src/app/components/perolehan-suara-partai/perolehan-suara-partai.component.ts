@@ -11,7 +11,6 @@ export class PerolehanSuaraPartaiComponent  implements OnInit {
   constructor() { }
 
   async ngOnInit() {
-    console.log(this.suaraPartai);
   }
 
 }

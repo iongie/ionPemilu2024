@@ -1,0 +1,81 @@
+<ion-header [translucent]="true" appTopBar class="ion-no-border">
+  <ion-toolbar class="toolbar_top">
+    <div class="daun__biru"></div>
+    <ion-buttons slot="secondary">
+      <ion-button id="exit-app" (click)="closeAlert()">
+        <ion-icon name="log-out-outline" size="large" color="light"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title color="light">{{name}}</ion-title>
+  </ion-toolbar>
+  <ion-toolbar class="toolbar_bottom">
+    <div class="daun__merah"></div>
+    <div class="titik__coklat"></div>
+    <div class="toolbar_user__info">
+      <div class="user__info__tingkatan">
+        <ion-label class="tingkatan">
+          <h2>Tingkatan</h2>
+        </ion-label>
+
+        <ion-note class="dapil">
+          {{tingkatan}}
+        </ion-note>
+      </div>
+      <div class="user__info__dapil">
+        <ion-label class="tingkatan">
+          <h2>Daerah Pilihan</h2>
+        </ion-label>
+
+        <ion-note class="dapil">
+          {{dapil}}
+        </ion-note>
+      </div>
+    </div>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true" class="ion-padding" scroll-y="false">
+  <app-menu-kategori-vote (actionKategoriVote)="actionKategoriVote($event)"></app-menu-kategori-vote>
+  <ion-text color="dark">
+    <h3>Perolehan Suara</h3>
+  </ion-text>
+  <ng-container *ngIf="!totalTpsLoading">
+    <div>
+      <app-perolehan-suara [totalTps]="totalTps"></app-perolehan-suara>
+    </div>
+  </ng-container>
+
+  <ng-container *ngIf="totalTpsLoading">
+    <div class="container">
+      <ng-container *ngIf="reloadtotalTpsIndikator">
+        <div class="reload">
+          <ion-spinner name="lines-sharp"></ion-spinner>
+          <ion-button fill="clear" (click)="reloadTotalTps()">Reload</ion-button>
+        </div>
+      </ng-container>
+      <app-perolehan-suara-skeleton></app-perolehan-suara-skeleton>
+    </div>
+  </ng-container>
+  <ng-container *ngIf="perolehanSuaraPartaiLoading">
+    <div class="container">
+      <ng-container *ngIf="reloadIndikator">
+        <div class="reload">
+          <ion-spinner name="lines-sharp"></ion-spinner>
+          <ion-button fill="clear" (click)="reload()">Reload</ion-button>
+        </div>
+      </ng-container>
+      <app-perolehan-suara-partai-skeleton></app-perolehan-suara-partai-skeleton>
+    </div>
+  </ng-container>
+
+  <app-perolehan-suara-partai *ngIf="!perolehanSuaraPartaiLoading"
+    [suaraPartai]="suaraPartai"></app-perolehan-suara-partai>
+
+</ion-content>
+
+
+<ion-fab slot="fixed" vertical="bottom" horizontal="end">
+  <ion-fab-button (click)="gotoDashbboard()">
+    <ion-icon name="apps-outline"></ion-icon>
+  </ion-fab-button>
+</ion-fab>

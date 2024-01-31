@@ -49,10 +49,7 @@ export class ResultVoteComponent implements OnInit, OnDestroy {
   }
 
   handleImageError(event: any): void {
-    console.log('ssdsd', event);
-    
     this.callApiServ.chekFotoPemilu(event).subscribe(res => {
-      console.log(res);
     })
   }
 
