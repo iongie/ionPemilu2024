@@ -4,7 +4,8 @@ import {
   ApexNonAxisChartSeries,
   ApexResponsive,
   ApexChart,
-  ChartComponent
+  ChartComponent,
+  ApexTitleSubtitle
 } from "ng-apexcharts";
 import { Paslon, SuaraPaslon, defaultSuaraPaslon } from 'src/app/app.interface';
 import { DashboardFilterDataService } from 'src/app/services/dashboard-filter-data/dashboard-filter-data.service';
@@ -14,6 +15,7 @@ export type ChartOptions = {
   chart: ApexChart;
   responsive: ApexResponsive[];
   labels: any;
+  title: ApexTitleSubtitle;
 };
 @Component({
   selector: 'app-dashboard-pie-chart',
@@ -39,7 +41,12 @@ export class DashboardPieChartComponent  implements OnInit {
           type: "pie"
         },
         labels:  paslon.map(res => res.n_calon),
-        
+        title: {
+          text: `Data Suara Pemilu Presiden dan Wakil Presiden`,
+          align: "center",
+          floating: true,
+          margin: 64
+        },
         responsive: [
           {
             breakpoint: 480,
@@ -55,7 +62,6 @@ export class DashboardPieChartComponent  implements OnInit {
                 textAnchor: 'middle',
                 distributed: true
               },
-            
             }
           }
         ],

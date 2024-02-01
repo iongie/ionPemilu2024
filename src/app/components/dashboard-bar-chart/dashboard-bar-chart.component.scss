@@ -1,6 +1,8 @@
-#chart {
-    max-width: 650px;
-    margin: 35px auto;
-    margin-bottom: 4px;
-  }
-  
+.chart {
+  width: 100%;
+  /* Lebar penuh layar */
+  height: auto;
+  /* Sesuaikan tinggi grafik sesuai kebutuhan Anda */
+  margin-bottom: 4px;
+  padding: 16px;
+}
