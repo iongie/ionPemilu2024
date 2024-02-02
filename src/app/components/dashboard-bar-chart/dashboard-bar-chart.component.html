@@ -1,12 +1,16 @@
-<div class="chart">
-  <apx-chart
-    [series]="chartOptions.series!"
-    [chart]="chartOptions.chart!"
-    [dataLabels]="chartOptions.dataLabels!"
-    [plotOptions]="chartOptions.plotOptions!"
-    [xaxis]="chartOptions.xaxis!"
-    [yaxis]="chartOptions.yaxis!"
-    [title]="chartOptions.title!"
-    [legend]="chartOptions.legend!"
-  ></apx-chart>
+<div class="bar">
+  <div class="bar-header">
+    <ion-text class="ion-text-center" style="display: flex; align-items: center;">
+      <h4>Data Suara Pemilu {{tingkatan}}</h4>
+    </ion-text>
+    <ion-button fill="clear" (click)="zoom()"> 
+      Zoom
+      <!-- <ion-icon name="telescope-outline" style="font-size: 24px; font-weight: bolder;"></ion-icon> -->
+    </ion-button>
+  </div>
+  <div class="chart" >
+    <apx-chart [series]="chartOptions.series!" [chart]="chartOptions.chart!" [dataLabels]="chartOptions.dataLabels!"
+      [plotOptions]="chartOptions.plotOptions!" [xaxis]="chartOptions.xaxis!" [yaxis]="chartOptions.yaxis!"
+      [title]="chartOptions.title!" [legend]="chartOptions.legend!"></apx-chart>
+  </div>
 </div>

@@ -38,6 +38,7 @@ export class DashboardBarChartComponent implements OnInit {
   public chartOptions!: Partial<ChartOptions>;
   paramId: any = 0;
   tingkatan: string | null = null;
+  widthChart: number = 350;
   constructor(
     private dashboardFilterDataServ: DashboardFilterDataService,
     private actRoute: ActivatedRoute,
@@ -56,7 +57,7 @@ export class DashboardBarChartComponent implements OnInit {
       this.tingkatan = mapping[this.paramId as keyof typeof mapping] || '-';
     })
 
-    this.getAll();
+    this.getexam();
     
   }
 
@@ -71,13 +72,15 @@ export class DashboardBarChartComponent implements OnInit {
         chart: {
           type: "bar",
           height: 280,
+          width: this.widthChart,
           toolbar: {
             show: false
-          }
+          },
         },
         plotOptions: {
           bar: {
             barHeight: "100%",
+            borderRadius: 10,
             distributed: true,
             horizontal: false,
             dataLabels: {
@@ -103,11 +106,11 @@ export class DashboardBarChartComponent implements OnInit {
             show: false
           }
         },
-        title: {
-          text: `Data Suara Pemilu ${this.tingkatan}`,
-          align: "center",
-          floating: true
-        },
+        // title: {
+        //   text: `Data Suara Pemilu ${this.tingkatan}`,
+        //   align: "center",
+        //   floating: true
+        // },
         tooltip: {
           x: {
             show: false
@@ -132,12 +135,14 @@ export class DashboardBarChartComponent implements OnInit {
       this.chartOptions = {
         series: [
           {
-            data: [20000, 300000, 600000, 989700, 2300, 20000, 300000, 600000, 989700, 2300, 20000, 300000, 600000, 989700, 2300, 20000, 300000, 600000, 989700, 2300, 20000, 300000, 600000, 989700, 2300, 20000, 300000, 600000, 989700, 2300, 20000, 300000, 600000, 989700, 2300, 20000, 300000, 600000, 989700, 2300, 20000, 300000, 600000, 989700, 2300, 20000, 300000, 600000, 989700, 2300, 20000, 300000, 600000, 989700, 2300, ],
+            data: [20000, 300000, 600000, 989700, 2300, 20000, 300000, 600000, 989700, 2300, 20000, 300000, 600000, 989700, 2300, 20000, 300000, 600000, 989700, 2300, 20000, 300000, 600000, 989700, 2300, 20000, 300000, 600000, 989700, 2300, 20000, 300000, 600000, 989700, 2300, 20000, 300000, 600000, 989700, 2300, 20000, 300000, 600000, 989700, 2300, 20000, 300000, 600000, 989700, 2300, 20000, 300000, 600000, 989700, 2300, 
+              20000, 300000, 600000, 989700, 2300, 20000, 300000, 600000, 989700, 2300, 20000, 300000, 600000, 989700, 2300, 20000, 300000, 600000, 989700, 2300, 20000, 300000, 600000, 989700, 2300, 20000, 300000, 600000, 989700, 2300, 20000, 300000, 600000, 989700, 2300, 20000, 300000, 600000, 989700, 2300, 20000, 300000, 600000, 989700, 2300, 20000, 300000, 600000, 989700, 2300, 20000, 300000, 600000, 989700, 2300, ],
           }
         ],
         chart: {
           type: "bar",
-          height: 280,
+          height: 380,
+          width: this.widthChart,
           toolbar: {
             show: false
           }
@@ -145,6 +150,7 @@ export class DashboardBarChartComponent implements OnInit {
         plotOptions: {
           bar: {
             barHeight: "100%",
+            borderRadius: 10,
             distributed: true,
             horizontal: false,
             dataLabels: {
@@ -160,7 +166,8 @@ export class DashboardBarChartComponent implements OnInit {
           colors: ["#fff"]
         },
         xaxis: {
-          categories: ['gigih', 'santoso', 'dila', 'nita', 'regi', 'gigih', 'santoso', 'dila', 'nita', 'regi', 'gigih', 'santoso', 'dila', 'nita', 'regi', 'gigih', 'santoso', 'dila', 'nita', 'regi', 'gigih', 'santoso', 'dila', 'nita', 'regi', 'gigih', 'santoso', 'dila', 'nita', 'regi', 'gigih', 'santoso', 'dila', 'nita', 'regi', 'gigih', 'santoso', 'dila', 'nita', 'regi', 'gigih', 'santoso', 'dila', 'nita', 'regi', 'gigih', 'santoso', 'dila', 'nita', 'regi', 'gigih', 'santoso', 'dila', 'nita', 'regi', ],
+          categories: ['gigih', 'santoso', 'dila', 'nita', 'regi', 'gigih', 'santoso', 'dila', 'nita', 'regi', 'gigih', 'santoso', 'dila', 'nita', 'regi', 'gigih', 'santoso', 'dila', 'nita', 'regi', 'gigih', 'santoso', 'dila', 'nita', 'regi', 'gigih', 'santoso', 'dila', 'nita', 'regi', 'gigih', 'santoso', 'dila', 'nita', 'regi', 'gigih', 'santoso', 'dila', 'nita', 'regi', 'gigih', 'santoso', 'dila', 'nita', 'regi', 'gigih', 'santoso', 'dila', 'nita', 'regi', 'gigih', 'santoso', 'dila', 'nita', 'regi', 
+          'gigih', 'santoso', 'dila', 'nita', 'regi', 'gigih', 'santoso', 'dila', 'nita', 'regi', 'gigih', 'santoso', 'dila', 'nita', 'regi', 'gigih', 'santoso', 'dila', 'nita', 'regi', 'gigih', 'santoso', 'dila', 'nita', 'regi', 'gigih', 'santoso', 'dila', 'nita', 'regi', 'gigih', 'santoso', 'dila', 'nita', 'regi', 'gigih', 'santoso', 'dila', 'nita', 'regi', 'gigih', 'santoso', 'dila', 'nita', 'regi', 'gigih', 'santoso', 'dila', 'nita', 'regi', 'gigih', 'santoso', 'dila', 'nita', 'regi', ],
           labels: {
             show: false
           }
@@ -170,11 +177,11 @@ export class DashboardBarChartComponent implements OnInit {
             show: false
           }
         },
-        title: {
-          text: `Data Suara Pemilu ${this.tingkatan}`,
-          align: "center",
-          floating: true
-        },
+        // title: {
+        //   text: `Data Suara Pemilu ${this.tingkatan}`,
+        //   align: "center",
+        //   floating: true
+        // },
         tooltip: {
           x: {
             show: false
@@ -192,6 +199,11 @@ export class DashboardBarChartComponent implements OnInit {
         }
       };
     })
+  }
+
+  zoom(){
+    this.widthChart  = this.widthChart === 350 ? 2000 : 350;
+    this.getexam()
   }
 }
 
