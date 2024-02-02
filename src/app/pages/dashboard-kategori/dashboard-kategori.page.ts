@@ -52,6 +52,7 @@ export class DashboardKategoriPage implements ViewWillEnter, ViewWillLeave {
       })
     })
     this.getAllSubs = this.getAll();
+    this.dashboardFilterDataServ.getFilterData.subscribe((res)=>console.log('dash-kategori', res));
   }
 
   ionViewWillLeave() {
@@ -171,6 +172,62 @@ export class DashboardKategoriPage implements ViewWillEnter, ViewWillLeave {
         this.getTotalTps(res.provinsi!, res.kota!, res.kec!, res.kel!),
         this.getTotalMasukTpsCaleg(this.paramId, res.provinsi!, res.kota!, res.kec!, res.kel!)
       )
+    })
+  }
+
+  reloadList(){
+    this.dashboardFilterDataServ.getFilterData
+    .pipe(
+      tap(()=>this.modalCtrl.dismiss('confirm'))
+    ).subscribe(res=> {
+      this.tingkatan === "Presiden"
+      ? (this.getDataPresiden(res.provinsi!, res.kota!, res.kec!, res.kel!),
+        this.getTotalTps(res.provinsi!, res.kota!, res.kec!, res.kel!),
+        this.getTotalMasukTpsPilpres(res.provinsi!, res.kota!, res.kec!, res.kel!))
+      : (
+        this.getDataCaleg(this.paramId, res.provinsi!, res.kota!, res.kec!, res.kel!),
+        this.getTotalTps(res.provinsi!, res.kota!, res.kec!, res.kel!),
+        this.getTotalMasukTpsCaleg(this.paramId, res.provinsi!, res.kota!, res.kec!, res.kel!)
+      )
+    })
+  }
+
+  reloadTps(){
+    this.dashboardFilterDataServ.getFilterData
+    .pipe(
+      tap(()=>this.modalCtrl.dismiss('confirm'))
+    ).subscribe(res=> {
+      this.getTotalTps(res.provinsi!, res.kota!, res.kec!, res.kel!)
+    })
+  }
+
+  reloadBar(){
+    this.dashboardFilterDataServ.getFilterData
+    .pipe(
+      tap(()=>this.modalCtrl.dismiss('confirm'))
+    ).subscribe(res=> {
+      this.tingkatan !== "Presiden"
+      && this.getDataCaleg(this.paramId, res.provinsi!, res.kota!, res.kec!, res.kel!)
+    })
+  }
+
+  reloadPie(){
+    this.dashboardFilterDataServ.getFilterData
+    .pipe(
+      tap(()=>this.modalCtrl.dismiss('confirm'))
+    ).subscribe(res=> {
+      this.tingkatan === "Presiden"
+      && this.getDataPresiden(res.provinsi!, res.kota!, res.kec!, res.kel!)
+    })
+  }
+
+  reloadCapres(){
+    this.dashboardFilterDataServ.getFilterData
+    .pipe(
+      tap(()=>this.modalCtrl.dismiss('confirm'))
+    ).subscribe(res=> {
+      this.tingkatan === "Presiden"
+      && this.getDataPresiden(res.provinsi!, res.kota!, res.kec!, res.kel!)
     })
   }
 

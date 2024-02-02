@@ -10,7 +10,8 @@ import {
   ApexTooltip,
   ApexStroke,
   ApexTitleSubtitle,
-  ApexYAxis
+  ApexYAxis,
+  ApexLegend
 } from "ng-apexcharts";
 import { DashboardFilterDataService } from 'src/app/services/dashboard-filter-data/dashboard-filter-data.service';
 
@@ -25,6 +26,7 @@ export type ChartOptions = {
   tooltip: ApexTooltip;
   title: ApexTitleSubtitle;
   subtitle: ApexTitleSubtitle;
+  legend: ApexLegend
 };
 @Component({
   selector: 'app-dashboard-bar-chart',
@@ -53,6 +55,12 @@ export class DashboardBarChartComponent implements OnInit {
       
       this.tingkatan = mapping[this.paramId as keyof typeof mapping] || '-';
     })
+
+    this.getAll();
+    
+  }
+
+  getAll(){
     this.dashboardFilterDataServ.getPaslonData.subscribe(paslon => {
       this.chartOptions = {
         series: [
@@ -62,31 +70,23 @@ export class DashboardBarChartComponent implements OnInit {
         ],
         chart: {
           type: "bar",
-          height: 380
+          height: 280,
+          toolbar: {
+            show: false
+          }
         },
         plotOptions: {
           bar: {
             barHeight: "100%",
             distributed: true,
-            horizontal: true,
+            horizontal: false,
             dataLabels: {
               position: "bottom"
             }
           }
         },
         dataLabels: {
-          enabled: true,
-          textAnchor: "start",
-          style: {
-            colors: ["#fff"]
-          },
-          formatter: function(val, opt) {
-            return opt.w.globals.labels[opt.dataPointIndex] + ":  " + val;
-          },
-          offsetX: 0,
-          dropShadow: {
-            enabled: true
-          }
+           enabled:false,
         },
         stroke: {
           width: 1,
@@ -119,10 +119,81 @@ export class DashboardBarChartComponent implements OnInit {
               }
             }
           }
+        },
+        legend:{
+          show:false
         }
       };
     })
   }
 
+  getexam(){
+    this.dashboardFilterDataServ.getPaslonData.subscribe(paslon => {
+      this.chartOptions = {
+        series: [
+          {
+            data: [20000, 300000, 600000, 989700, 2300, 20000, 300000, 600000, 989700, 2300, 20000, 300000, 600000, 989700, 2300, 20000, 300000, 600000, 989700, 2300, 20000, 300000, 600000, 989700, 2300, 20000, 300000, 600000, 989700, 2300, 20000, 300000, 600000, 989700, 2300, 20000, 300000, 600000, 989700, 2300, 20000, 300000, 600000, 989700, 2300, 20000, 300000, 600000, 989700, 2300, 20000, 300000, 600000, 989700, 2300, ],
+          }
+        ],
+        chart: {
+          type: "bar",
+          height: 280,
+          toolbar: {
+            show: false
+          }
+        },
+        plotOptions: {
+          bar: {
+            barHeight: "100%",
+            distributed: true,
+            horizontal: false,
+            dataLabels: {
+              position: "bottom"
+            }
+          }
+        },
+        dataLabels: {
+           enabled:false,
+        },
+        stroke: {
+          width: 1,
+          colors: ["#fff"]
+        },
+        xaxis: {
+          categories: ['gigih', 'santoso', 'dila', 'nita', 'regi', 'gigih', 'santoso', 'dila', 'nita', 'regi', 'gigih', 'santoso', 'dila', 'nita', 'regi', 'gigih', 'santoso', 'dila', 'nita', 'regi', 'gigih', 'santoso', 'dila', 'nita', 'regi', 'gigih', 'santoso', 'dila', 'nita', 'regi', 'gigih', 'santoso', 'dila', 'nita', 'regi', 'gigih', 'santoso', 'dila', 'nita', 'regi', 'gigih', 'santoso', 'dila', 'nita', 'regi', 'gigih', 'santoso', 'dila', 'nita', 'regi', 'gigih', 'santoso', 'dila', 'nita', 'regi', ],
+          labels: {
+            show: false
+          }
+        },
+        yaxis: {
+          labels: {
+            show: false
+          }
+        },
+        title: {
+          text: `Data Suara Pemilu ${this.tingkatan}`,
+          align: "center",
+          floating: true
+        },
+        tooltip: {
+          x: {
+            show: false
+          },
+          y: {
+            title: {
+              formatter: function() {
+                return "";
+              }
+            }
+          }
+        },
+        legend:{
+          show:false
+        }
+      };
+    })
+  }
 }
+
+
 

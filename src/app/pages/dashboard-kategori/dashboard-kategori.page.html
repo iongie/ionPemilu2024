@@ -19,7 +19,7 @@
       <ng-container *ngIf="reloadDashboardCalegCapresIndikator">
         <div class="reload">
           <ion-spinner name="lines-sharp"></ion-spinner>
-          <ion-button fill="clear">Error</ion-button>
+          <ion-button fill="clear" (click)="reloadCapres()">Reload</ion-button>
         </div>
       </ng-container>
       <app-dash-capres-skeleton></app-dash-capres-skeleton>
@@ -35,7 +35,7 @@
       <ng-container *ngIf="reloadDashboardTpsIndikator">
         <div class="reload">
           <ion-spinner name="lines-sharp"></ion-spinner>
-          <ion-button fill="clear">Error</ion-button>
+          <ion-button fill="clear" (click)="reloadTps()">Reload</ion-button>
         </div>
       </ng-container>
       <app-dash-tps-skeleton></app-dash-tps-skeleton>
@@ -51,7 +51,7 @@
       <ng-container *ngIf="reloadDashboardCalegCapresIndikator">
         <div class="reload">
           <ion-spinner name="lines-sharp"></ion-spinner>
-          <ion-button fill="clear">Error</ion-button>
+          <ion-button fill="clear" (click)="reloadPie()">Error</ion-button>
         </div>
       </ng-container>
       <app-dash-pie-skeleton></app-dash-pie-skeleton>
@@ -67,7 +67,7 @@
       <ng-container *ngIf="reloadDashboardCalegCapresIndikator">
         <div class="reload">
           <ion-spinner name="lines-sharp"></ion-spinner>
-          <ion-button fill="clear">Error</ion-button>
+          <ion-button fill="clear" (click)="reloadBar()">Reload</ion-button>
         </div>
       </ng-container>
       <app-dash-bar-skeleton></app-dash-bar-skeleton>
@@ -83,7 +83,7 @@
       <ng-container *ngIf="reloadDashboardCalegCapresIndikator">
         <div class="reload">
           <ion-spinner name="lines-sharp"></ion-spinner>
-          <ion-button fill="clear">Error</ion-button>
+          <ion-button fill="clear" (click)="reloadList()">Reload</ion-button>
         </div>
       </ng-container>
       <app-perolehan-suara-partai-skeleton></app-perolehan-suara-partai-skeleton>

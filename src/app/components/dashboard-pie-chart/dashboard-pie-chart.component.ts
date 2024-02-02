@@ -5,7 +5,8 @@ import {
   ApexResponsive,
   ApexChart,
   ChartComponent,
-  ApexTitleSubtitle
+  ApexTitleSubtitle,
+  ApexLegend
 } from "ng-apexcharts";
 import { Paslon, SuaraPaslon, defaultSuaraPaslon } from 'src/app/app.interface';
 import { DashboardFilterDataService } from 'src/app/services/dashboard-filter-data/dashboard-filter-data.service';
@@ -16,6 +17,7 @@ export type ChartOptions = {
   responsive: ApexResponsive[];
   labels: any;
   title: ApexTitleSubtitle;
+  legend: ApexLegend;
 };
 @Component({
   selector: 'app-dashboard-pie-chart',
@@ -65,6 +67,9 @@ export class DashboardPieChartComponent  implements OnInit {
             }
           }
         ],
+        legend: {
+          show:false
+        }
       };
     })
   }
