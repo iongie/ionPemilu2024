@@ -38,13 +38,13 @@ export class DashboardBarChartComponent implements OnInit {
   public chartOptions!: Partial<ChartOptions>;
   paramId: any = 0;
   tingkatan: string | null = null;
-  widthChart: number = 350;
+  widthChart: string | number = '100%';
   constructor(
     private dashboardFilterDataServ: DashboardFilterDataService,
     private actRoute: ActivatedRoute,
   ) { }
   ngOnInit() {
-    this.actRoute.params.subscribe(res=>{
+    this.actRoute.params.subscribe(res => {
       this.paramId = res['id'];
       const mapping = {
         "1": "DPR",
@@ -53,20 +53,20 @@ export class DashboardBarChartComponent implements OnInit {
         "4": "DPRD PROVINSI",
         "5": "Presiden"
       };
-      
+
       this.tingkatan = mapping[this.paramId as keyof typeof mapping] || '-';
     })
 
-    this.getexam();
-    
+    this.getAll();
+
   }
 
-  getAll(){
+  getAll() {
     this.dashboardFilterDataServ.getPaslonData.subscribe(paslon => {
       this.chartOptions = {
         series: [
           {
-            data: paslon.map(res=> parseInt(res.suara!))
+            data: paslon.map(res => parseInt(res.suara!))
           }
         ],
         chart: {
@@ -89,7 +89,7 @@ export class DashboardBarChartComponent implements OnInit {
           }
         },
         dataLabels: {
-           enabled:false,
+          enabled: false,
         },
         stroke: {
           width: 1,
@@ -117,26 +117,26 @@ export class DashboardBarChartComponent implements OnInit {
           },
           y: {
             title: {
-              formatter: function() {
+              formatter: function () {
                 return "";
               }
             }
           }
         },
-        legend:{
-          show:false
+        legend: {
+          show: false
         }
       };
     })
   }
 
-  getexam(){
+  getexam() {
     this.dashboardFilterDataServ.getPaslonData.subscribe(paslon => {
       this.chartOptions = {
         series: [
           {
-            data: [20000, 300000, 600000, 989700, 2300, 20000, 300000, 600000, 989700, 2300, 20000, 300000, 600000, 989700, 2300, 20000, 300000, 600000, 989700, 2300, 20000, 300000, 600000, 989700, 2300, 20000, 300000, 600000, 989700, 2300, 20000, 300000, 600000, 989700, 2300, 20000, 300000, 600000, 989700, 2300, 20000, 300000, 600000, 989700, 2300, 20000, 300000, 600000, 989700, 2300, 20000, 300000, 600000, 989700, 2300, 
-              20000, 300000, 600000, 989700, 2300, 20000, 300000, 600000, 989700, 2300, 20000, 300000, 600000, 989700, 2300, 20000, 300000, 600000, 989700, 2300, 20000, 300000, 600000, 989700, 2300, 20000, 300000, 600000, 989700, 2300, 20000, 300000, 600000, 989700, 2300, 20000, 300000, 600000, 989700, 2300, 20000, 300000, 600000, 989700, 2300, 20000, 300000, 600000, 989700, 2300, 20000, 300000, 600000, 989700, 2300, ],
+            data: [20000, 300000, 600000, 989700, 2300, 20000, 300000, 600000, 989700, 2300, 20000, 300000, 600000, 989700, 2300, 20000, 300000, 600000, 989700, 2300, 20000, 300000, 600000, 989700, 2300, 20000, 300000, 600000, 989700, 2300, 20000, 300000, 600000, 989700, 2300, 20000, 300000, 600000, 989700, 2300, 20000, 300000, 600000, 989700, 2300, 20000, 300000, 600000, 989700, 2300, 20000, 300000, 600000, 989700, 2300,
+              20000, 300000, 600000, 989700, 2300, 20000, 300000, 600000, 989700, 2300, 20000, 300000, 600000, 989700, 2300, 20000, 300000, 600000, 989700, 2300, 20000, 300000, 600000, 989700, 2300, 20000, 300000, 600000, 989700, 2300, 20000, 300000, 600000, 989700, 2300, 20000, 300000, 600000, 989700, 2300, 20000, 300000, 600000, 989700, 2300, 20000, 300000, 600000, 989700, 2300, 20000, 300000, 600000, 989700, 2300,],
           }
         ],
         chart: {
@@ -159,15 +159,15 @@ export class DashboardBarChartComponent implements OnInit {
           }
         },
         dataLabels: {
-           enabled:false,
+          enabled: false,
         },
         stroke: {
           width: 1,
           colors: ["#fff"]
         },
         xaxis: {
-          categories: ['gigih', 'santoso', 'dila', 'nita', 'regi', 'gigih', 'santoso', 'dila', 'nita', 'regi', 'gigih', 'santoso', 'dila', 'nita', 'regi', 'gigih', 'santoso', 'dila', 'nita', 'regi', 'gigih', 'santoso', 'dila', 'nita', 'regi', 'gigih', 'santoso', 'dila', 'nita', 'regi', 'gigih', 'santoso', 'dila', 'nita', 'regi', 'gigih', 'santoso', 'dila', 'nita', 'regi', 'gigih', 'santoso', 'dila', 'nita', 'regi', 'gigih', 'santoso', 'dila', 'nita', 'regi', 'gigih', 'santoso', 'dila', 'nita', 'regi', 
-          'gigih', 'santoso', 'dila', 'nita', 'regi', 'gigih', 'santoso', 'dila', 'nita', 'regi', 'gigih', 'santoso', 'dila', 'nita', 'regi', 'gigih', 'santoso', 'dila', 'nita', 'regi', 'gigih', 'santoso', 'dila', 'nita', 'regi', 'gigih', 'santoso', 'dila', 'nita', 'regi', 'gigih', 'santoso', 'dila', 'nita', 'regi', 'gigih', 'santoso', 'dila', 'nita', 'regi', 'gigih', 'santoso', 'dila', 'nita', 'regi', 'gigih', 'santoso', 'dila', 'nita', 'regi', 'gigih', 'santoso', 'dila', 'nita', 'regi', ],
+          categories: ['gigih', 'santoso', 'dila', 'nita', 'regi', 'gigih', 'santoso', 'dila', 'nita', 'regi', 'gigih', 'santoso', 'dila', 'nita', 'regi', 'gigih', 'santoso', 'dila', 'nita', 'regi', 'gigih', 'santoso', 'dila', 'nita', 'regi', 'gigih', 'santoso', 'dila', 'nita', 'regi', 'gigih', 'santoso', 'dila', 'nita', 'regi', 'gigih', 'santoso', 'dila', 'nita', 'regi', 'gigih', 'santoso', 'dila', 'nita', 'regi', 'gigih', 'santoso', 'dila', 'nita', 'regi', 'gigih', 'santoso', 'dila', 'nita', 'regi',
+            'gigih', 'santoso', 'dila', 'nita', 'regi', 'gigih', 'santoso', 'dila', 'nita', 'regi', 'gigih', 'santoso', 'dila', 'nita', 'regi', 'gigih', 'santoso', 'dila', 'nita', 'regi', 'gigih', 'santoso', 'dila', 'nita', 'regi', 'gigih', 'santoso', 'dila', 'nita', 'regi', 'gigih', 'santoso', 'dila', 'nita', 'regi', 'gigih', 'santoso', 'dila', 'nita', 'regi', 'gigih', 'santoso', 'dila', 'nita', 'regi', 'gigih', 'santoso', 'dila', 'nita', 'regi', 'gigih', 'santoso', 'dila', 'nita', 'regi',],
           labels: {
             show: false
           }
@@ -188,22 +188,23 @@ export class DashboardBarChartComponent implements OnInit {
           },
           y: {
             title: {
-              formatter: function() {
+              formatter: function () {
                 return "";
               }
             }
           }
         },
-        legend:{
-          show:false
+        legend: {
+          show: false
         }
       };
     })
   }
 
-  zoom(){
-    this.widthChart  = this.widthChart === 350 ? 2000 : 350;
-    this.getexam()
+  zoom() {
+    this.widthChart = this.widthChart === '100%' ? 5000: '100%';
+    this.getAll()
+
   }
 }
 
