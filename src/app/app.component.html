@@ -1,9 +1,11 @@
-<ion-app>
-  <ion-router-outlet></ion-router-outlet>
-  <ng-container *ngIf="isInstallPWA">
-    <app-install-pwa (action)="onActionPwa($event)"></app-install-pwa>
-  </ng-container>
-  <ng-container *ngIf="!connected">
-    <app-connection [connected]="connected" [connectedType]="connectionType"></app-connection>
-  </ng-container>
+<ion-app class="app-visual">
+  <ion-content class="app-content">
+    <ion-router-outlet></ion-router-outlet>
+    <ng-container *ngIf="isInstallPWA">
+      <app-install-pwa (action)="onActionPwa($event)"></app-install-pwa>
+    </ng-container>
+    <ng-container *ngIf="!connected">
+      <app-connection [connected]="connected" [connectedType]="connectionType"></app-connection>
+    </ng-container>
+  </ion-content>
 </ion-app>

@@ -1,8 +1,17 @@
 .app-visual{
-    width: 600px;
-    height: 100px;
     display: flex;
     justify-content: center;
     align-items: center;
     outline: 1px red solid;
+}
+
+.app-content{
+    width: 50vw;
+    outline: 1px solid #DFDFDF;
+}
+
+@media screen and (max-width: 992px) {
+   .app-content{
+    width: 100vw;
+   }
 }
