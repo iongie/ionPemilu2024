@@ -21,6 +21,8 @@ export class FormVoteComponent implements OnInit, OnDestroy {
   @Input() voteCalegId: number | null = null;
   voteCalegForm!: FormGroup;
   upload_bukti_camera: any;
+
+  bug_format: string = '';
   constructor(
     private fb: FormBuilder,
     private modalCtrl: ModalController,
@@ -39,7 +41,7 @@ export class FormVoteComponent implements OnInit, OnDestroy {
       total_suara: [this.voteCaleg.total_suara, [Validators.required, this.formServ.nonNegativeValidator()]],
       file_bukti: [""]
     })
-    
+
     this.updateVote
       ? this.voteCalegForm.get('no_tps')?.disable()
       : this.voteCalegForm.get('id_caleg')?.setValue(this.voteCalegId)
@@ -58,12 +60,20 @@ export class FormVoteComponent implements OnInit, OnDestroy {
     return this.noTps.hasError('required') && this.noTps.touched;
   }
 
+  get noTpsLimit() {
+    return this.noTps.hasError('max') && this.noTps.touched;
+  }
+
   get totalSuara() {
     return this.voteCalegForm.get('total_suara')!;
   }
 
   get totalSuaraRequest() {
     return this.totalSuara.errors?.['required'] && this.totalSuara.touched;
+  }
+
+  get totalSuaraRequestLimit() {
+    return this.totalSuara.hasError('max') && this.totalSuara.touched;
   }
 
   get getErrorText() {
@@ -92,16 +102,17 @@ export class FormVoteComponent implements OnInit, OnDestroy {
       resultType: CameraResultType.DataUrl,
       source: CameraSource.Camera
     });
-    const cekFormat = await image.format !== 'png' && image.format !== 'jpg'
+    this.bug_format = image.format
+    const cekFormat = await image.format !== 'png' && image.format !== 'jpg' && image.format !== 'jpeg'
 
     let imageUrl = await image.dataUrl;
     this.upload_bukti_camera = await imageUrl;
-    this.voteCalegForm.patchValue({file_bukti: this.getFileFromBase64(this.upload_bukti_camera, 'file_bukti.png') })
+    this.voteCalegForm.patchValue({ file_bukti: this.getFileFromBase64(this.upload_bukti_camera, 'file_bukti.png') })
     await cekFormat
-      ? (this.messageResponse.toastMode('format harus JPG atau PNG', 3000, 'top', 'header', 'danger'), 
+      ? (this.messageResponse.toastMode(`format harus JPG atau PNG`, 3000, 'top', 'header', 'danger'),
         this.voteCalegForm.reset(defaultVoteCaleg),
         this.upload_bukti_camera = 'https://ionicframework.com/docs/img/demos/thumbnail.svg')
-      : this.voteCalegForm.patchValue({file_bukti: this.getFileFromBase64(this.upload_bukti_camera, 'file_bukti.png') })
+      : this.voteCalegForm.patchValue({ file_bukti: this.getFileFromBase64(this.upload_bukti_camera, 'file_bukti.png') })
   }
 
   cancelPolling() {
@@ -119,8 +130,8 @@ export class FormVoteComponent implements OnInit, OnDestroy {
     voteFormData.append('file_bukti', this.voteCalegForm.get('file_bukti')?.value)
     const fileData = voteFormData.get('file_bukti') as File;
     const fileType = fileData?.type;
-    this.voteCalegForm.valid 
-    && fileType !== 'png' && fileType !== 'jpg'
+    this.voteCalegForm.valid
+      && fileType !== 'png' && fileType !== 'jpg' && fileType !== 'jpeg'
       ? from(this.loadingCtrl.create({
         message: 'loading...',
         duration: 100,
@@ -152,8 +163,10 @@ export class FormVoteComponent implements OnInit, OnDestroy {
     updateVoteFormData.append('file_bukti', this.voteCalegForm.get('file_bukti')?.value)
     const fileData = updateVoteFormData.get('file_bukti') as File;
     const fileType = fileData?.type;
-    this.voteCalegForm.valid 
-    && fileType !== 'png' && fileType !== 'jpg'
+    console.log(fileType);
+
+    this.voteCalegForm.valid
+      && fileType !== 'png' && fileType !== 'jpg'
       && from(this.loadingCtrl.create({
         message: 'loading...',
         duration: 100,

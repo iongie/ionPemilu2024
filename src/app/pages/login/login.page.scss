@@ -1,4 +1,4 @@
-.login{
+.log-in{
     width: 100%;
     height: 100%;
     display: flex;
@@ -8,27 +8,18 @@
     justify-content: center;
 }
 
-.image__login{
-    align-self: flex-start;
-    max-width: 100%;
-    height: auto;
-    max-height: 183px; /* Atur maksimum tinggi jika perlu */
-}
-
-.login__title{ 
-    align-self: flex-start;
-    padding-left: 40px;
-    color: #DCC2CA; 
-    font-size: 45px; 
-    font-weight: 600; 
-    word-wrap: break-word;
-}
-
-.login__title h1::first-letter{
+.log-in h1::first-letter{
     text-transform: capitalize;
 }
 
-.form__login{
+.logo-tangsel{
+    align-self: center;
+    width: 160px;
+    height: 160px;
+}
+
+
+.form-login{
     padding: 26px;
     min-width: 315px;
 }

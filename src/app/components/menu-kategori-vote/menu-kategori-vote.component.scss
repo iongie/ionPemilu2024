@@ -14,13 +14,14 @@
 }
 
 .menu__kategori__items {
+    flex: 1;
     width: 96px;
-    height: 96px;
+    height: 120px;
     border-radius: 24px;
     padding: 20px;
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: flex-start;
     align-items: center;
     gap: 4px;
 }
@@ -32,8 +33,9 @@ ion-thumbnail.kategori__thumbnail {
 
 @media screen and (max-width: 480px) {
     .menu__kategori__items {
+        flex: 1;
         width: 72px;
-        height: 72px;
+        height: 120px;
     }
 
     ion-thumbnail.kategori__thumbnail {
@@ -44,17 +46,17 @@ ion-thumbnail.kategori__thumbnail {
 }
 
 .dpd {
-    background: #47B6D4;
+    background: #F3D2F1;
 }
 
 .dpr {
-    background: #EE1E5F;
+    background: #F6CBCB;
 }
 
 .dprd {
-    background: #FAB512;
+    background: #F6F3D7;
 }
 
 .dprdprov {
-    background: #4E61B6;
+    background: #D8E7F7;
 }

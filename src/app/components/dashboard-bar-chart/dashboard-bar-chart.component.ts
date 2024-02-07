@@ -103,8 +103,9 @@ export class DashboardBarChartComponent implements OnInit {
         },
         yaxis: {
           labels: {
-            show: false
-          }
+            show: true
+          },
+
         },
         // title: {
         //   text: `Data Suara Pemilu ${this.tingkatan}`,
@@ -202,9 +203,13 @@ export class DashboardBarChartComponent implements OnInit {
   }
 
   zoom() {
-    this.widthChart = this.widthChart === '100%' ? 5000: '100%';
-    this.getAll()
+    this.dashboardFilterDataServ.getPaslonData.subscribe(paslon => {
+      console.log('paslon-zoom', paslon.length);
+      this.widthChart = this.widthChart === '100%' 
+      ? paslon.length > 50 ? 5000 : '100%' : '100%';
+      this.getAll()
 
+    })
   }
 }
 

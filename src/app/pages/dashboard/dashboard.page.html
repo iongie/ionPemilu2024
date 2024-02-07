@@ -15,15 +15,9 @@
   <ion-text color="dark">
     <h3>Perolehan Suara</h3>
   </ion-text>
-  <ng-container *ngIf="!totalTpsLoading">
-    <div>
-      <app-perolehan-suara [totalTps]="totalTps"></app-perolehan-suara>
-    </div>
-  </ng-container>
-
-  <ng-container *ngIf="totalTpsLoading">
+  <ng-container *ngIf="loadingDashboardTpsIndikator">
     <div class="container">
-      <ng-container *ngIf="reloadtotalTpsIndikator">
+      <ng-container *ngIf="reloadDashboardTpsIndikator">
         <div class="reload">
           <ion-spinner name="lines-sharp"></ion-spinner>
           <ion-button fill="clear" (click)="reloadTotalTps()">Reload</ion-button>
@@ -32,6 +26,12 @@
       <app-perolehan-suara-skeleton></app-perolehan-suara-skeleton>
     </div>
   </ng-container>
+
+  <ng-container *ngIf="!loadingDashboardTpsIndikator">
+    <app-dashboard-perolehan-suara [tps]="totalTps"></app-dashboard-perolehan-suara>
+  </ng-container>
+
+
   <ng-container *ngIf="perolehanSuaraPartaiLoading">
     <div class="container">
       <ng-container *ngIf="reloadIndikator">

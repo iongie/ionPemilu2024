@@ -1,9 +1,11 @@
 <ion-content [fullscreen]="true">
-  <div class="login">
-    <ion-img src="../../../assets/illustration.png" class="image__login"
-      alt="The Wisconsin State Capitol building in Madison, WI at night"></ion-img>
-    <div class="login__title">Welcome<br />Back!</div>
-    <form class="form__login" [formGroup]="loginForm" #formDir="ngForm" (submit)="onSubmit()">
+  <div class="log-in">
+    <ion-img src="../../../assets/Lambang_Kota_Tangerang_Selatan.svg.png" class="logo-tangsel"
+      alt="Tangerang Selatan"></ion-img>
+    <ion-text class="ion-text-center" color="primary">
+      <h1>Selamat Datang</h1>
+    </ion-text>
+    <form class="form-login" [formGroup]="loginForm" #formDir="ngForm" (submit)="onSubmit()">
       <ion-input id="username" name="username" type="text" label-placement="floating" fill="outline" label="Username"
         placeholder="Masukan Username" formControlName="username"
         [errorText]="usernameRequest && 'Username is Request'"></ion-input>
@@ -13,5 +15,4 @@
       <ion-button id="login" type="submit" expand="block" [disabled]="!loginForm.valid">Login</ion-button>
     </form>
   </div>
-  
 </ion-content>

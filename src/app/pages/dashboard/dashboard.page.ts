@@ -4,6 +4,7 @@ import { AlertController, ViewWillEnter, ViewWillLeave } from '@ionic/angular';
 import { Subject, Subscription, combineLatest, delay, interval, startWith, switchMap, takeUntil, tap } from 'rxjs';
 import { TotalSuaraPartai, TotalTps, defaultTotalTps } from 'src/app/app.interface';
 import { CallApiService } from 'src/app/services/callApi/call-api.service';
+import { DashboardFilterDataService } from 'src/app/services/dashboard-filter-data/dashboard-filter-data.service';
 import { PwaService } from 'src/app/services/pwa/pwa.service';
 import { TokenService } from 'src/app/services/token/token.service';
 import { UserService } from 'src/app/services/user/user.service';
@@ -32,6 +33,12 @@ export class DashboardPage implements ViewWillEnter, ViewWillLeave {
   totalTpsLoading = true;
   reloadtotalTpsIndikator = false;
   getTotalTpsSubcription: Subscription | undefined;
+
+  reloadDashboardTpsIndikator = false;
+
+  loadingDashboardTpsIndikator = true;
+  getTotalTpsAllSubcription: Subscription | undefined;
+  
   constructor(
     private user: UserService,
     private tokenServ: TokenService,
@@ -39,6 +46,7 @@ export class DashboardPage implements ViewWillEnter, ViewWillLeave {
     private callApiServ: CallApiService,
     private alertController: AlertController,
     private router: Router,
+    private dashboardFilterDataServ: DashboardFilterDataService,
   ) { }
 
   ionViewWillEnter() {
@@ -63,6 +71,7 @@ export class DashboardPage implements ViewWillEnter, ViewWillLeave {
     this.pwaService.getInstallPWA.subscribe(res => {
       this.isInstallPWA = res
     })
+    this.getTotalTpsAllSubcription = this.getTotalTpsAll('','','','');
     this.perolehanSuaraPartaiSubcribe = this.perolehanSuaraPartai()
     this.getTotalTpsSubcription = this.getTotalTps()
   }
@@ -72,6 +81,7 @@ export class DashboardPage implements ViewWillEnter, ViewWillLeave {
     this.destroy.complete();
     this.perolehanSuaraPartaiSubcribe?.unsubscribe();
     this.getTotalTpsSubcription?.unsubscribe();
+    this.getTotalTpsAllSubcription?.unsubscribe();
   }
   
 
@@ -138,6 +148,22 @@ export class DashboardPage implements ViewWillEnter, ViewWillLeave {
     this.reloadIndikator = false
   }
 
+  getTotalTpsAll(provinsi_id: string, kota_id: string, kecamatan_id: string, kelurahan_id: string) {
+    return this.tokenServ.getToken.pipe(
+      delay(1000),
+      switchMap((token) => this.callApiServ.getPaslon(`get-total-tps-capres`, token, provinsi_id, kota_id, kecamatan_id, kelurahan_id)),
+      tap((res: any) => this.dashboardFilterDataServ.updatetotalTps(res.data)),
+      tap(() => this.loadingDashboardTpsIndikator = false)
+    ).subscribe(
+      {
+        error: (e: any) => (
+          this.loadingDashboardTpsIndikator = true,
+          this.reloadDashboardTpsIndikator = true
+        )
+      }
+    )
+  }
+
 
   getTotalTps(){
     return this.tokenServ.getToken.pipe(
@@ -160,7 +186,7 @@ export class DashboardPage implements ViewWillEnter, ViewWillLeave {
   }
 
   reloadTotalTps(){
-    this.getTotalTpsSubcription = this.getTotalTps()
+    this.getTotalTpsAllSubcription = this.getTotalTpsAll('','','','')
     this.reloadtotalTpsIndikator = false
   }
 

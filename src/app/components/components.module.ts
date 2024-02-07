@@ -33,6 +33,8 @@ import { DashBarSkeletonComponent } from './progress-indikator/dash-bar-skeleton
 import { DashCapresSkeletonComponent } from './progress-indikator/dash-capres-skeleton/dash-capres-skeleton.component';
 import { DashPieSkeletonComponent } from './progress-indikator/dash-pie-skeleton/dash-pie-skeleton.component';
 import { DashTpsSkeletonComponent } from './progress-indikator/dash-tps-skeleton/dash-tps-skeleton.component';
+import { DashboardPerolehanSuaraComponent } from './dashboard-perolehan-suara/dashboard-perolehan-suara.component';
+import { InputLimitDirective } from '../directives/input-limit/input-limit.directive';
 
 
 
@@ -65,10 +67,12 @@ import { DashTpsSkeletonComponent } from './progress-indikator/dash-tps-skeleton
     DashboardPieChartComponent,
     DashboardListComponent,
     DashboardModalFilterDataComponent,
+    DashboardPerolehanSuaraComponent,
     DashBarSkeletonComponent,
     DashCapresSkeletonComponent,
     DashPieSkeletonComponent,
-    DashTpsSkeletonComponent
+    DashTpsSkeletonComponent,
+    InputLimitDirective
   ],
   imports: [
     CommonModule,
@@ -104,6 +108,7 @@ import { DashTpsSkeletonComponent } from './progress-indikator/dash-tps-skeleton
     DashboardPieChartComponent,
     DashboardListComponent,
     DashboardModalFilterDataComponent,
+    DashboardPerolehanSuaraComponent,
     DashBarSkeletonComponent,
     DashCapresSkeletonComponent,
     DashPieSkeletonComponent,

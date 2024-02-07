@@ -162,7 +162,7 @@ export class DashboardModalFilterDataComponent implements OnInit {
       this.token.getToken,
       this.dataProvinsiServ.getProvinsi
     ]).pipe(
-      switchMap(([token, prov]) => this.callApiServ.get(`kecamatan-list/${this.dataFilter.kec}`, token))
+      switchMap(([token, prov]) => this.callApiServ.get(`kelurahan-list/${this.dataFilter.kec}`, token))
     ).subscribe(
       {
         next: (res: any) => (
