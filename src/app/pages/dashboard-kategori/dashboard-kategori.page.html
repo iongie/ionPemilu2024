@@ -13,7 +13,7 @@
 </ion-header>
 
 <ion-content [fullscreen]="true" class="ion-padding">
-
+  <app-dashboard-desc-filter></app-dashboard-desc-filter>
   <ng-container *ngIf="tingkatan === 'Presiden' && loadingDashboardCalegCapresIndikator">
     <div class="container">
       <ng-container *ngIf="reloadDashboardCalegCapresIndikator">
@@ -25,7 +25,7 @@
       <app-dash-capres-skeleton></app-dash-capres-skeleton>
     </div>
   </ng-container>
-  
+
   <ng-container *ngIf="tingkatan === 'Presiden' && !loadingDashboardCalegCapresIndikator">
     <app-dashboard-capres></app-dashboard-capres>
   </ng-container>
@@ -78,7 +78,7 @@
     <app-dashboard-bar-chart></app-dashboard-bar-chart>
   </ng-container>
 
-  <ng-container *ngIf="loadingDashboardCalegCapresIndikator">
+  <ng-container *ngIf="loadingDashboardTpsIndikator">
     <div class="container">
       <ng-container *ngIf="reloadDashboardCalegCapresIndikator">
         <div class="reload">
@@ -90,13 +90,14 @@
     </div>
   </ng-container>
 
-  <ng-container *ngIf="!loadingDashboardCalegCapresIndikator">
+  <ng-container *ngIf="!loadingDashboardTpsIndikator">
     <app-dashboard-list></app-dashboard-list>
   </ng-container>
 
   <ion-modal #modal trigger="filter-data" [initialBreakpoint]="0.45" [breakpoints]="[0, 0.45]">
     <ng-template>
-      <app-dashboard-modal-filter-data (filter)="filterData($event)" [tingkatan]="tingkatan!"></app-dashboard-modal-filter-data>
+      <app-dashboard-modal-filter-data (filter)="filterData($event)"
+        [tingkatan]="tingkatan!"></app-dashboard-modal-filter-data>
     </ng-template>
   </ion-modal>
 </ion-content>

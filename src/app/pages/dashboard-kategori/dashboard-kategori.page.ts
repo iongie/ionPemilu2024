@@ -18,12 +18,15 @@ export class DashboardKategoriPage implements ViewWillEnter, ViewWillLeave {
   tingkatan: string | null = null;
 
   getAllSubs: Subscription | undefined;
+  filterSUbs: Subscription | undefined;
 
   reloadDashboardTpsIndikator = false;
   reloadDashboardCalegCapresIndikator = false;
 
   loadingDashboardTpsIndikator = true;
   loadingDashboardCalegCapresIndikator = true;
+
+  dashFilter: DashFilterData = defaultDashFilterData;
   constructor(
     private actRoute: ActivatedRoute,
     private callApiServ: CallApiService,
@@ -45,14 +48,22 @@ export class DashboardKategoriPage implements ViewWillEnter, ViewWillLeave {
 
       this.tingkatan = mapping[this.paramId as keyof typeof mapping] || '-';
       this.dashboardFilterDataServ.updateFilterData({
-        provinsi: res['id'] === '5' || res['id'] === '1' ? '' : '36',
-        kota: res['id'] === '5' || res['id'] === '1' ? '' : '3674',
+        provinsi: '36',
+        kota: '3674',
         kec: '',
         kel: ''
       })
+      // this.dashboardFilterDataServ.updateFilterData({
+      //   provinsi: res['id'] === '5' || res['id'] === '1' ? '' : '36',
+      //   kota: res['id'] === '5' || res['id'] === '1' ? '' : '3674',
+      //   kec: '',
+      //   kel: ''
+      // })
     })
     this.getAllSubs = this.getAll();
-    this.dashboardFilterDataServ.getFilterData.subscribe((res)=>console.log('dash-kategori', res));
+    this.dashboardFilterDataServ.getFilterData.subscribe((res)=>{
+      this.dashFilter = res
+    });
   }
 
   ionViewWillLeave() {
@@ -94,7 +105,6 @@ export class DashboardKategoriPage implements ViewWillEnter, ViewWillLeave {
     return this.token.getToken.pipe(
       switchMap((token) => this.callApiServ.getPaslon(`suara-caleg/${id}`, token, provinsi_id, kota_id, kecamatan_id, kelurahan_id)),
       tap((res: any) => {
-        console.log(res.data);
         this.dashboardFilterDataServ.updatePaslon(res.data)
       }),
       tap(() => this.loadingDashboardCalegCapresIndikator = false)
@@ -158,6 +168,8 @@ export class DashboardKategoriPage implements ViewWillEnter, ViewWillLeave {
   }
 
   filterData(newData: DashFilterData) {
+    console.log(this.loadingDashboardTpsIndikator, this.loadingDashboardTpsIndikator);
+    
     this.dashboardFilterDataServ.updateFilterData(newData);
     this.dashboardFilterDataServ.getFilterData
     .pipe(

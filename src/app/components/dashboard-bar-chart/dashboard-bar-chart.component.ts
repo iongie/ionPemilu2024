@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import {
   ApexAxisChartSeries,
@@ -13,6 +13,7 @@ import {
   ApexYAxis,
   ApexLegend
 } from "ng-apexcharts";
+import { Subscription } from 'rxjs';
 import { DashboardFilterDataService } from 'src/app/services/dashboard-filter-data/dashboard-filter-data.service';
 
 export type ChartOptions = {
@@ -33,12 +34,14 @@ export type ChartOptions = {
   templateUrl: './dashboard-bar-chart.component.html',
   styleUrls: ['./dashboard-bar-chart.component.scss'],
 })
-export class DashboardBarChartComponent implements OnInit {
+export class DashboardBarChartComponent implements OnInit, OnDestroy {
   @ViewChild("chart") chart!: ChartComponent;
   public chartOptions!: Partial<ChartOptions>;
   paramId: any = 0;
   tingkatan: string | null = null;
   widthChart: string | number = '100%';
+
+  getAllSubcription: Subscription | undefined;
   constructor(
     private dashboardFilterDataServ: DashboardFilterDataService,
     private actRoute: ActivatedRoute,
@@ -57,12 +60,16 @@ export class DashboardBarChartComponent implements OnInit {
       this.tingkatan = mapping[this.paramId as keyof typeof mapping] || '-';
     })
 
-    this.getAll();
+    this.getAllSubcription= this.getAll();
 
   }
 
+  ngOnDestroy(): void {
+    this.getAllSubcription?.unsubscribe();
+  }
+
   getAll() {
-    this.dashboardFilterDataServ.getPaslonData.subscribe(paslon => {
+    return this.dashboardFilterDataServ.getPaslonData.subscribe(paslon => {
       this.chartOptions = {
         series: [
           {
@@ -107,11 +114,6 @@ export class DashboardBarChartComponent implements OnInit {
           },
 
         },
-        // title: {
-        //   text: `Data Suara Pemilu ${this.tingkatan}`,
-        //   align: "center",
-        //   floating: true
-        // },
         tooltip: {
           x: {
             show: false
@@ -178,11 +180,6 @@ export class DashboardBarChartComponent implements OnInit {
             show: false
           }
         },
-        // title: {
-        //   text: `Data Suara Pemilu ${this.tingkatan}`,
-        //   align: "center",
-        //   floating: true
-        // },
         tooltip: {
           x: {
             show: false
@@ -204,7 +201,6 @@ export class DashboardBarChartComponent implements OnInit {
 
   zoom() {
     this.dashboardFilterDataServ.getPaslonData.subscribe(paslon => {
-      console.log('paslon-zoom', paslon.length);
       this.widthChart = this.widthChart === '100%' 
       ? paslon.length > 50 ? 5000 : '100%' : '100%';
       this.getAll()

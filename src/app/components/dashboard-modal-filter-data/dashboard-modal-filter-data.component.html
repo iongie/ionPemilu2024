@@ -22,7 +22,7 @@
     </ion-select>
   </ion-item>
   <ion-item>
-    <ion-select  [disabled]="dataFilter.kec!.length === 0" label="Kelurahan" [interfaceOptions]="customKelurahanOptions" interface="alert"
+    <ion-select (ionChange)="onKelChange($event)"   [disabled]="dataFilter.kec!.length === 0" label="Kelurahan" [interfaceOptions]="customKelurahanOptions" interface="alert"
       placeholder="Pilih Salah Satu">
       <ng-container *ngFor="let kelurahan of kelurahan">
         <ion-select-option [value]="kelurahan.id">{{kelurahan.n_kelurahan}}</ion-select-option>

@@ -163,7 +163,6 @@ export class FormVoteComponent implements OnInit, OnDestroy {
     updateVoteFormData.append('file_bukti', this.voteCalegForm.get('file_bukti')?.value)
     const fileData = updateVoteFormData.get('file_bukti') as File;
     const fileType = fileData?.type;
-    console.log(fileType);
 
     this.voteCalegForm.valid
       && fileType !== 'png' && fileType !== 'jpg'

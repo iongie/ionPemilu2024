@@ -30,8 +30,6 @@ export class UserInfoComponent implements OnInit, OnDestroy {
       const key = user.dapil.findIndex((element: any) => element === selectedValue);
       // this.dapil = key !== -1 ? user.dapil[key] : '-';
       this.dapil = this.tingkatan !== '-' ? user.dapil : '-';
-      console.log(selectedValue, user, key, this.tingkatan);
-      
     })
   }
 

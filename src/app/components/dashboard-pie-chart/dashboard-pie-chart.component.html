@@ -1,11 +1,15 @@
 <!--The content below is only a placeholder and can be replaced.-->
 <div class="chart">
-  <apx-chart
-    [series]="chartOptions.series!"
-    [chart]="chartOptions.chart!"
-    [labels]="chartOptions.labels!"
-    [responsive]="chartOptions.responsive!"
-    [title]="chartOptions.title!"
-    [legend]="chartOptions.legend!"
-  ></apx-chart>
+  <div class="pie-header">
+    <ion-text class="ion-text-center" style="display: flex; align-items: center;">
+      <h4>Data Suara Pemilu Presiden <br>dan <br> Wakil Presiden</h4>
+    </ion-text>
+  </div>
+  <ng-container *ngIf="cekDataEmpty">
+    <app-dash-pie-skeleton></app-dash-pie-skeleton>
+  </ng-container>
+  <ng-container *ngIf="!cekDataEmpty">
+    <apx-chart [series]="chartOptions.series!" [chart]="chartOptions.chart!" [labels]="chartOptions.labels!"
+      [responsive]="chartOptions.responsive!" [title]="chartOptions.title!" [legend]="chartOptions.legend!"></apx-chart>
+  </ng-container>
 </div>

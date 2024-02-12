@@ -11,9 +11,11 @@
     border-radius: 16px;
     display: flex;
     flex-direction: column; 
-    align-items: center; 
-    justify-content: center;
+    align-items: center;
+    align-content: stretch; 
+    justify-content: flex-start;
     padding: 16px; 
+    min-height: 150px;
 }
 
 .paslon-desc{
@@ -35,6 +37,7 @@
 }
 
 .nama-paslon{
+    font-size: 14px;
     text-align: center;
     color: #1B0000;
 }

@@ -17,7 +17,6 @@ export class DashboardListComponent  implements OnInit {
 
   ngOnInit() {
     this.dashboardFilterDataServ.getPaslonData.subscribe(paslon=> {
-      console.log('list-paslon', paslon);
       this.paslon = paslon
     })
   }

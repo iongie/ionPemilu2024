@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, ViewChild } from '@angular/core';
+import { Component, Input, OnDestroy, OnInit, ViewChild } from '@angular/core';
 
 import {
   ApexNonAxisChartSeries,
@@ -8,6 +8,7 @@ import {
   ApexTitleSubtitle,
   ApexLegend
 } from "ng-apexcharts";
+import { Subscription, tap } from 'rxjs';
 import { Paslon, SuaraPaslon, defaultSuaraPaslon } from 'src/app/app.interface';
 import { DashboardFilterDataService } from 'src/app/services/dashboard-filter-data/dashboard-filter-data.service';
 
@@ -24,10 +25,12 @@ export type ChartOptions = {
   templateUrl: './dashboard-pie-chart.component.html',
   styleUrls: ['./dashboard-pie-chart.component.scss'],
 })
-export class DashboardPieChartComponent  implements OnInit {
+export class DashboardPieChartComponent  implements OnInit, OnDestroy {
   @ViewChild("chart") chart!: ChartComponent;
   chartOptions!: Partial<ChartOptions>;
   // paslon: SuaraPaslon[] = defaultSuaraPaslon;
+  cekDataEmpty: boolean=  false;
+  viewChartSubcription: Subscription | undefined;
   constructor(
     private dashboardFilterDataServ: DashboardFilterDataService
   ) {
@@ -35,20 +38,27 @@ export class DashboardPieChartComponent  implements OnInit {
   }
 
   ngOnInit() {
-    this.dashboardFilterDataServ.getPaslonData.subscribe(paslon=> {
+      this.viewChartSubcription = this.viewChart();
+  }
+
+  ngOnDestroy(): void {
+    this.viewChartSubcription?.unsubscribe();
+  }
+
+  viewChart(){
+    return this.dashboardFilterDataServ.getPaslonData
+    .pipe(
+      tap(paslon=> this.cekDataEmpty = paslon.length === 0 ? true: false )
+    )
+    .subscribe(paslon=> {
       console.log('paslon', paslon);
+      
       this.chartOptions = {
         series: paslon.map(res => parseInt(res.suara)),
         chart: {
           type: "pie"
         },
         labels:  paslon.map(res => res.n_calon),
-        title: {
-          text: `Data Suara Pemilu Presiden dan Wakil Presiden`,
-          align: "center",
-          floating: true,
-          margin: 64
-        },
         responsive: [
           {
             breakpoint: 480,

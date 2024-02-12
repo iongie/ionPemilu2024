@@ -24,7 +24,6 @@ export class DashboardFilterDataService {
   }
 
   updatePaslon(newPaslon: SuaraPaslon[]){
-    console.log(newPaslon);
     this.paslon.next(newPaslon)
   }
 

@@ -56,12 +56,13 @@ export class DashboardModalFilterDataComponent implements OnInit {
     this.setDefaultValues();
     this.dataFilter.provinsi == '36' && this.getKota(this.dataFilter.provinsi)
     this.dataFilter.kota == '3674' && this.getKecamatan()
-    console.log(this.dataFilter, this.compareProvres);
   }
 
   async setDefaultValues() {
-    this.dataFilter.provinsi = this.tingkatan === "Presiden" || this.tingkatan === "DPR" ? '' : '36';
-    this.dataFilter.kota = this.tingkatan === "Presiden" || this.tingkatan === "DPR" || this.tingkatan === "DPRD PROVINSI" ? '' : '3674';
+    this.dataFilter.provinsi = '36';
+    this.dataFilter.kota = '3674';
+    // this.dataFilter.provinsi = this.tingkatan === "Presiden" || this.tingkatan === "DPR" ? '' : '36';
+    // this.dataFilter.kota = this.tingkatan === "Presiden" || this.tingkatan === "DPR" || this.tingkatan === "DPRD PROVINSI" ? '' : '3674';
   }
 
   getProvinsi() {
@@ -83,8 +84,6 @@ export class DashboardModalFilterDataComponent implements OnInit {
   }
 
   onProvinsiChange(event: any) {
-    console.log(event);
-    
     this.dataFilter = {
       provinsi: event.detail.value,
       kota: "",
@@ -186,6 +185,8 @@ export class DashboardModalFilterDataComponent implements OnInit {
   }
 
   filterData() {
+    console.log('modal-filter', this.dataFilter);
+    
     this.dashboardFilterDataServ.updateFilterData(this.dataFilter);
     this.filter.emit(this.dataFilter)
   }
