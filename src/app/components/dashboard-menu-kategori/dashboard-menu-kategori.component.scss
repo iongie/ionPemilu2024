@@ -40,6 +40,10 @@ ion-thumbnail.dashboard_menu__kategori__items {
     --size: 72px;
 }
 
+.menu-kategori{
+    font-size: 12px;
+}
+
 @media screen and (max-width: 480px) {
     .dashboard_menu__kategori__items {
         flex: 1;

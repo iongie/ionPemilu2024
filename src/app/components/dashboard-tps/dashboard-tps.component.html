@@ -1,20 +1,48 @@
+<div class="dashboard-total-tps">
+  <ion-img class="dashboard-img-total-tps" src="../../../assets/total_tps.png" alt="total tps"></ion-img>
+  <ion-text>
+    {{totalTps | number}} Total TPS
+  </ion-text>
+</div>
+
 <div class="dash-tps-info">
-  <div class="dash-total-tps">
-    <ion-img class="img-total-tps" src="../../../assets/total_tps.png" alt="total tps"></ion-img>
-    <ion-note class="total-tps-detail">
-      {{totalTps | number}} <br> Total TPS
-    </ion-note>
-  </div>
   <div class="dash-tps-masuk">
     <ion-img class="img-total-tps" src="../../../assets/suara_masuk.png" alt="total tps"></ion-img>
-    <ion-note class="tps-masuk-detail">
+    <ion-text class="tps-masuk-detail">
       {{totalTpsMasuk | number}} <br> Total Tps Masuk
-    </ion-note>
+    </ion-text>
   </div>
   <div class="dash-suara-masuk">
     <ion-img class="img-total-tps" src="../../../assets/suara_masuk.png" alt="total tps"></ion-img>
-    <ion-note class="suara-masuk">
+    <ion-text class="suara-masuk">
       {{suaraTpsMasuk | number}} <br> Suara Masuk
-    </ion-note>
+    </ion-text>
   </div>
+  <ion-button fill="clear" (click)="openDetailTps()">
+    <ion-icon [name]="openDetail? 'chevron-up-outline': 'chevron-down-outline'"></ion-icon>
+  </ion-button>
 </div>
+
+<ng-container *ngIf="openDetail">
+  <div color="pale-ping" class="detail-tps">
+    <ion-accordion-group style="width: 100%;">
+      <ng-container *ngFor="let tpsDetail of tpsDetail">
+        <ion-accordion [value]="tpsDetail.n_kelurahan === undefined ? tpsDetail.n_kecamatan: tpsDetail.n_kelurahan">
+          <ion-item slot="header" color="pale-ping">
+            <ion-label>{{tpsDetail.n_kelurahan === undefined ? tpsDetail.n_kecamatan: tpsDetail.n_kelurahan}}</ion-label>
+          </ion-item>
+          <ion-list lines="full" slot="content">
+            <ion-item>
+              <ion-label >Total Suara</ion-label>
+              <ion-note slot="end">{{tpsDetail.total_suara}}</ion-note>
+            </ion-item>
+            <ion-item>
+              <ion-label >Total TPS Masuk</ion-label>
+              <ion-note slot="end">{{tpsDetail.total_tps_masuk}}</ion-note>
+            </ion-item>
+          </ion-list>
+        </ion-accordion>
+      </ng-container>
+    </ion-accordion-group>
+  </div>
+</ng-container>

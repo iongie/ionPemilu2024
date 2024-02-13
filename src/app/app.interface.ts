@@ -113,16 +113,16 @@ interface TotalTps {
     total_relawan: number | null;
 }
 
-let  defaultTotalTps:TotalTps = {
+let defaultTotalTps: TotalTps = {
     total_tps: null,
     total_tps_masuk: null,
     percent: null,
     total_relawan: null
 }
 
-interface DashFilterData{
-    provinsi: string |null;
-    kota: string |null;
+interface DashFilterData {
+    provinsi: string | null;
+    kota: string | null;
     kec: string | null;
     kel: string | null;
 }
@@ -168,8 +168,8 @@ let defaultKelurahan: Kelurahan[] = []
 
 interface Paslon {
     id: number | null;
-    no_urut:  number | null;
-    n_calon:  string | null;
+    no_urut: number | null;
+    n_calon: string | null;
     n_wakil_calon: string | null;
 }
 
@@ -197,7 +197,19 @@ interface TotalMasukTPS {
     total_tps_masuk: number | null
 }
 
-let defaultTotalMasukTPS : TotalMasukTPS[] = []
+let defaultTotalMasukTPS: TotalMasukTPS[] = []
+
+interface TPSdetail {
+    id_kecamatan: number | null;
+    id_kelurahan: number | null;
+    n_kecamatan: string | null;
+    n_kota: string | null;
+    n_kelurahan: string | null;
+    total_suara: string | null;
+    total_tps_masuk: number | null;
+}
+
+let defaultTPSdetail: TPSdetail[] = []
 
 export {
     Candidate,
@@ -233,5 +245,7 @@ export {
     TotalTPS,
     defaultTotalTPS,
     TotalMasukTPS,
-    defaultTotalMasukTPS
+    defaultTotalMasukTPS,
+    TPSdetail,
+    defaultTPSdetail
 }

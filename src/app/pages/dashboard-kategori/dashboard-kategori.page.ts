@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ModalController, ViewWillEnter, ViewWillLeave } from '@ionic/angular';
-import { Subject, Subscription, combineLatest, delay, switchMap, tap } from 'rxjs';
+import { EMPTY, Subject, Subscription, combineLatest, delay, of, switchMap, take, tap } from 'rxjs';
 import { DashFilterData, Paslon, SuaraPaslon, defaultDashFilterData, defaultPaslon, defaultSuaraPaslon } from 'src/app/app.interface';
 import { CallApiService } from 'src/app/services/callApi/call-api.service';
 import { DashboardFilterDataService } from 'src/app/services/dashboard-filter-data/dashboard-filter-data.service';
@@ -73,14 +73,17 @@ export class DashboardKategoriPage implements ViewWillEnter, ViewWillLeave {
   }
 
   getAll() {
-   return  this.dashboardFilterDataServ.getFilterData.subscribe(res => {
-      this.tingkatan === "Presiden"
-        ? (this.getDataPresiden('', '', '', ''), this.getTotalTps('', '', '', ''), this.getTotalMasukTpsPilpres('', '', '', ''))
-        : (
-          this.getDataCaleg(this.paramId, res.provinsi!, res.kota!, res.kec!, res.kel!),
-          this.getTotalTps(res.provinsi!, res.kota!, res.kec!, res.kel!),
-          this.getTotalMasukTpsCaleg(this.paramId, res.provinsi!, res.kota!, res.kec!, res.kel!))
-    })
+    return combineLatest([
+      of(this.tingkatan === "Presiden"),
+      this.dashboardFilterDataServ.getFilterData
+    ])
+    .pipe(
+      take(1),
+      tap(([ting, fal]) => ting? this.getDataPresiden('', '', '', ''): this.getDataCaleg(this.paramId, fal.provinsi!, fal.kota!, fal.kec!, fal.kel!)),
+      tap(([ting, fal]) => ting? this.getTotalTps('', '', '', ''): this.getTotalTps(fal.provinsi!, fal.kota!, fal.kec!, fal.kel!)),
+      tap(([ting, fal]) => ting? this.getTotalMasukTpsPilpres('', '', '', ''): this.getTotalMasukTpsCaleg(this.paramId, fal.provinsi!, fal.kota!, fal.kec!, fal.kel!))
+    )
+    .subscribe(([ting, fil])=> EMPTY);
   }
 
 
@@ -136,7 +139,7 @@ export class DashboardKategoriPage implements ViewWillEnter, ViewWillLeave {
   getTotalMasukTpsPilpres(provinsi_id: string, kota_id: string, kecamatan_id: string, kelurahan_id: string) {
     return this.token.getToken.pipe(
       switchMap((token) => this.callApiServ.getPaslon(`get-total-tps-masuk-capres`, token, provinsi_id, kota_id, kecamatan_id, kelurahan_id)),
-      delay(1000),
+      // delay(1000),
       tap((res: any) => this.dashboardFilterDataServ.updatetotalMasukTps(res.data)),
       tap(() => this.loadingDashboardTpsIndikator = false)
     ).subscribe(
@@ -152,7 +155,7 @@ export class DashboardKategoriPage implements ViewWillEnter, ViewWillLeave {
   getTotalMasukTpsCaleg(id: number, provinsi_id: string, kota_id: string, kecamatan_id: string, kelurahan_id: string) {
     return this.token.getToken.pipe(
       switchMap((token) => this.callApiServ.getPaslon(`get-total-tps-masuk-caleg/${id}`, token, provinsi_id, kota_id, kecamatan_id, kelurahan_id)),
-      delay(1000),
+      // delay(1000),
       tap((res: any) => this.dashboardFilterDataServ.updatetotalMasukTps(res.data)),
       tap(() => this.loadingDashboardTpsIndikator = false)
     ).subscribe(
@@ -167,46 +170,43 @@ export class DashboardKategoriPage implements ViewWillEnter, ViewWillLeave {
     )
   }
 
-  filterData(newData: DashFilterData) {
-    console.log(this.loadingDashboardTpsIndikator, this.loadingDashboardTpsIndikator);
-    
-    this.dashboardFilterDataServ.updateFilterData(newData);
-    this.dashboardFilterDataServ.getFilterData
+  async filterData(newData: DashFilterData) {
+    await this.dashboardFilterDataServ.updateFilterData(newData);
+    return await combineLatest([
+      of(this.tingkatan === "Presiden"),
+      this.dashboardFilterDataServ.getFilterData
+    ])
     .pipe(
-      tap(()=>this.modalCtrl.dismiss('confirm'))
-    ).subscribe(res=> {
-      this.tingkatan === "Presiden"
-      ? (this.getDataPresiden(res.provinsi!, res.kota!, res.kec!, res.kel!),
-        this.getTotalTps(res.provinsi!, res.kota!, res.kec!, res.kel!),
-        this.getTotalMasukTpsPilpres(res.provinsi!, res.kota!, res.kec!, res.kel!))
-      : (
-        this.getDataCaleg(this.paramId, res.provinsi!, res.kota!, res.kec!, res.kel!),
-        this.getTotalTps(res.provinsi!, res.kota!, res.kec!, res.kel!),
-        this.getTotalMasukTpsCaleg(this.paramId, res.provinsi!, res.kota!, res.kec!, res.kel!)
-      )
-    })
+      take(1),
+      tap(()=>this.modalCtrl.dismiss('confirm')),
+      tap(([ting, fal]) => ting? this.getDataPresiden(fal.provinsi!, fal.kota!, fal.kec!, fal.kel!): this.getDataCaleg(this.paramId, fal.provinsi!, fal.kota!, fal.kec!, fal.kel!)),
+      tap(([ting, fal]) => this.getTotalTps(fal.provinsi!, fal.kota!, fal.kec!, fal.kel!)),
+      tap(([ting, fal]) => ting? this.getTotalMasukTpsPilpres(fal.provinsi!, fal.kota!, fal.kec!, fal.kel!): this.getTotalMasukTpsCaleg(this.paramId, fal.provinsi!, fal.kota!, fal.kec!, fal.kel!))
+    )
+    .subscribe(([ting, fil])=> EMPTY);
+
   }
 
   reloadList(){
-    this.dashboardFilterDataServ.getFilterData
-    .pipe(
-      tap(()=>this.modalCtrl.dismiss('confirm'))
-    ).subscribe(res=> {
-      this.tingkatan === "Presiden"
-      ? (this.getDataPresiden(res.provinsi!, res.kota!, res.kec!, res.kel!),
-        this.getTotalTps(res.provinsi!, res.kota!, res.kec!, res.kel!),
-        this.getTotalMasukTpsPilpres(res.provinsi!, res.kota!, res.kec!, res.kel!))
-      : (
-        this.getDataCaleg(this.paramId, res.provinsi!, res.kota!, res.kec!, res.kel!),
-        this.getTotalTps(res.provinsi!, res.kota!, res.kec!, res.kel!),
-        this.getTotalMasukTpsCaleg(this.paramId, res.provinsi!, res.kota!, res.kec!, res.kel!)
-      )
-    })
+    combineLatest([
+      of(this.tingkatan === "Presiden"),
+      this.dashboardFilterDataServ.getFilterData
+    ])
+      .pipe(
+        take(1),
+        tap(() => this.modalCtrl.dismiss('confirm')),
+        tap(([ting, fal]) => ting ? this.getDataPresiden(fal.provinsi!, fal.kota!, fal.kec!, fal.kel!) : this.getDataCaleg(this.paramId, fal.provinsi!, fal.kota!, fal.kec!, fal.kel!)),
+        tap(([ting, fal]) => this.getTotalTps(fal.provinsi!, fal.kota!, fal.kec!, fal.kel!)),
+        tap(([ting, fal]) => ting ? this.getTotalMasukTpsPilpres(fal.provinsi!, fal.kota!, fal.kec!, fal.kel!) : this.getTotalMasukTpsCaleg(this.paramId, fal.provinsi!, fal.kota!, fal.kec!, fal.kel!))
+      ).subscribe(res => {
+        EMPTY
+      })
   }
 
   reloadTps(){
     this.dashboardFilterDataServ.getFilterData
     .pipe(
+      take(1),
       tap(()=>this.modalCtrl.dismiss('confirm'))
     ).subscribe(res=> {
       this.getTotalTps(res.provinsi!, res.kota!, res.kec!, res.kel!)
@@ -216,6 +216,7 @@ export class DashboardKategoriPage implements ViewWillEnter, ViewWillLeave {
   reloadBar(){
     this.dashboardFilterDataServ.getFilterData
     .pipe(
+      take(1),
       tap(()=>this.modalCtrl.dismiss('confirm'))
     ).subscribe(res=> {
       this.tingkatan !== "Presiden"
@@ -226,6 +227,7 @@ export class DashboardKategoriPage implements ViewWillEnter, ViewWillLeave {
   reloadPie(){
     this.dashboardFilterDataServ.getFilterData
     .pipe(
+      take(1),
       tap(()=>this.modalCtrl.dismiss('confirm'))
     ).subscribe(res=> {
       this.tingkatan === "Presiden"
@@ -236,16 +238,12 @@ export class DashboardKategoriPage implements ViewWillEnter, ViewWillLeave {
   reloadCapres(){
     this.dashboardFilterDataServ.getFilterData
     .pipe(
+      take(1),
       tap(()=>this.modalCtrl.dismiss('confirm'))
     ).subscribe(res=> {
       this.tingkatan === "Presiden"
       && this.getDataPresiden(res.provinsi!, res.kota!, res.kec!, res.kel!)
     })
-  }
-
-  ngOnDestroy(): void {
-    this.destroy.next();
-    this.destroy.complete();
   }
 
   backtoDash(){

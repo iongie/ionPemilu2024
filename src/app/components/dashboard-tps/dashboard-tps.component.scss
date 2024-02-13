@@ -2,6 +2,7 @@
     display: flex;
     flex-direction: row;
     gap: 8px;
+    margin-bottom: 8px;
 }
 
 .dash-total-tps{
@@ -46,4 +47,30 @@
     padding: 16px;
     border-radius: 16px;
 }
+
+.dashboard-total-tps{
+    width: 100%;
+    background-color: #FEC5D8;
+    padding: 16px;
+    border-radius: 8px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 8px;
+}
+
+.dashboard-img-total-tps{
+    width: 50px;
+    height: 50px;
+
+}
+
+.detail-tps{
+    max-height: 400px;
+    overflow-y: auto;
+}
+
+div[slot='content'] {
+    background: rgba(var(--ion-color-pale-ping-rgb), 0.25);
+  }
 

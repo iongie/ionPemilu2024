@@ -5,7 +5,9 @@
     </ion-text>
     <ion-button fill="clear" (click)="zoom()"> 
       Zoom
-      <!-- <ion-icon name="telescope-outline" style="font-size: 24px; font-weight: bolder;"></ion-icon> -->
+      <ng-container>
+        <ion-icon name="expand-outline" slot="end"></ion-icon>
+      </ng-container>
     </ion-button>
   </div>
   <div class="chart" >
