@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { EMPTY, Subscription, combineLatest, filter, map, switchMap } from 'rxjs';
+import { EMPTY, Subscription, combineLatest, filter, map, switchMap, tap } from 'rxjs';
 import { DashFilterData, defaultDashFilterData } from 'src/app/app.interface';
 import { CallApiService } from 'src/app/services/callApi/call-api.service';
 import { DashboardFilterDataService } from 'src/app/services/dashboard-filter-data/dashboard-filter-data.service';
@@ -47,6 +47,7 @@ export class DashboardDescFilterComponent implements OnInit, OnDestroy {
       this.token.getToken,
       this.dashboardFilterDataServ.getFilterData
     ]).pipe(
+      tap(()=>this.provinsi  = ""),
       switchMap(([token, filterData]) => {
         return this.callApiServ.get('provinsi-list', token).pipe(
           map((apiData: any) => [apiData.data, filterData.provinsi])
@@ -70,6 +71,7 @@ export class DashboardDescFilterComponent implements OnInit, OnDestroy {
       this.token.getToken,
       this.dashboardFilterDataServ.getFilterData
     ]).pipe(
+      tap(()=>this.kota = ""),
       switchMap(([token, filterData]) => {
         return filterData.kota == "" ? EMPTY : this.callApiServ.get(`kota-list/${filterData.provinsi}`, token).pipe(
           map((apiData: any) => [apiData.data, filterData.kota])
@@ -93,6 +95,7 @@ export class DashboardDescFilterComponent implements OnInit, OnDestroy {
       this.token.getToken,
       this.dashboardFilterDataServ.getFilterData
     ]).pipe(
+      tap(()=>this.kec = ""),
       switchMap(([token, filterData]) => {
         return filterData.kec == "" ? EMPTY : this.callApiServ.get(`kecamatan-list/${filterData.kota}`, token).pipe(
           map((apiData: any) => [apiData.data, filterData.kec])
@@ -116,6 +119,7 @@ export class DashboardDescFilterComponent implements OnInit, OnDestroy {
       this.token.getToken,
       this.dashboardFilterDataServ.getFilterData
     ]).pipe(
+      tap(()=>this.kel = ""),
       switchMap(([token, filterData]) => {
         return filterData.kel == "" ? EMPTY : this.callApiServ.get(`kelurahan-list/${filterData.kec}`, token).pipe(
           map((apiData: any) => [apiData.data, filterData.kel])

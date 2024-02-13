@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
-import { DashFilterData, SuaraPaslon, TotalMasukTPS, TotalTPS, defaultDashFilterData, defaultSuaraPaslon, defaultTotalMasukTPS, defaultTotalTPS } from 'src/app/app.interface';
+import { DashFilterData, SuaraPaslon, TPSdetail, TotalMasukTPS, TotalTPS, defaultDashFilterData, defaultSuaraPaslon, defaultTPSdetail, defaultTotalMasukTPS, defaultTotalTPS } from 'src/app/app.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -17,6 +17,9 @@ export class DashboardFilterDataService {
 
   totalMasukTps = new BehaviorSubject<TotalMasukTPS[]>(defaultTotalMasukTPS);
   getTotalMasukTps = this.totalMasukTps.asObservable();
+
+  tpsDetail = new BehaviorSubject<TPSdetail[]>(defaultTPSdetail)
+  getTpsDetail = this.tpsDetail.asObservable();
   constructor() { }
 
   updateFilterData(newDashFilterData: DashFilterData) {
@@ -34,4 +37,10 @@ export class DashboardFilterDataService {
   updatetotalMasukTps(newTotalMasukTps: TotalMasukTPS[]){
     this.totalMasukTps.next(newTotalMasukTps)
   }
+
+  updateTpsDetail(newTpsDetail: TPSdetail[]){
+    this.tpsDetail.next(newTpsDetail)
+  }
+
+  
 }

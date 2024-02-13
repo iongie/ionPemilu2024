@@ -1,5 +1,5 @@
 import { Component, Input, OnDestroy, OnInit } from '@angular/core';
-import { Subscription, combineLatest, switchMap, take } from 'rxjs';
+import { Subscription, combineLatest, switchMap, take, tap } from 'rxjs';
 import { TPSdetail, TotalTps, defaultTPSdetail, defaultTotalTps } from 'src/app/app.interface';
 import { CallApiService } from 'src/app/services/callApi/call-api.service';
 import { DashboardFilterDataService } from 'src/app/services/dashboard-filter-data/dashboard-filter-data.service';
@@ -26,7 +26,7 @@ export class DashboardTpsComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.getDataTotalTps();
     this.getDataTotalTpsMasuk();
-    this.getDetailTPS()
+    this.getDetailTPS();
   }
 
   ngOnDestroy(): void {
@@ -47,21 +47,15 @@ export class DashboardTpsComponent implements OnInit, OnDestroy {
       })
   }
 
-  getDetailTPS(){
-    return combineLatest([
-      this.token.getToken,
-      this.dashboardFilterDataServ.getFilterData
-    ])
+  getDetailTPS() {
+    this.dashboardFilterDataServ.getTpsDetail
     .pipe(
-      switchMap(([token, val])=> {
-        return val.kel !== ''
-        ? this.callApiServ.get(`get-detail-tps-kelurahan/${val.kel}`, token)
-        : this.callApiServ.get(`get-detail-tps-kecamatan?provinsi_id=${val.provinsi}&kota_id=${val.kota}`, token)
-      })
-    ).subscribe(
+      tap(()=> this.openDetail =false)
+    )
+    .subscribe(
       {
-        next: (val: any) =>{
-          this.tpsDetail = val.data;
+        next: (val: any) => {
+          this.tpsDetail = val;
         },
         error: (e: any) => (
           console.log(e)
@@ -70,8 +64,8 @@ export class DashboardTpsComponent implements OnInit, OnDestroy {
     )
   }
 
-  openDetailTps(){
-    this.openDetail = this.openDetail ? false: true
+  openDetailTps() {
+    this.openDetail = this.openDetail ? false : true
   }
 
 }

@@ -207,6 +207,9 @@ interface TPSdetail {
     n_kelurahan: string | null;
     total_suara: string | null;
     total_tps_masuk: number | null;
+    jumlah_tps: number | null;
+    percent: string | null;
+    no_tps: string | null;
 }
 
 let defaultTPSdetail: TPSdetail[] = []

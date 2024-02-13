@@ -41,8 +41,8 @@ export class DashboardKategoriPage implements ViewWillEnter, ViewWillLeave {
       const mapping = {
         "1": "DPR",
         "2": "DPD",
-        "3": "DPRD",
-        "4": "DPRD PROVINSI",
+        "4": "DPRD I",
+        "3": "DPRD II",
         "5": "Presiden"
       };
 
@@ -64,6 +64,7 @@ export class DashboardKategoriPage implements ViewWillEnter, ViewWillLeave {
     this.dashboardFilterDataServ.getFilterData.subscribe((res)=>{
       this.dashFilter = res
     });
+    this.getDetailTPS();
   }
 
   ionViewWillLeave() {
@@ -181,8 +182,9 @@ export class DashboardKategoriPage implements ViewWillEnter, ViewWillLeave {
       tap(()=>this.modalCtrl.dismiss('confirm')),
       tap(([ting, fal]) => ting? this.getDataPresiden(fal.provinsi!, fal.kota!, fal.kec!, fal.kel!): this.getDataCaleg(this.paramId, fal.provinsi!, fal.kota!, fal.kec!, fal.kel!)),
       tap(([ting, fal]) => this.getTotalTps(fal.provinsi!, fal.kota!, fal.kec!, fal.kel!)),
-      tap(([ting, fal]) => ting? this.getTotalMasukTpsPilpres(fal.provinsi!, fal.kota!, fal.kec!, fal.kel!): this.getTotalMasukTpsCaleg(this.paramId, fal.provinsi!, fal.kota!, fal.kec!, fal.kel!))
-    )
+      tap(([ting, fal]) => ting? this.getTotalMasukTpsPilpres(fal.provinsi!, fal.kota!, fal.kec!, fal.kel!): this.getTotalMasukTpsCaleg(this.paramId, fal.provinsi!, fal.kota!, fal.kec!, fal.kel!)),
+      tap(()=>this.getDetailTPS())
+      )
     .subscribe(([ting, fil])=> EMPTY);
 
   }
@@ -248,6 +250,40 @@ export class DashboardKategoriPage implements ViewWillEnter, ViewWillLeave {
 
   backtoDash(){
     this.dashboardFilterDataServ.updateFilterData(defaultDashFilterData);
+  }
+
+  getDetailTPS() {
+    return combineLatest([
+      this.token.getToken,
+      this.dashboardFilterDataServ.getFilterData
+    ])
+      .pipe(
+        switchMap(([token, val]) => {
+          console.log('val.kel', val.kel !== '' ? 'hallo' : 'budi');
+
+          if (val.kec === '' && val.kel === '') {
+            console.log('Calling API without val.kel');
+            return this.callApiServ.get(`get-detail-tps-kecamatan?provinsi_id=${val.provinsi}&kota_id=${val.kota}`, token);
+          } else if (val.kel === ''){
+            console.log('Calling API with val.kel', this.callApiServ.get(`get-detail-tps-kelurahan/${val.kec}`, token));
+            return this.callApiServ.get(`get-detail-tps-kelurahan/${val.kec}`, token);
+          } else {
+            console.log('Calling API with val.kel', this.callApiServ.get(`get-detail-tps/${val.kel}`, token));
+            return this.callApiServ.get(`get-detail-tps/${val.kel}`, token);
+          }
+        }),
+        tap((val:any)=> this.dashboardFilterDataServ.updateTpsDetail(val.data))
+      ).subscribe(
+        {
+          next: (val: any) => {
+            console.log(val);
+            
+          },
+          error: (e: any) => (
+            console.log(e)
+          )
+        }
+      )
   }
 
 }

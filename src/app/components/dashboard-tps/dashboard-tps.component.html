@@ -1,11 +1,10 @@
-<div class="dashboard-total-tps">
-  <ion-img class="dashboard-img-total-tps" src="../../../assets/total_tps.png" alt="total tps"></ion-img>
-  <ion-text>
-    {{totalTps | number}} Total TPS
-  </ion-text>
-</div>
-
 <div class="dash-tps-info">
+  <div class="dash-total-tps">
+    <ion-img class="dashboard-img-total-tps" src="../../../assets/total_tps.png" alt="total tps"></ion-img>
+    <ion-text>
+      {{totalTps | number}} Total TPS
+    </ion-text>
+  </div>
   <div class="dash-tps-masuk">
     <ion-img class="img-total-tps" src="../../../assets/suara_masuk.png" alt="total tps"></ion-img>
     <ion-text class="tps-masuk-detail">
@@ -18,31 +17,44 @@
       {{suaraTpsMasuk | number}} <br> Suara Masuk
     </ion-text>
   </div>
-  <ion-button fill="clear" (click)="openDetailTps()">
-    <ion-icon [name]="openDetail? 'chevron-up-outline': 'chevron-down-outline'"></ion-icon>
-  </ion-button>
 </div>
 
+<ng-container *ngIf="tpsDetail.length !== 0">
+  <ion-button color="pale-ping" fill="solid" expand="block" (click)="openDetailTps()">
+    {{openDetail? 'Sembunyikan Detail TPS': 'Tampilkan Detail TPS'}}
+  </ion-button>
+</ng-container>
+
 <ng-container *ngIf="openDetail">
-  <div color="pale-ping" class="detail-tps">
-    <ion-accordion-group style="width: 100%;">
-      <ng-container *ngFor="let tpsDetail of tpsDetail">
-        <ion-accordion [value]="tpsDetail.n_kelurahan === undefined ? tpsDetail.n_kecamatan: tpsDetail.n_kelurahan">
-          <ion-item slot="header" color="pale-ping">
-            <ion-label>{{tpsDetail.n_kelurahan === undefined ? tpsDetail.n_kecamatan: tpsDetail.n_kelurahan}}</ion-label>
-          </ion-item>
-          <ion-list lines="full" slot="content">
-            <ion-item>
-              <ion-label >Total Suara</ion-label>
-              <ion-note slot="end">{{tpsDetail.total_suara}}</ion-note>
+  <ng-container *ngIf="tpsDetail.length !== 0">
+    <div color="pale-ping" class="detail-tps">
+      <ion-accordion-group style="width: 100%;">
+        <ng-container *ngFor="let tpsDetail of tpsDetail">
+          <ion-accordion [value]="tpsDetail.id_kecamatan !== undefined ? tpsDetail.n_kecamatan : (tpsDetail.no_tps !== undefined ? tpsDetail.no_tps : tpsDetail.n_kelurahan)">
+            <ion-item slot="header" color="pale-ping">
+              <ion-label>{{tpsDetail.id_kecamatan !== undefined ? tpsDetail.n_kecamatan : (tpsDetail.no_tps !== undefined ? tpsDetail.no_tps : tpsDetail.n_kelurahan)}}</ion-label>
             </ion-item>
-            <ion-item>
-              <ion-label >Total TPS Masuk</ion-label>
-              <ion-note slot="end">{{tpsDetail.total_tps_masuk}}</ion-note>
-            </ion-item>
-          </ion-list>
-        </ion-accordion>
-      </ng-container>
-    </ion-accordion-group>
-  </div>
+            <ion-list lines="full" slot="content">
+              <ion-item>
+                <ion-label>Total Suara</ion-label>
+                <ion-note slot="end">{{tpsDetail.total_suara}}</ion-note>
+              </ion-item>
+              <ion-item>
+                <ion-label>Total TPS Masuk</ion-label>
+                <ion-note slot="end">{{tpsDetail.total_tps_masuk}}</ion-note>
+              </ion-item>
+              <ion-item>
+                <ion-label>Jumlah TPS</ion-label>
+                <ion-note slot="end">{{tpsDetail.jumlah_tps}}</ion-note>
+              </ion-item>
+              <ion-item>
+                <ion-label>Percent</ion-label>
+                <ion-note slot="end">{{tpsDetail.percent}}</ion-note>
+              </ion-item>
+            </ion-list>
+          </ion-accordion>
+        </ng-container>
+      </ion-accordion-group>
+    </div>
+  </ng-container>
 </ng-container>

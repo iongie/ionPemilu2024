@@ -1,6 +1,9 @@
 <div class="filter-kategori">
   <ion-list>
-    <ion-item>
+    <ion-item lines="full">
+      <ion-label class="ion-text-wrap">{{provinsi === ''? '-': provinsi}} - {{kota === ''? '-': kota}}</ion-label>
+    </ion-item>
+    <!-- <ion-item>
       <ion-label slot="start">Provinsi</ion-label>
       <ion-label slot="end" color="medium" class="ion-text-wrap">{{provinsi === ''? '-': provinsi}}</ion-label>
     </ion-item>
@@ -15,6 +18,6 @@
     <ion-item>
       <ion-label slot="start">Kelurahan</ion-label>
       <ion-label slot="end" color="medium" class="ion-text-wrap">{{kel === ''? '-': kel}}</ion-label>
-    </ion-item>
+    </ion-item> -->
   </ion-list>
 </div>
