@@ -1,18 +1,27 @@
-<div class="bar">
+<div [ngClass]="cekDataEmpty ? 'bar-no-data': 'bar'">
   <div class="bar-header">
     <ion-text class="ion-text-center" style="display: flex; align-items: center;">
       <h4>Data Suara Pemilu {{tingkatan}}</h4>
     </ion-text>
-    <ion-button fill="clear" (click)="zoom()"> 
-      Zoom
-      <ng-container>
-        <ion-icon name="expand-outline" slot="end"></ion-icon>
-      </ng-container>
-    </ion-button>
+
+    <ng-container *ngIf="!cekDataEmpty">
+      <ion-button fill="clear" (click)="zoom()">
+        Zoom
+        <ng-container>
+          <ion-icon name="expand-outline" slot="end"></ion-icon>
+        </ng-container>
+      </ion-button>
+    </ng-container>
   </div>
-  <div class="chart" >
-    <apx-chart [series]="chartOptions.series!" [chart]="chartOptions.chart!" [dataLabels]="chartOptions.dataLabels!"
-      [plotOptions]="chartOptions.plotOptions!" [xaxis]="chartOptions.xaxis!" [yaxis]="chartOptions.yaxis!"
-      [title]="chartOptions.title!" [legend]="chartOptions.legend!"></apx-chart>
+
+  <div class="chart">
+    <ng-container *ngIf="cekDataEmpty">
+      <ion-img src="../../../assets/no-data.jpg" alt="Tidak Ada Data Hasil Pemilu Presiden"></ion-img>
+    </ng-container>
+    <ng-container *ngIf="!cekDataEmpty">
+      <apx-chart [series]="chartOptions.series!" [chart]="chartOptions.chart!" [dataLabels]="chartOptions.dataLabels!"
+        [plotOptions]="chartOptions.plotOptions!" [xaxis]="chartOptions.xaxis!" [yaxis]="chartOptions.yaxis!"
+        [title]="chartOptions.title!" [legend]="chartOptions.legend!"></apx-chart>
+    </ng-container>
   </div>
 </div>

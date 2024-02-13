@@ -13,7 +13,7 @@ import {
   ApexYAxis,
   ApexLegend
 } from "ng-apexcharts";
-import { Subscription } from 'rxjs';
+import { Subscription, tap } from 'rxjs';
 import { DashboardFilterDataService } from 'src/app/services/dashboard-filter-data/dashboard-filter-data.service';
 
 export type ChartOptions = {
@@ -42,6 +42,7 @@ export class DashboardBarChartComponent implements OnInit, OnDestroy {
   widthChart: string | number = '100%';
 
   getAllSubcription: Subscription | undefined;
+  cekDataEmpty: boolean=  false;
   constructor(
     private dashboardFilterDataServ: DashboardFilterDataService,
     private actRoute: ActivatedRoute,
@@ -52,8 +53,8 @@ export class DashboardBarChartComponent implements OnInit, OnDestroy {
       const mapping = {
         "1": "DPR",
         "2": "DPD",
-        "3": "DPRD",
-        "4": "DPRD PROVINSI",
+        "3": "DPRD II",
+        "4": "DPRD I",
         "5": "Presiden"
       };
 
@@ -69,7 +70,11 @@ export class DashboardBarChartComponent implements OnInit, OnDestroy {
   }
 
   getAll() {
-    return this.dashboardFilterDataServ.getPaslonData.subscribe(paslon => {
+    return this.dashboardFilterDataServ.getPaslonData
+    .pipe(
+      tap(paslon=> this.cekDataEmpty = paslon.length === 0 ? true: false )
+    )
+    .subscribe(paslon => {
       this.chartOptions = {
         series: [
           {
@@ -134,7 +139,11 @@ export class DashboardBarChartComponent implements OnInit, OnDestroy {
   }
 
   getexam() {
-    this.dashboardFilterDataServ.getPaslonData.subscribe(paslon => {
+    this.dashboardFilterDataServ.getPaslonData
+    .pipe(
+      tap(paslon=> this.cekDataEmpty = paslon.length === 0 ? true: false )
+    )
+    .subscribe(paslon => {
       this.chartOptions = {
         series: [
           {

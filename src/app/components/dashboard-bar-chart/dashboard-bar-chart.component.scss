@@ -8,6 +8,16 @@
   padding: 16px;
 }
 
+.bar-no-data{
+  width: 100%;
+  height: auto;
+  background-color: white;
+  border-radius: 16px;
+  margin-top: 16px;
+  margin-bottom: 16px;
+  padding: 16px;
+}
+
 .bar-header{
   display: flex;
   flex-direction: row;

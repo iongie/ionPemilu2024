@@ -42,6 +42,7 @@ export class DashboardModalFilterDataComponent implements OnInit {
   kelurahan: Kelurahan[] = defaultKelurahan;
   dataFilter: DashFilterData = defaultDashFilterData;
   @Output() filter = new EventEmitter<DashFilterData>();
+  @Output() reset = new EventEmitter<DashFilterData>();
   @Input() tingkatan: string = '';
   compareProvres: boolean = false;
   constructor(
@@ -185,10 +186,19 @@ export class DashboardModalFilterDataComponent implements OnInit {
   }
 
   filterData() {
-    console.log('modal-filter', this.dataFilter);
-    
     this.dashboardFilterDataServ.updateFilterData(this.dataFilter);
     this.filter.emit(this.dataFilter)
+  }
+
+  resetData() {
+    this.dataFilter = {
+      provinsi: this.tingkatan ==="Presiden"? "": "36",
+      kota: this.tingkatan ==="Presiden"? "": "3674",
+      kec: "",
+      kel: ""
+    }
+    this.dashboardFilterDataServ.updateFilterData(this.dataFilter);
+    this.reset.emit(this.dataFilter)
   }
 
   compareWithProvinsifn(o1: any, o2: any) {

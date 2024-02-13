@@ -181,6 +181,10 @@ interface SuaraPaslon {
     no_urut: number;
     suara: string;
     percent: string;
+    n_wakil_calon: string | null;
+    photo: string | null;
+    foto_caleg: string | null;
+    
 }
 
 let defaultSuaraPaslon: SuaraPaslon[] = [];

@@ -36,8 +36,10 @@ export class DashboardPerolehanSuaraComponent  implements OnInit {
   getDataTotalTpsMasuk() {
     return this.dashboardFilterDataServ.getTotalMasukTps
       .subscribe(res => {
-        this.suaraTpsMasuk = parseInt(res[0].suara!)
-        this.totalTpsMasuk = res[0].total_tps_masuk!
+        if (res.length !== 0){
+          this.suaraTpsMasuk = parseInt(res[0].suara!)
+          this.totalTpsMasuk = res[0].total_tps_masuk!
+        }
       })
   }
 }

@@ -129,7 +129,6 @@ export class DashboardDescFilterComponent implements OnInit, OnDestroy {
     ).subscribe(
       {
         next: (res: any) => {
-          console.log(res);
           this.kel = res.n_kelurahan
         },
         error: (e: any) => (

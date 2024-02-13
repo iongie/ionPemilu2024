@@ -1,5 +1,5 @@
 import { Component, Input, OnDestroy, OnInit } from '@angular/core';
-import { Subscription, combineLatest, switchMap, take, tap } from 'rxjs';
+import { Subscription, combineLatest, delay, switchMap, take, tap } from 'rxjs';
 import { TPSdetail, TotalTps, defaultTPSdetail, defaultTotalTps } from 'src/app/app.interface';
 import { CallApiService } from 'src/app/services/callApi/call-api.service';
 import { DashboardFilterDataService } from 'src/app/services/dashboard-filter-data/dashboard-filter-data.service';
@@ -42,14 +42,17 @@ export class DashboardTpsComponent implements OnInit, OnDestroy {
   getDataTotalTpsMasuk() {
     return this.dashboardFilterDataServ.getTotalMasukTps
       .subscribe(res => {
-        this.suaraTpsMasuk = parseInt(res[0].suara!)
-        this.totalTpsMasuk = res[0].total_tps_masuk!
+        if (res.length !== 0){
+          this.suaraTpsMasuk = parseInt(res[0].suara!)
+          this.totalTpsMasuk = res[0].total_tps_masuk!
+        }
       })
   }
 
   getDetailTPS() {
     this.dashboardFilterDataServ.getTpsDetail
     .pipe(
+      delay(1000),
       tap(()=> this.openDetail =false)
     )
     .subscribe(

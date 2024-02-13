@@ -2,7 +2,7 @@
   <div class="dash-total-tps">
     <ion-img class="dashboard-img-total-tps" src="../../../assets/total_tps.png" alt="total tps"></ion-img>
     <ion-text>
-      {{totalTps | number}} Total TPS
+      {{totalTps | number}} <br> Total TPS
     </ion-text>
   </div>
   <div class="dash-tps-masuk">
@@ -39,18 +39,24 @@
                 <ion-label>Total Suara</ion-label>
                 <ion-note slot="end">{{tpsDetail.total_suara}}</ion-note>
               </ion-item>
-              <ion-item>
-                <ion-label>Total TPS Masuk</ion-label>
-                <ion-note slot="end">{{tpsDetail.total_tps_masuk}}</ion-note>
-              </ion-item>
-              <ion-item>
-                <ion-label>Jumlah TPS</ion-label>
-                <ion-note slot="end">{{tpsDetail.total_tps}}</ion-note>
-              </ion-item>
-              <ion-item>
-                <ion-label>Percent</ion-label>
-                <ion-note slot="end">{{tpsDetail.percent}}</ion-note>
-              </ion-item>
+              <ng-container *ngIf="tpsDetail.total_tps_masuk !== undefined">
+                <ion-item>
+                  <ion-label>Total TPS Masuk</ion-label>
+                  <ion-note slot="end">{{tpsDetail.total_tps_masuk}}</ion-note>
+                </ion-item>
+              </ng-container>
+              <ng-container *ngIf="tpsDetail.total_tps !== undefined">
+                <ion-item>
+                  <ion-label>Jumlah TPS</ion-label>
+                  <ion-note slot="end">{{tpsDetail.total_tps}}</ion-note>
+                </ion-item>
+              </ng-container>
+              <ng-container *ngIf="tpsDetail.percent !== undefined">
+                <ion-item>
+                  <ion-label>Persentase</ion-label>
+                  <ion-note slot="end">{{tpsDetail.percent}}</ion-note>
+                </ion-item>
+              </ng-container>
             </ion-list>
           </ion-accordion>
         </ng-container>

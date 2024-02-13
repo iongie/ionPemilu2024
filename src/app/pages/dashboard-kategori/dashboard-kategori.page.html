@@ -102,9 +102,9 @@
     <app-dashboard-list></app-dashboard-list>
   </ng-container>
 
-  <ion-modal #modal trigger="filter-data" [initialBreakpoint]="0.45" [breakpoints]="[0, 0.45]">
+  <ion-modal #modal trigger="filter-data" [initialBreakpoint]="0.50" [breakpoints]="[0, 0.50]">
     <ng-template>
-      <app-dashboard-modal-filter-data (filter)="filterData($event)"
+      <app-dashboard-modal-filter-data (filter)="filterData($event)" (reset)="resetData()"
         [tingkatan]="tingkatan!"></app-dashboard-modal-filter-data>
     </ng-template>
   </ion-modal>

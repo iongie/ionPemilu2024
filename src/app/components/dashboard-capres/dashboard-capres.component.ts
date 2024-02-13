@@ -33,7 +33,6 @@ export class DashboardCapresComponent implements OnInit {
     ).subscribe(
       {
         next: (res: any) => {
-          console.log(this.paslon);
         },
         error: (e: any) => (
           console.log(e)
