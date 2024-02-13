@@ -1,23 +1,12 @@
 <div class="filter-kategori">
   <ion-list>
-    <ion-item lines="full">
-      <ion-label class="ion-text-wrap">{{provinsi === ''? '-': provinsi}} - {{kota === ''? '-': kota}}</ion-label>
+    <ion-item lines="none">
+      <ion-label class="ion-text-wrap" style="font-size: 10px;">
+        {{provinsi === ''? '': 'DAPIL '+ provinsi}} 
+        {{kota === ''? '': '> '+kota}}
+        {{kec === ''? '': '> '+kec}}
+        {{kel === ''? '': '> '+kel}}
+      </ion-label>
     </ion-item>
-    <!-- <ion-item>
-      <ion-label slot="start">Provinsi</ion-label>
-      <ion-label slot="end" color="medium" class="ion-text-wrap">{{provinsi === ''? '-': provinsi}}</ion-label>
-    </ion-item>
-    <ion-item>
-      <ion-label slot="start">Kota</ion-label>
-      <ion-label slot="end" color="medium" class="ion-text-wrap">{{kota === ''? '-': kota}}</ion-label>
-    </ion-item>
-    <ion-item>
-      <ion-label slot="start">Kecamatan</ion-label>
-      <ion-label slot="end" color="medium" class="ion-text-wrap">{{kec === ''? '-': kec}}</ion-label>
-    </ion-item>
-    <ion-item>
-      <ion-label slot="start">Kelurahan</ion-label>
-      <ion-label slot="end" color="medium" class="ion-text-wrap">{{kel === ''? '-': kel}}</ion-label>
-    </ion-item> -->
   </ion-list>
 </div>

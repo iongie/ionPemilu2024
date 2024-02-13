@@ -51,7 +51,6 @@ export class DashboardPieChartComponent  implements OnInit, OnDestroy {
       tap(paslon=> this.cekDataEmpty = paslon.length === 0 ? true: false )
     )
     .subscribe(paslon=> {
-      console.log('paslon', paslon);
       
       this.chartOptions = {
         series: paslon.map(res => parseInt(res.suara)),

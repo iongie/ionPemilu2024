@@ -4,6 +4,7 @@ import { delay, map } from 'rxjs';
 import { PwaService } from './services/pwa/pwa.service';
 import { AlertController } from '@ionic/angular';
 import { Network, ConnectionStatus, ConnectionType } from '@capacitor/network';
+import { NavigationEnd, Router, NavigationStart } from '@angular/router';
 
 @Component({
   selector: 'app-root',

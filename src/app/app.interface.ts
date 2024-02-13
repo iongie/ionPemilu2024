@@ -171,6 +171,7 @@ interface Paslon {
     no_urut: number | null;
     n_calon: string | null;
     n_wakil_calon: string | null;
+    photo: string | null;
 }
 
 let defaultPaslon: Paslon[] = [];
@@ -207,7 +208,7 @@ interface TPSdetail {
     n_kelurahan: string | null;
     total_suara: string | null;
     total_tps_masuk: number | null;
-    jumlah_tps: number | null;
+    total_tps: number | null;
     percent: string | null;
     no_tps: string | null;
 }

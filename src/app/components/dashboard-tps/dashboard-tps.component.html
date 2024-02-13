@@ -30,9 +30,9 @@
     <div color="pale-ping" class="detail-tps">
       <ion-accordion-group style="width: 100%;">
         <ng-container *ngFor="let tpsDetail of tpsDetail">
-          <ion-accordion [value]="tpsDetail.id_kecamatan !== undefined ? tpsDetail.n_kecamatan : (tpsDetail.no_tps !== undefined ? tpsDetail.no_tps : tpsDetail.n_kelurahan)">
+          <ion-accordion [value]="tpsDetail.id_kecamatan !== undefined ? tpsDetail.n_kecamatan : (tpsDetail.no_tps !== undefined ? 'TPS No.'+tpsDetail.no_tps : tpsDetail.n_kelurahan)">
             <ion-item slot="header" color="pale-ping">
-              <ion-label>{{tpsDetail.id_kecamatan !== undefined ? tpsDetail.n_kecamatan : (tpsDetail.no_tps !== undefined ? tpsDetail.no_tps : tpsDetail.n_kelurahan)}}</ion-label>
+              <ion-label>{{tpsDetail.id_kecamatan !== undefined ? tpsDetail.n_kecamatan : (tpsDetail.no_tps !== undefined ? 'TPS No.'+tpsDetail.no_tps : tpsDetail.n_kelurahan)}}</ion-label>
             </ion-item>
             <ion-list lines="full" slot="content">
               <ion-item>
@@ -45,7 +45,7 @@
               </ion-item>
               <ion-item>
                 <ion-label>Jumlah TPS</ion-label>
-                <ion-note slot="end">{{tpsDetail.jumlah_tps}}</ion-note>
+                <ion-note slot="end">{{tpsDetail.total_tps}}</ion-note>
               </ion-item>
               <ion-item>
                 <ion-label>Percent</ion-label>

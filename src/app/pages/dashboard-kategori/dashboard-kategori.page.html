@@ -1,8 +1,16 @@
 <ion-header [translucent]="true" class="ion-no-border">
   <ion-toolbar>
-    <ion-buttons slot="start">
-      <ion-back-button></ion-back-button>
-    </ion-buttons>
+    <ng-container *ngIf="detectionPage !== 1">
+      <ion-buttons slot="start">
+        <ion-back-button></ion-back-button>
+      </ion-buttons>
+    </ng-container>
+
+    <ng-container *ngIf="detectionPage === 1">
+      <ion-button style="border-radius: 9999px; font-size: 16px;" fill="clear" slot="start" (click)="gotoPageDash()">
+        <ion-icon name="arrow-back-outline"></ion-icon>
+      </ion-button>
+    </ng-container>
     <ion-title>{{tingkatan}}</ion-title>
     <ion-buttons slot="end">
       <ion-button id="filter-data">

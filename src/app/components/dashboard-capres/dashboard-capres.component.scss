@@ -7,7 +7,7 @@
 }
 .paslon-detail{
     flex: 1;
-    background-color: #B69FD5;
+    background-color: #FCF5E1;
     border-radius: 16px;
     display: flex;
     flex-direction: column; 
@@ -16,6 +16,7 @@
     justify-content: flex-start;
     padding: 16px; 
     min-height: 200px;
+    gap: 4px
 }
 
 .paslon-desc{
@@ -26,8 +27,8 @@
 
 .foto-calon{
     flex: 1;
-    width: 50px;
-    height: 50px;
+    --size: 60px;
+    --border-radius: 14px;
 }
 
 .urut-calon{
