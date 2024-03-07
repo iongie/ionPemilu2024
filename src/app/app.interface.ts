@@ -184,10 +184,11 @@ interface SuaraPaslon {
     n_wakil_calon: string | null;
     photo: string | null;
     foto_caleg: string | null;
-    
+    logo_partai: string | null;
+    nama_partai: string | null;
 }
 
-let defaultSuaraPaslon: SuaraPaslon[] = [];
+let     defaultSuaraPaslon: SuaraPaslon[] = [];
 
 interface TotalTPS {
     jumlah_tps: string | null
@@ -218,6 +219,15 @@ interface TPSdetail {
 }
 
 let defaultTPSdetail: TPSdetail[] = []
+
+interface DashTotalSuaraPartai {
+    suara: number | null,
+    nama_partai: string | null,
+    logo_partai: string | null,
+    total_suara: number | null,
+    percent: string | null
+}
+let defaultDashTotalSuaraPartai: DashTotalSuaraPartai[] = []
 
 export {
     Candidate,
@@ -255,5 +265,7 @@ export {
     TotalMasukTPS,
     defaultTotalMasukTPS,
     TPSdetail,
-    defaultTPSdetail
+    defaultTPSdetail,
+    DashTotalSuaraPartai,
+    defaultDashTotalSuaraPartai
 }

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
-import { DashFilterData, SuaraPaslon, TPSdetail, TotalMasukTPS, TotalTPS, defaultDashFilterData, defaultSuaraPaslon, defaultTPSdetail, defaultTotalMasukTPS, defaultTotalTPS } from 'src/app/app.interface';
+import { DashFilterData, DashTotalSuaraPartai, SuaraPaslon, TPSdetail, TotalMasukTPS, TotalTPS, defaultDashFilterData, defaultDashTotalSuaraPartai, defaultSuaraPaslon, defaultTPSdetail, defaultTotalMasukTPS, defaultTotalTPS } from 'src/app/app.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -18,8 +18,11 @@ export class DashboardFilterDataService {
   totalMasukTps = new BehaviorSubject<TotalMasukTPS[]>(defaultTotalMasukTPS);
   getTotalMasukTps = this.totalMasukTps.asObservable();
 
-  tpsDetail = new BehaviorSubject<TPSdetail[]>(defaultTPSdetail)
+  tpsDetail = new BehaviorSubject<TPSdetail[]>(defaultTPSdetail);
   getTpsDetail = this.tpsDetail.asObservable();
+
+  dashSuaraPartai = new BehaviorSubject<DashTotalSuaraPartai[]>(defaultDashTotalSuaraPartai);
+  getDashTpsDetail = this.dashSuaraPartai.asObservable();
   constructor() { }
 
   updateFilterData(newDashFilterData: DashFilterData) {
@@ -40,6 +43,10 @@ export class DashboardFilterDataService {
 
   updateTpsDetail(newTpsDetail: TPSdetail[]){
     this.tpsDetail.next(newTpsDetail)
+  }
+
+  updateDashSuaraPartai(newDashSUaraPartai: DashTotalSuaraPartai[]){
+    this.dashSuaraPartai.next(newDashSUaraPartai)
   }
 
   

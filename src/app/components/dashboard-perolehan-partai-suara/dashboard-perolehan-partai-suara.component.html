@@ -1,0 +1,23 @@
+<ng-container *ngIf="!cekDataEmpty">
+  <div class="user__info">
+    <ion-list style="padding: 0;">
+      <ng-container *ngFor="let suaraPartai of suaraPartai; index as i">
+        <ion-item>
+          <ion-avatar slot="start">
+            <ion-img [src]="suaraPartai.logo_partai"></ion-img>
+          </ion-avatar>
+          <ion-label>
+            <h2>{{suaraPartai.nama_partai}}</h2>
+            <div class="linear__track">
+              <div class="linear__active" [style.width]="suaraPartai.percent"></div>
+            </div>
+            <p>{{suaraPartai.suara| number}} suara</p>
+          </ion-label>
+          <ion-label slot="end">
+            <h2>{{suaraPartai.percent}}</h2>
+          </ion-label>
+        </ion-item>
+      </ng-container>
+    </ion-list> 
+  </div>
+</ng-container>

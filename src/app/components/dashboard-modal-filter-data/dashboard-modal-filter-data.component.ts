@@ -1,5 +1,5 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { combineLatest, switchMap } from 'rxjs';
+import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
+import { Subject, combineLatest, switchMap, takeUntil } from 'rxjs';
 import { DashFilterData, Kecamatan, Kelurahan, Kota, Provinsi, defaultDashFilterData, defaultKecamatan, defaultKelurahan, defaultKota, defaultProvinsi } from 'src/app/app.interface';
 import { CallApiService } from 'src/app/services/callApi/call-api.service';
 import { DashboardFilterDataService } from 'src/app/services/dashboard-filter-data/dashboard-filter-data.service';
@@ -11,7 +11,8 @@ import { TokenService } from 'src/app/services/token/token.service';
   templateUrl: './dashboard-modal-filter-data.component.html',
   styleUrls: ['./dashboard-modal-filter-data.component.scss'],
 })
-export class DashboardModalFilterDataComponent implements OnInit {
+export class DashboardModalFilterDataComponent implements OnInit, OnDestroy {
+  private destroy: Subject<void> = new Subject<void>();
   customProvinsiOptions = {
     header: 'Provinsi',
     subHeader: 'Pilih Provinsi',
@@ -55,15 +56,29 @@ export class DashboardModalFilterDataComponent implements OnInit {
   ngOnInit() {
     this.getProvinsi();
     this.setDefaultValues();
+    this.getDataFilter();
     this.dataFilter.provinsi == '36' && this.getKota(this.dataFilter.provinsi)
     this.dataFilter.kota == '3674' && this.getKecamatan()
   }
 
+  ngOnDestroy(): void {
+    this.destroy.next();
+    this.destroy.complete()
+  }
+
   async setDefaultValues() {
-    this.dataFilter.provinsi = '36';
-    this.dataFilter.kota = '3674';
+    // this.dataFilter.provinsi = '36';
+    // this.dataFilter.kota = '3674';
     // this.dataFilter.provinsi = this.tingkatan === "Presiden" || this.tingkatan === "DPR" ? '' : '36';
     // this.dataFilter.kota = this.tingkatan === "Presiden" || this.tingkatan === "DPR" || this.tingkatan === "DPRD PROVINSI" ? '' : '3674';
+  }
+
+  getDataFilter(){
+    this.dashboardFilterDataServ.getFilterData
+    .pipe(takeUntil(this.destroy))
+    .subscribe(res=> {
+      this.dataFilter = res
+    });
   }
 
   getProvinsi() {
@@ -71,7 +86,8 @@ export class DashboardModalFilterDataComponent implements OnInit {
       this.token.getToken,
       this.dataProvinsiServ.getProvinsi
     ]).pipe(
-      switchMap(([token, prov]) => this.callApiServ.get('provinsi-list', token))
+      switchMap(([token, prov]) => this.callApiServ.get('provinsi-list', token)),
+      takeUntil(this.destroy)
     ).subscribe(
       {
         next: (res: any) => (
@@ -103,7 +119,8 @@ export class DashboardModalFilterDataComponent implements OnInit {
       this.token.getToken,
       this.dataProvinsiServ.getProvinsi
     ]).pipe(
-      switchMap(([token, prov]) => this.callApiServ.get(`kota-list/${provId}`, token))
+      switchMap(([token, prov]) => this.callApiServ.get(`kota-list/${provId}`, token)),
+      takeUntil(this.destroy)
     ).subscribe(
       {
         next: (res: any) => (
@@ -125,7 +142,8 @@ export class DashboardModalFilterDataComponent implements OnInit {
     }
     this.kecamatan = defaultKecamatan;
     this.kelurahan = defaultKelurahan;
-    this.getKecamatan();
+    this.dataFilter.kota?.length !== 0 && this.getKecamatan();
+    
   }
 
   getKecamatan() {
@@ -133,7 +151,8 @@ export class DashboardModalFilterDataComponent implements OnInit {
       this.token.getToken,
       this.dataProvinsiServ.getProvinsi
     ]).pipe(
-      switchMap(([token, prov]) => this.callApiServ.get(`kecamatan-list/${this.dataFilter.kota}`, token))
+      switchMap(([token, prov]) => this.callApiServ.get(`kecamatan-list/${this.dataFilter.kota}`, token)),
+      takeUntil(this.destroy)
     ).subscribe(
       {
         next: (res: any) => (
@@ -154,7 +173,7 @@ export class DashboardModalFilterDataComponent implements OnInit {
       kel: ""
     }
     this.kelurahan = defaultKelurahan;
-    this.getKelurahan();
+    this.dataFilter.kec?.length !== 0 &&  this.getKelurahan();
   }
 
   getKelurahan() {
@@ -162,7 +181,8 @@ export class DashboardModalFilterDataComponent implements OnInit {
       this.token.getToken,
       this.dataProvinsiServ.getProvinsi
     ]).pipe(
-      switchMap(([token, prov]) => this.callApiServ.get(`kelurahan-list/${this.dataFilter.kec}`, token))
+      switchMap(([token, prov]) => this.callApiServ.get(`kelurahan-list/${this.dataFilter.kec}`, token)),
+      takeUntil(this.destroy)
     ).subscribe(
       {
         next: (res: any) => (

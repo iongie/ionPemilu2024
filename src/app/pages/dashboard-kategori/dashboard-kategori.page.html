@@ -1,12 +1,12 @@
 <ion-header [translucent]="true" class="ion-no-border">
   <ion-toolbar>
-    <ng-container *ngIf="detectionPage !== 1">
+    <ng-container *ngIf="detectionPage">
       <ion-buttons slot="start">
         <ion-back-button></ion-back-button>
       </ion-buttons>
     </ng-container>
 
-    <ng-container *ngIf="detectionPage === 1">
+    <ng-container *ngIf="!detectionPage">
       <ion-button style="border-radius: 9999px; font-size: 16px;" fill="clear" slot="start" (click)="gotoPageDash()">
         <ion-icon name="arrow-back-outline"></ion-icon>
       </ion-button>
@@ -86,20 +86,46 @@
     <app-dashboard-bar-chart></app-dashboard-bar-chart>
   </ng-container>
 
-  <ng-container *ngIf="loadingDashboardTpsIndikator">
+
+  <ng-container *ngIf="tingkatan !== 'Presiden' && loadingDashboardPerolehanPartai">
     <div class="container">
-      <ng-container *ngIf="reloadDashboardCalegCapresIndikator">
+      <ng-container *ngIf="reloadDashboardPerolehanPartai">
         <div class="reload">
           <ion-spinner name="lines-sharp"></ion-spinner>
-          <ion-button fill="clear" (click)="reloadList()">Reload</ion-button>
+          <ion-button fill="clear" (click)="reloadSuaraPartai()">Reload</ion-button>
         </div>
       </ng-container>
       <app-perolehan-suara-partai-skeleton></app-perolehan-suara-partai-skeleton>
     </div>
   </ng-container>
 
-  <ng-container *ngIf="!loadingDashboardTpsIndikator">
-    <app-dashboard-list></app-dashboard-list>
+  <ng-container *ngIf="tingkatan !== 'Presiden' && !loadingDashboardPerolehanPartai">
+    <app-dashboard-perolehan-partai-suara></app-dashboard-perolehan-partai-suara>  
+  </ng-container>
+
+  <ng-container>
+    <ion-button color="pale-ping" fill="solid" expand="block" (click)="openList()">
+      {{!tampilkanList? 'Sembunyikan Detail Calon': 'Tampilkan Detail Calon'}}
+    </ion-button>
+  </ng-container>
+
+  <ng-container *ngIf="!tampilkanList">
+    <ng-container *ngIf="loadingDashboardTpsIndikator">
+      <div class="container">
+        <ng-container *ngIf="reloadDashboardCalegCapresIndikator">
+          <div class="reload">
+            <ion-spinner name="lines-sharp"></ion-spinner>
+            <ion-button fill="clear" (click)="reloadList()">Reload</ion-button>
+          </div>
+        </ng-container>
+        <app-perolehan-suara-partai-skeleton></app-perolehan-suara-partai-skeleton>
+      </div>
+    </ng-container>
+  
+  
+    <ng-container *ngIf="!loadingDashboardTpsIndikator">
+      <app-dashboard-list></app-dashboard-list>
+    </ng-container>
   </ng-container>
 
   <ion-modal #modal trigger="filter-data" [initialBreakpoint]="0.50" [breakpoints]="[0, 0.50]">

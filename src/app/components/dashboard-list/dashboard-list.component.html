@@ -3,11 +3,32 @@
     <ion-list style="padding: 0;">
       <ng-container *ngFor="let paslon of paslon">
         <ion-item>
-          <ion-avatar slot="start">
-            <ion-img [src]="tingkatan ==='Presiden'? paslon.photo: paslon.foto_caleg"></ion-img>
-          </ion-avatar>
+          <ng-container *ngIf="paslon.foto_caleg === undefined">
+            <ion-avatar slot="start">
+              <img src="../../../assets/blank-user.png" />
+            </ion-avatar>
+          </ng-container>
+
+
+          <ng-container *ngIf="paslon.foto_caleg !== undefined">
+            <ion-avatar slot="start">
+              <ion-img [src]="paslon.foto_caleg"></ion-img>
+            </ion-avatar>
+          </ng-container>
+
           <ion-label>
-            <h2 style="color: #2F2762;" class="ion-text-wrap">{{paslon.n_calon}} | {{paslon.n_wakil_calon}}</h2>
+            <ion-chip>
+              <ion-avatar>
+                <img [alt]="paslon.nama_partai" [src]="paslon.logo_partai === null ?'https://ionicframework.com/docs/img/demos/thumbnail.svg' : paslon.logo_partai" />
+              </ion-avatar>
+              <ion-label>{{paslon.nama_partai}}</ion-label>
+            </ion-chip>
+            <ng-container *ngIf="paslon.n_wakil_calon === undefined">
+              <h2 style="color: #2F2762;" class="ion-text-wrap">{{paslon.n_calon}}</h2>
+            </ng-container>
+            <ng-container *ngIf="paslon.n_wakil_calon !== undefined">
+              <h2 style="color: #2F2762;" class="ion-text-wrap">{{paslon.n_calon}} | {{paslon.n_wakil_calon}}</h2>
+            </ng-container>
             <div class="list-calon-track">
               <div class="list-calon-active" [style.width]="paslon.percent"></div>
             </div>

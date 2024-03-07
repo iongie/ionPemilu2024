@@ -17,6 +17,7 @@ export class DashboardTpsComponent implements OnInit, OnDestroy {
   totalTpsMasuk: number | null = 0;
   tpsDetail: TPSdetail[] = defaultTPSdetail;
   openDetail: boolean = false;
+  processDetailTPS: boolean = false;
   constructor(
     private token: TokenService,
     private dashboardFilterDataServ: DashboardFilterDataService,
@@ -53,7 +54,8 @@ export class DashboardTpsComponent implements OnInit, OnDestroy {
     this.dashboardFilterDataServ.getTpsDetail
     .pipe(
       delay(1000),
-      tap(()=> this.openDetail =false)
+      tap(()=> this.openDetail =false),
+      tap(()=> this.processDetailTPS =true),
     )
     .subscribe(
       {

@@ -28,6 +28,21 @@
           "https://ionicframework.com/docs/img/demos/thumbnail.svg"
         ]
       }
+    }, 
+    {
+      "name": "api-data",
+      "installMode": "lazy",
+      "updateMode": "prefetch",
+      "resources": {
+        "urls": [
+          "https://apipilkada.tangerangselatankota.go.id/get-total-tps-capres/**",
+          "https://apipilkada.tangerangselatankota.go.id/total-suara-partai/**",
+          "https://apipilkada.tangerangselatankota.go.id/total-tps/**",
+          "https://apipilkada.tangerangselatankota.go.id/suara-capres/**",
+          "https://apipilkada.tangerangselatankota.go.id/get-total-tps-masuk-caleg/**",
+          "https://apipilkada.tangerangselatankota.go.id/get-detail-tps-caleg-kecamatan/**"
+        ]
+      }
     }
   ]
 }

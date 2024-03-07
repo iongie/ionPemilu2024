@@ -70,15 +70,16 @@ export class DashboardBarChartComponent implements OnInit, OnDestroy {
   }
 
   getAll() {
-    return this.dashboardFilterDataServ.getPaslonData
+    return this.dashboardFilterDataServ.getDashTpsDetail
     .pipe(
       tap(paslon=> this.cekDataEmpty = paslon.length === 0 ? true: false )
     )
     .subscribe(paslon => {
+      console.log(paslon);
       this.chartOptions = {
         series: [
           {
-            data: paslon.map(res => parseInt(res.suara!))
+            data: paslon.map(res => res.suara!)
           }
         ],
         chart: {
@@ -108,7 +109,7 @@ export class DashboardBarChartComponent implements OnInit, OnDestroy {
           colors: ["#fff"]
         },
         xaxis: {
-          categories: paslon.map(res => res.n_calon),
+          categories: paslon.map(res => res.nama_partai),
           labels: {
             show: false
           }
@@ -139,7 +140,7 @@ export class DashboardBarChartComponent implements OnInit, OnDestroy {
   }
 
   getexam() {
-    this.dashboardFilterDataServ.getPaslonData
+    this.dashboardFilterDataServ.getDashTpsDetail
     .pipe(
       tap(paslon=> this.cekDataEmpty = paslon.length === 0 ? true: false )
     )
@@ -209,7 +210,7 @@ export class DashboardBarChartComponent implements OnInit, OnDestroy {
   }
 
   zoom() {
-    this.dashboardFilterDataServ.getPaslonData.subscribe(paslon => {
+    this.dashboardFilterDataServ.getDashTpsDetail.subscribe(paslon => {
       this.widthChart = this.widthChart === '100%' 
       ? paslon.length > 50 ? 5000 : '100%' : '100%';
       this.getAll()

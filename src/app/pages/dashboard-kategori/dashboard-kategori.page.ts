@@ -1,8 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router, NavigationEnd } from '@angular/router';
 import { ModalController, ViewWillEnter, ViewWillLeave } from '@ionic/angular';
 import { EMPTY, Subject, Subscription, combineLatest, delay, interval, of, startWith, switchMap, take, takeUntil, tap } from 'rxjs';
-import { DashFilterData, Paslon, SuaraPaslon, defaultDashFilterData, defaultPaslon, defaultSuaraPaslon } from 'src/app/app.interface';
+import { DashFilterData, TotalSuaraPartai, defaultDashFilterData, defaultSuaraPaslon } from 'src/app/app.interface';
 import { CallApiService } from 'src/app/services/callApi/call-api.service';
 import { DashboardFilterDataService } from 'src/app/services/dashboard-filter-data/dashboard-filter-data.service';
 import { TokenService } from 'src/app/services/token/token.service';
@@ -12,24 +12,28 @@ import { TokenService } from 'src/app/services/token/token.service';
   templateUrl: './dashboard-kategori.page.html',
   styleUrls: ['./dashboard-kategori.page.scss'],
 })
-export class DashboardKategoriPage implements ViewWillEnter, ViewWillLeave, OnInit {
+export class DashboardKategoriPage implements ViewWillEnter, ViewWillLeave, OnInit, OnDestroy {
   private destroy: Subject<void> = new Subject<void>();
   paramId: any = 0;
   tingkatan: string | null = null;
 
-  getAllSubs: Subscription | undefined;
-  filterSUbs: Subscription | undefined;
-
   reloadDashboardTpsIndikator = false;
   reloadDashboardCalegCapresIndikator = false;
+  reloadDashboardPerolehanPartai = false;
 
   loadingDashboardTpsIndikator = true;
   loadingDashboardCalegCapresIndikator = true;
+  loadingDashboardPerolehanPartai = true;
 
   dashFilter: DashFilterData = defaultDashFilterData;
-  detectionPage: number | null = null;
+  detectionPage: boolean = false;
 
   autoReload: boolean = true;
+
+  suaraPartai: TotalSuaraPartai[] = []
+
+  tampilkanList: boolean = true;
+
   constructor(
     private actRoute: ActivatedRoute,
     private callApiServ: CallApiService,
@@ -37,17 +41,8 @@ export class DashboardKategoriPage implements ViewWillEnter, ViewWillLeave, OnIn
     private dashboardFilterDataServ: DashboardFilterDataService,
     private modalCtrl: ModalController,
     private router: Router
-  ) { }
+  ) {
 
-  ngOnInit(): void {
-    this.router.events
-      .pipe(takeUntil(this.destroy))
-      .subscribe(event => {
-        if (event instanceof NavigationEnd) {
-          this.detectionPage = event.id;
-          console.log('this.detectionPage', this.detectionPage);
-        }
-      });
   }
 
   ionViewWillEnter() {
@@ -62,14 +57,15 @@ export class DashboardKategoriPage implements ViewWillEnter, ViewWillLeave, OnIn
       };
 
       this.tingkatan = mapping[this.paramId as keyof typeof mapping] || '-';
+      // kota: '3674',
       this.dashboardFilterDataServ.updateFilterData({
-        provinsi:  '36',
-        kota: '3674',
+        provinsi: '36',
+        kota: '',
         kec: '',
         kel: ''
       })
     })
-    this.getAllSubs = this.getAllAutoRefresh();
+    this.getAllAutoRefresh();
     this.dashboardFilterDataServ.getFilterData.subscribe((res) => {
       this.dashFilter = res
     });
@@ -78,7 +74,23 @@ export class DashboardKategoriPage implements ViewWillEnter, ViewWillLeave, OnIn
   ionViewWillLeave() {
     this.destroy.next();
     this.destroy.complete();
-    this.getAllSubs?.unsubscribe();
+  }
+
+  ngOnInit() {
+    this.detectionPageFirstAccess();
+  }
+
+  ngOnDestroy(): void {
+  }
+
+  detectionPageFirstAccess() {
+    return this.router.events
+      .pipe(take(1))
+      .subscribe(event => {
+        if (event instanceof NavigationEnd) {
+          this.detectionPage = event.id === 1 ? false : true;
+        };
+      })
   }
 
   getAll() {
@@ -91,13 +103,15 @@ export class DashboardKategoriPage implements ViewWillEnter, ViewWillLeave, OnIn
         tap(([ting, fal]) => ting ? this.getDataPresiden(fal.provinsi!, fal.kota!, fal.kec!, fal.kel!) : this.getDataCaleg(this.paramId, fal.provinsi!, fal.kota!, fal.kec!, fal.kel!)),
         tap(([ting, fal]) => ting ? this.getTotalTps(fal.provinsi!, fal.kota!, fal.kec!, fal.kel!) : this.getTotalTps(fal.provinsi!, fal.kota!, fal.kec!, fal.kel!)),
         tap(([ting, fal]) => ting ? this.getTotalMasukTpsPilpres(fal.provinsi!, fal.kota!, fal.kec!, fal.kel!) : this.getTotalMasukTpsCaleg(this.paramId, fal.provinsi!, fal.kota!, fal.kec!, fal.kel!)),
-        tap(() => this.getDetailTPS())
+        tap(() => this.getDetailTPS()),
+        tap(([ting, fal]) => this.getPerolahanPartai(this.paramId, fal.provinsi!, fal.kota!, fal.kec!, fal.kel!)),
+        takeUntil(this.destroy)
       )
       .subscribe(([ting, fil]) => EMPTY);
   }
 
   getAllAutoRefresh() {
-    return interval(120000)
+    return interval(300000)
       .pipe(
         startWith(0),
         switchMap(() => combineLatest([
@@ -107,18 +121,24 @@ export class DashboardKategoriPage implements ViewWillEnter, ViewWillLeave, OnIn
         tap(([ting, fal]) => ting ? this.getDataPresiden(fal.provinsi!, fal.kota!, fal.kec!, fal.kel!) : this.getDataCaleg(this.paramId, fal.provinsi!, fal.kota!, fal.kec!, fal.kel!)),
         tap(([ting, fal]) => ting ? this.getTotalTps(fal.provinsi!, fal.kota!, fal.kec!, fal.kel!) : this.getTotalTps(fal.provinsi!, fal.kota!, fal.kec!, fal.kel!)),
         tap(([ting, fal]) => ting ? this.getTotalMasukTpsPilpres(fal.provinsi!, fal.kota!, fal.kec!, fal.kel!) : this.getTotalMasukTpsCaleg(this.paramId, fal.provinsi!, fal.kota!, fal.kec!, fal.kel!)),
-        tap(() => this.getDetailTPS())
+        tap(([ting, fal]) => this.getPerolahanPartai(this.paramId, fal.provinsi!, fal.kota!, fal.kec!, fal.kel!)),
+        tap(() => this.getDetailTPS()),
+        takeUntil(this.destroy)
       ).subscribe(([ting, fil]) => EMPTY);
   }
 
 
   getDataPresiden(provinsi_id: string, kota_id: string, kecamatan_id: string, kelurahan_id: string) {
     return this.token.getToken.pipe(
+      tap((res: any) => {
+        this.dashboardFilterDataServ.updatePaslon(defaultSuaraPaslon)
+      }),
       switchMap((token) => this.callApiServ.getPaslon(`suara-capres`, token, provinsi_id, kota_id, kecamatan_id, kelurahan_id)),
       tap((res: any) => {
         this.dashboardFilterDataServ.updatePaslon(res.data)
       }),
-      tap(() => this.loadingDashboardCalegCapresIndikator = false)
+      tap(() => this.loadingDashboardCalegCapresIndikator = false),
+      takeUntil(this.destroy)
     ).subscribe(
       {
         error: (e: any) => (
@@ -131,13 +151,24 @@ export class DashboardKategoriPage implements ViewWillEnter, ViewWillLeave, OnIn
 
   getDataCaleg(id: number, provinsi_id: string, kota_id: string, kecamatan_id: string, kelurahan_id: string) {
     return this.token.getToken.pipe(
+      tap((res: any) => {
+        this.dashboardFilterDataServ.updatePaslon(defaultSuaraPaslon)
+      }),
       switchMap((token) => this.callApiServ.getPaslon(`suara-caleg/${id}`, token, provinsi_id, kota_id, kecamatan_id, kelurahan_id)),
       tap((res: any) => {
         this.dashboardFilterDataServ.updatePaslon(res.data)
       }),
-      tap(() => this.loadingDashboardCalegCapresIndikator = false)
+      tap(() => this.loadingDashboardCalegCapresIndikator = false),
+      takeUntil(this.destroy)
     ).subscribe(
       {
+        next: (res: any) => {
+          const filter=  res.data.filter((val: any) => {
+            return val.nama_partai === "GOLKAR"
+          })
+          console.log('golkar', filter);
+          
+        },
         error: (e: any) => (
           this.loadingDashboardCalegCapresIndikator = true,
           this.reloadDashboardCalegCapresIndikator = true
@@ -150,7 +181,8 @@ export class DashboardKategoriPage implements ViewWillEnter, ViewWillLeave, OnIn
     return this.token.getToken.pipe(
       switchMap((token) => this.callApiServ.getPaslon(`get-total-tps-capres`, token, provinsi_id, kota_id, kecamatan_id, kelurahan_id)),
       tap((res: any) => this.dashboardFilterDataServ.updatetotalTps(res.data)),
-      tap(() => this.loadingDashboardTpsIndikator = false)
+      tap(() => this.loadingDashboardTpsIndikator = false),
+      takeUntil(this.destroy)
     ).subscribe(
       {
         error: (e: any) => (
@@ -161,12 +193,29 @@ export class DashboardKategoriPage implements ViewWillEnter, ViewWillLeave, OnIn
     )
   }
 
+  getPerolahanPartai(id: number, provinsi_id: string, kota_id: string, kecamatan_id: string, kelurahan_id: string) {
+    return this.token.getToken.pipe(
+      switchMap((token) => this.callApiServ.getPaslon(`suara-partai/${id}`, token, provinsi_id, kota_id, kecamatan_id, kelurahan_id)),
+      tap((res: any) => this.dashboardFilterDataServ.updateDashSuaraPartai(res.data)),
+      tap(() => this.loadingDashboardPerolehanPartai = false),
+      takeUntil(this.destroy)
+    ).subscribe(
+      {
+        error: (e: any) => (
+          this.loadingDashboardPerolehanPartai = true,
+          this.reloadDashboardPerolehanPartai = true
+        )
+      }
+    )
+  }
+
   getTotalMasukTpsPilpres(provinsi_id: string, kota_id: string, kecamatan_id: string, kelurahan_id: string) {
     return this.token.getToken.pipe(
       switchMap((token) => this.callApiServ.getPaslon(`get-total-tps-masuk-capres`, token, provinsi_id, kota_id, kecamatan_id, kelurahan_id)),
       delay(1000),
       tap((res: any) => this.dashboardFilterDataServ.updatetotalMasukTps(res.data)),
-      tap(() => this.loadingDashboardTpsIndikator = false)
+      tap(() => this.loadingDashboardTpsIndikator = false),
+      takeUntil(this.destroy)
     ).subscribe(
       {
         error: (e: any) => (
@@ -182,10 +231,12 @@ export class DashboardKategoriPage implements ViewWillEnter, ViewWillLeave, OnIn
       switchMap((token) => this.callApiServ.getPaslon(`get-total-tps-masuk-caleg/${id}`, token, provinsi_id, kota_id, kecamatan_id, kelurahan_id)),
       delay(1000),
       tap((res: any) => this.dashboardFilterDataServ.updatetotalMasukTps(res.data)),
-      tap(() => this.loadingDashboardTpsIndikator = false)
+      tap(() => this.loadingDashboardTpsIndikator = false),
+      takeUntil(this.destroy)
     ).subscribe(
       {
         next: (res: any) => {
+
         },
         error: (e: any) => (
           this.loadingDashboardTpsIndikator = true,
@@ -207,13 +258,14 @@ export class DashboardKategoriPage implements ViewWillEnter, ViewWillLeave, OnIn
         tap(([ting, fal]) => ting ? this.getDataPresiden(fal.provinsi!, fal.kota!, fal.kec!, fal.kel!) : this.getDataCaleg(this.paramId, fal.provinsi!, fal.kota!, fal.kec!, fal.kel!)),
         tap(([ting, fal]) => this.getTotalTps(fal.provinsi!, fal.kota!, fal.kec!, fal.kel!)),
         tap(([ting, fal]) => ting ? this.getTotalMasukTpsPilpres(fal.provinsi!, fal.kota!, fal.kec!, fal.kel!) : this.getTotalMasukTpsCaleg(this.paramId, fal.provinsi!, fal.kota!, fal.kec!, fal.kel!)),
-        tap(() => this.getDetailTPS())
+        tap(() => this.getDetailTPS()),
+        tap(([ting, fal]) => this.getPerolahanPartai(this.paramId, fal.provinsi!, fal.kota!, fal.kec!, fal.kel!))
       )
       .subscribe(([ting, fil]) => EMPTY);
 
   }
 
-  resetData(){
+  resetData() {
     return combineLatest([
       of(this.tingkatan === "Presiden"),
       this.dashboardFilterDataServ.getFilterData
@@ -224,7 +276,8 @@ export class DashboardKategoriPage implements ViewWillEnter, ViewWillLeave, OnIn
         tap(([ting, fal]) => ting ? this.getDataPresiden('', '', '', '') : this.getDataCaleg(this.paramId, fal.provinsi!, fal.kota!, fal.kec!, fal.kel!)),
         tap(([ting, fal]) => ting ? this.getTotalTps('', '', '', '') : this.getTotalTps(fal.provinsi!, fal.kota!, fal.kec!, fal.kel!)),
         tap(([ting, fal]) => ting ? this.getTotalMasukTpsPilpres('', '', '', '') : this.getTotalMasukTpsCaleg(this.paramId, fal.provinsi!, fal.kota!, fal.kec!, fal.kel!)),
-        tap(() => this.getDetailTPS())
+        tap(() => this.getDetailTPS()),
+        tap(([ting, fal]) => this.getPerolahanPartai(this.paramId, fal.provinsi!, fal.kota!, fal.kec!, fal.kel!))
       )
       .subscribe(([ting, fil]) => EMPTY);
   }
@@ -288,6 +341,10 @@ export class DashboardKategoriPage implements ViewWillEnter, ViewWillLeave, OnIn
       })
   }
 
+  reloadSuaraPartai() {
+
+  }
+
   backtoDash() {
     this.dashboardFilterDataServ.updateFilterData(defaultDashFilterData);
   }
@@ -321,7 +378,8 @@ export class DashboardKategoriPage implements ViewWillEnter, ViewWillLeave, OnIn
 
           }
         }),
-        tap((val: any) => this.dashboardFilterDataServ.updateTpsDetail(val.data))
+        tap((val: any) => this.dashboardFilterDataServ.updateTpsDetail(val.data)),
+        takeUntil(this.destroy)
       ).subscribe(
         {
           next: (val: any) => {
@@ -335,6 +393,10 @@ export class DashboardKategoriPage implements ViewWillEnter, ViewWillLeave, OnIn
 
   gotoPageDash() {
     this.router.navigate(['dashboard'])
+  }
+
+  openList() {
+    this.tampilkanList = this.tampilkanList ? false : true
   }
 
 }

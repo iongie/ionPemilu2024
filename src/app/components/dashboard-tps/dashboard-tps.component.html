@@ -19,6 +19,11 @@
   </div>
 </div>
 
+<ng-container *ngIf="tpsDetail.length == 0">
+  <div style="display: flex; justify-content: center; padding-top: 4px; padding-bottom: 4px;">
+    <ion-label color="danger">Sedang proses menampilkan Detail TPS</ion-label>
+  </div>
+</ng-container>
 <ng-container *ngIf="tpsDetail.length !== 0">
   <ion-button color="pale-ping" fill="solid" expand="block" (click)="openDetailTps()">
     {{openDetail? 'Sembunyikan Detail TPS': 'Tampilkan Detail TPS'}}

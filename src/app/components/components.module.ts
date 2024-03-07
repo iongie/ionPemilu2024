@@ -36,6 +36,7 @@ import { DashTpsSkeletonComponent } from './progress-indikator/dash-tps-skeleton
 import { DashboardPerolehanSuaraComponent } from './dashboard-perolehan-suara/dashboard-perolehan-suara.component';
 import { InputLimitDirective } from '../directives/input-limit/input-limit.directive';
 import { DashboardDescFilterComponent } from './dashboard-desc-filter/dashboard-desc-filter.component';
+import { DashboardPerolehanPartaiSuaraComponent } from './dashboard-perolehan-partai-suara/dashboard-perolehan-partai-suara.component';
 
 
 
@@ -74,7 +75,8 @@ import { DashboardDescFilterComponent } from './dashboard-desc-filter/dashboard-
     DashPieSkeletonComponent,
     DashTpsSkeletonComponent,
     InputLimitDirective,
-    DashboardDescFilterComponent
+    DashboardDescFilterComponent,
+    DashboardPerolehanPartaiSuaraComponent
   ],
   imports: [
     CommonModule,
@@ -115,7 +117,8 @@ import { DashboardDescFilterComponent } from './dashboard-desc-filter/dashboard-
     DashCapresSkeletonComponent,
     DashPieSkeletonComponent,
     DashTpsSkeletonComponent,
-    DashboardDescFilterComponent
+    DashboardDescFilterComponent,
+    DashboardPerolehanPartaiSuaraComponent
   ]
 })
 export class ComponentsModule { }

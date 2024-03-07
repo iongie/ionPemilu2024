@@ -75,7 +75,7 @@ export class LoginPage implements OnInit, OnDestroy {
         tap((loading) => loading.present()),
         delay(500),
         switchMap(() => this.callApi.post(this.loginForm.value, 'auth/login')),
-        tap(() => this.router.navigate(['/home'])),
+        tap(() => this.router.navigate(['/dashboard'])),
         tap(() => this.loginForm.markAsTouched()),
         tap(() => this.loginForm.reset(defaultLogin))
       ).subscribe(

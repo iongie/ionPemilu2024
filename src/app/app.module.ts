@@ -11,7 +11,6 @@ import { HttpClientModule } from '@angular/common/http';
 import { IonicStorageModule } from '@ionic/storage-angular';
 import { ComponentsModule } from './components/components.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { InputLimitDirective } from './directives/input-limit/input-limit.directive';
 
 @NgModule({
   declarations: [AppComponent],
